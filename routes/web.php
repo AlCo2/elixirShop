@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+Use App\Http\Controllers\StoreController;
+Use App\Http\Controllers\ProductController;
+Use App\Http\Controllers\CheckoutController;
+use App\Http\Middleware\EnsureUserIsAdmin;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -13,28 +17,29 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+/* main Pages */
+Route::get('/store',[StoreController::class, 'index']);
+Route::get('/store/product/{id}',[StoreController::class, 'product']);
+Route::get('/checkout',[CheckoutController::class, 'index']);
+
+/* product API */
+Route::get('/api/product/{id}', [ProductController::class, 'getProduct']);
+Route::post('/api/product/', [ProductController::class, 'addProduct']);
+Route::patch('/api/product/', [ProductController::class, 'updateProduct']);
+Route::delete('/api/product/', [ProductController::class, 'deleteProduct']);
+
+
 /*        Temp router:            */
-Route::get('/store', function(){
-    return Inertia::render('store/Store');
-});
-
-Route::get('/store/product', function(){
-    return Inertia::render('product/Product');
-});
-
-Route::get('/checkout', function(){
-    return Inertia::render('checkout/Checkout');
-});
-
 Route::get('/promotions', function(){
-    return Inertia::render('promotions/Promotions');
+    return Inertia::render('Promotions');
 });
 
 /* finish of temp router  */
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', EnsureUserIsAdmin::class])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

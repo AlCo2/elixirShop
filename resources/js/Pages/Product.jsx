@@ -1,7 +1,7 @@
 import { Box, Button, Chip, Container, Divider, Grid, Paper, Rating, ThemeProvider, Typography, createTheme } from '@mui/material';
 import React from 'react'
 import { BiCartAdd, BiInfoCircle, BiPlusCircle } from 'react-icons/bi';
-import SuggestionCard from '../components/SuggestionCard';
+import SuggestionCard from './components/SuggestionCard';
 import Navbar from '@/Pages/components/Navbar';
 import { theme } from '@/theme';
 
@@ -13,7 +13,7 @@ const Product = () => {
         <Container className='min-h-screen py-5'>
             <Paper sx={{ maxWidth:870, position:'relative'}} variant='outlined' >
                 <Grid container columns={16} justifyContent={'center'} >
-                    <Grid item xs={12} sm={5} sx={{display:{sm:'flex'},direction:{sm:'row-reverse'}, gap:2}}>
+                    <Grid item xs={12} sm={5} sx={{display:{sm:'flex'},flexDirection:{sm:'row-reverse'}, gap:2}}>
                         <Box height={250} display={'flex'} justifyContent={'center'}>
                             <img src="/assets/product.webp" className='max-w-56 min-w-36' alt="packfakhama" />
                         </Box>

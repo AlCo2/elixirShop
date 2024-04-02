@@ -2,8 +2,8 @@
 import { Box, Button, Checkbox, Container, FormControlLabel, FormGroup, Grid, IconButton, Menu, MenuItem, Paper } from '@mui/material';
 import { useState } from 'react';
 import { CgSortAz } from "react-icons/cg";
-import SuggestionCard from '../components/SuggestionCard';
-import Navbar from '../components/Navbar';
+import SuggestionCard from './components/SuggestionCard';
+import Navbar from './components/Navbar';
 
 const store = () => {
   const [categories, setCategories] = useState([

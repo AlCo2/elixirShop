@@ -1,16 +1,19 @@
-import { Box, Container, Grid } from "@mui/material";
+import { Alert, Box, Container, Grid } from "@mui/material";
 import { IoIosTime } from "react-icons/io";
 import { LiaMoneyBillSolid, LiaShippingFastSolid } from "react-icons/lia";
 import IntroCard from "./components/IntroCard";
 import ServiceIntro from "./components/home/ServiceIntro";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { usePage } from "@inertiajs/react";
 
 export default function Home() {
+  const { flash } = usePage().props;
   return (
     <>
       <Navbar page={'home'}/>
-      <Container>
+      <Container className="pt-5">
+        {flash.error && <Alert variant="outlined" severity="error">{flash.error}</Alert>}
         <Grid container columns={{xs:6,md:12}} className="mt-10">
           <Grid item alignContent={'center'} xs={12} md={6}>
             <h1 className="my-3 font-Poppins font-bold text-4xl max-xs:text-xl text-center"><span className="text-liliana-primary">Bienvenue sur la boutique</span><br /> en ligne <span className="text-liliana-secondary">Liliana Shop</span></h1>
