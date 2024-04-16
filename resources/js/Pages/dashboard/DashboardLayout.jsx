@@ -3,7 +3,7 @@ import { Avatar, Box, Container, Grid, IconButton } from '@mui/material'
 import Sidebar from './components/Sidebar';
 import { BiBell, BiSearch } from 'react-icons/bi';
 
-const page = () => { 
+export default function DashboardLayout({children}){ 
   return (
     <>
         <div className='min-h-screen bg-liliana-background'>
@@ -15,7 +15,7 @@ const page = () => {
                   <Box sx={{ml:2}}>
                     <label className='relative'>
                       <BiSearch className='absolute top-1 right-2'/>
-                      <input type="text" placeholder='Search' className='border w-72 h-8 focus:outline-blue-400 p-1 text-sm' name="" id="" />
+                      <input type="text" placeholder='Search' className='border rounded-md w-72 h-8 p-1 text-sm' name="" id="" />
                     </label>
                   </Box>
                   <Box sx={{ mr:2, display:'flex', alignItems:'center', gap:1}}>
@@ -24,12 +24,10 @@ const page = () => {
                   </Box>
                 </Box>
               </Container>
-              children
+              {children}
             </Grid>
           </Grid>
         </div>
     </>
   )
 }
-
-export default page;

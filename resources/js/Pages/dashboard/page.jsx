@@ -1,4 +1,4 @@
-import { Box, Button, Grid, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
 import { SparkLineChart } from "@mui/x-charts";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Bar, BarChart, Text, Tooltip, XAxis, YAxis } from "recharts";
@@ -15,14 +15,14 @@ const data = [
 
 const page = () => {
   return (
-    <div>
+    <Container>
       <Box sx={{p:2}}>
         <p className="font-Opensans font-semibold text-2xl">Overview</p>
         <p className="text-sm opacity-70">Get up-to-the-minute insight. No more waiting for reports</p>
       </Box>
       <Box>
         <Grid container>
-          <Grid xs={7} item>
+          <Grid xs={7.7} item>
             <Box>
               <Grid container gap={2} p={2}>
                 <Grid xs={5.8} sx={{borderRadius:2, bgcolor:'white', borderWidth:1}} item>
@@ -128,7 +128,7 @@ const page = () => {
               </Grid>
             </Box>
           </Grid>
-          <Grid xs={4} m={2} ml={0} sx={{borderRadius:2}} item>
+          <Grid xs={4.1} m={2} ml={0} sx={{borderRadius:2}} item>
             <Box sx={{bgcolor:'white', height:280, borderWidth:1, mb:2, borderRadius:4}}>
               <Box sx={{p:2, display:'flex', alignItems:'center', justifyContent:'space-between'}} >
                 <Box>
@@ -161,13 +161,6 @@ const page = () => {
                 </Box>
               </Box>
               <Box sx={{px:2}}>
-                {/* <BarChart
-                  yAxis={[{ scaleType: 'band', data: ['Male', 'Female', 'Other']}]}
-                  series={[{ data: [1345, 2122, 600], color:'#feca33' }]}
-                  height={180}
-                  layout="horizontal"
-                  margin={{top:20, left:50, right:40, bottom:60}}
-                /> */}
                 <BarChart layout="vertical" width={300} height={130} data={[{name:'Male', view:1345},{name:'Female', view:2122},{name:'Other', view:635},]}>
                   <YAxis dataKey='name' type="category" axisLine={false} tickLine={false} className="font-Poppins text-sm" />
                   <XAxis type="number" axisLine={false} tickLine={false}/>
@@ -179,7 +172,7 @@ const page = () => {
           </Grid>
         </Grid>        
       </Box>
-    </div>
+    </Container>
   )
 }
 

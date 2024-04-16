@@ -5,6 +5,7 @@ import { FaAngleDown, FaAngleUp, FaBuffer, FaCalculator, FaCalendarCheck, FaDoll
 
 
 const Sidebar = () => {
+    const pathname = window.location.pathname;
     const [selectedIndex, setSelectedIndex] = useState(1);
     const [open, setOpen] = useState(false);
     const style = (path) =>{

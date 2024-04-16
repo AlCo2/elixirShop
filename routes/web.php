@@ -40,10 +40,26 @@ Route::get('/promotions', function(){
 });
 
 /* finish of temp router  */
-
-Route::get('/dashboard', function () {
-    return Inertia::render('dashboard/page');
-})->middleware(['auth', 'verified', EnsureUserIsAdmin::class])->name('dashboard');
+Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('dashboard/page');
+    })->name('dashboard');
+    route::get('/dashboard/customer', function(){
+        return Inertia::render('dashboard/customer/page');
+    });
+    route::get('/dashboard/product', function(){
+        return Inertia::render('dashboard/product/page');
+    });
+    route::get('/dashboard/order', function(){
+        return Inertia::render('dashboard/order/page');
+    });
+    route::get('/dashboard/category', function(){
+        return Inertia::render('dashboard/category/page');
+    });
+    route::get('/dashboard/message', function(){
+        return Inertia::render('dashboard/message/page');
+    });
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
