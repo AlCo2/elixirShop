@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Home', [
+    return Inertia::render('page', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
@@ -22,6 +22,7 @@ Route::get('/', function () {
 Route::get('/store',[StoreController::class, 'index']);
 Route::get('/store/product/{id}',[StoreController::class, 'product']);
 Route::get('/checkout',[CheckoutController::class, 'index']);
+Route::get('/checkout/fastcheckout',[CheckoutController::class, 'checkout']);
 
 /* product API */
 Route::get('/api/product/{id}', [ProductController::class, 'getProduct']);
@@ -31,6 +32,9 @@ Route::delete('/api/product/', [ProductController::class, 'deleteProduct']);
 
 
 /*        Temp router:            */
+Route::get('/checkorder', function(){
+    return Inertia::render('checkorder/page');
+});
 Route::get('/promotions', function(){
     return Inertia::render('Promotions');
 });
@@ -38,7 +42,7 @@ Route::get('/promotions', function(){
 /* finish of temp router  */
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return Inertia::render('dashboard/page');
 })->middleware(['auth', 'verified', EnsureUserIsAdmin::class])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

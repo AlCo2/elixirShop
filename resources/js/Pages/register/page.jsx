@@ -1,3 +1,4 @@
+'use client'
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -10,11 +11,9 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Navbar from '../components/Navbar';
 import Paper from '@mui/material/Paper';
 import { BiLock } from 'react-icons/bi';
-import { useForm } from '@inertiajs/react';
-import { useEffect } from 'react';
-import { theme } from '@/theme';
 
 
 const defaultTheme = createTheme();
@@ -122,7 +121,6 @@ const submit = (e) => {
                       />
                     </Grid>
                   </Grid>
-                  <ThemeProvider theme={theme}>
                   <Button
                     type="submit"
                     fullWidth
@@ -132,7 +130,6 @@ const submit = (e) => {
                   >
                     Sign Up
                   </Button>
-                  </ThemeProvider>
                   <Grid container justifyContent="flex-end">
                     <Grid item>
                       <Link href="/login" variant="body2" className='font-Poppins'>

@@ -1,12 +1,10 @@
-import { theme } from '@/theme';
-import { Box, Button, Container, Grid, ThemeProvider } from '@mui/material';
+import { Box, Button, Container, Grid } from '@mui/material';
 import React from 'react'
 import { FaFacebook, FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa';
-
 const Footer = () => {
   return (
     <div className='bg-liliana-primary text-white pt-2 font-Roboto'>
-      <Container>
+      <Container >
         <Grid container columns={13} justifyContent={'center'} gap={2}>
           <Grid xs={12} md={3} item>
             <p className='font-bold'>À propos de nous</p>
@@ -33,9 +31,7 @@ const Footer = () => {
             <p className='font-bold'>NOUVEAU SUR Liliana ?</p>
             <p className='text-sm'>Inscrivez-vous à nos communications pour recevoir nos meilleures offres!</p>
             <input type="text" className='outline-none text-black text-sm h-7 rounded-sm px-1 max-w-40 my-2' placeholder='name@gmail.com' name="" id="" />
-            <ThemeProvider theme={theme}>
-              <Button variant='contained' color='liliana_third' className='h-7 mx-2 text-xs'>Subscribe</Button>
-            </ThemeProvider>
+            <Button variant='contained' sx={{width:90, ml:1}} color='liliana_third' className='h-7 text-xs'>Subscribe</Button>
           </Grid>
         </Grid>
       </Container>

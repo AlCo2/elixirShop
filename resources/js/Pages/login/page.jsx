@@ -12,37 +12,23 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { BiLock } from 'react-icons/bi';
-import { theme } from '@/theme';
-import { Head, useForm } from '@inertiajs/react';
-import { useEffect } from 'react';
-import InputError from '@/Components/InputError';
+import Navbar from '../components/Navbar';
 
 const defaultTheme = createTheme();
 
-export default function SignInSide({ status, canResetPassword }) {
-  
-  const { data, setData, post, processing, errors, reset } = useForm({
-      email: '',
-      password: '',
-      remember: false,
-  });
-
-  useEffect(() => {
-      return () => {
-          reset('password');
-      };
-  }, []);
-
-  const submit = (e) => {
-      e.preventDefault();
-
-      post(route('login'));
+export default function SignInSide() {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+    });
   };
 
   return (
-    <> 
-      <Head title="Log in" />
-      {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
+    <>
+      <Navbar/>
       <div className='py-10 px-4 bg-liliana-background'>
       <ThemeProvider theme={defaultTheme}>
         <Grid container component="main" justifyContent={'center'}>
@@ -63,8 +49,7 @@ export default function SignInSide({ status, canResetPassword }) {
               <Typography component="h1" variant="h5">
                 Sign in
               </Typography>
-              <Box component="form" noValidate onSubmit={submit} sx={{ mt: 1 }}>
-                <InputError message={errors.email} className="mt-2" />
+              <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                 <TextField
                   margin= "normal"
                   required
@@ -74,10 +59,7 @@ export default function SignInSide({ status, canResetPassword }) {
                   name="email"
                   autoComplete="email"
                   autoFocus
-                  value={data.email}
-                  onChange={(e) => setData('email', e.target.value)}
                 />
-                <InputError message={errors.password} className="mt-2" />
                 <TextField
                   margin="normal"
                   required
@@ -87,17 +69,12 @@ export default function SignInSide({ status, canResetPassword }) {
                   type="password"
                   id="password"
                   autoComplete="current-password"
-                  value={data.password}
-                  onChange={(e) => setData('password', e.target.value)}
                 />
                 <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}
                   label="Remember me"
-                  checked={data.remember}
-                  onChange={(e) => setData('remember', e.target.checked)}
                   className='font-Poppins'
                 />
-                <ThemeProvider theme={theme}>
                   <Button
                     type="submit"
                     fullWidth
@@ -105,21 +82,14 @@ export default function SignInSide({ status, canResetPassword }) {
                     color='liliana_primary'
                     sx={{ mt: 3, mb: 2 }}
                     className='font-Poppins font-semibold'
-                    disabled={processing}
                   >
                     Sign In
                   </Button>
-                </ThemeProvider>
                 <Grid container>
                   <Grid item xs>
-                  {canResetPassword && (
-                        <Link
-                            href={route('password.request')}
-                            className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        >
+                    <Link href="#" variant="body2" className='font-Poppins'>
                       Forgot password?
                     </Link>
-                  )}
                   </Grid>
                   <Grid item>
                     <Link href="#" variant="body2" className='font-Poppins'>

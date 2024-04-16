@@ -11,11 +11,8 @@ import { AiOutlineUser } from 'react-icons/ai'
 import { CiLogin } from "react-icons/ci";
 import { CiCircleCheck } from "react-icons/ci";
 import { RiShieldUserFill } from "react-icons/ri";
-import { Link, usePage } from '@inertiajs/react';
-import { List } from '@mui/material';
 
 export default function AccountMenu() {
-  const { auth } = usePage().props
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -24,7 +21,6 @@ export default function AccountMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -36,7 +32,7 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <AiOutlineUser className={auth.user?'text-liliana-third':'text-white'}/>
+            <AiOutlineUser className='text-white'/>
           </IconButton>
         </Tooltip>
       </Box>
@@ -75,57 +71,29 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        {!auth.user?
-        <List>
-          <Link href='/login'>
-          <MenuItem onClick={handleClose}>
-              <ListItemIcon>
-                  <CiLogin/>
-              </ListItemIcon>
-              Login
-          </MenuItem>
-          </Link>
-          
-          <Link href='/register'>
-          <MenuItem onClick={handleClose}>
-              <ListItemIcon>
-                  <RiShieldUserFill/>
-              </ListItemIcon>
-              Register
-          </MenuItem>
-          </Link>
-          <Divider />
-          <MenuItem onClick={handleClose}>
+        <MenuItem  onClick={handleClose}>
             <ListItemIcon>
-              <CiCircleCheck/>
+                <CiLogin/>
             </ListItemIcon>
+            <a href="/login">Login</a>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+                <RiShieldUserFill/>
+            </ListItemIcon>
+            <a href="/register">
+              Register
+            </a>
+        </MenuItem>
+        <Divider />
+        <MenuItem onClick={handleClose}>
+          <ListItemIcon>
+            <CiCircleCheck/>
+          </ListItemIcon>
+          <a href="/checkorder">
             check Order
-          </MenuItem>
-        </List>
-        :
-        <List>
-          <Box sx={{display:'flex', justifyContent:'center', mb:2}}>
-            <p>{auth.user.name}</p>
-          </Box>
-          <Divider />
-          <Link href='/profile'>
-            <MenuItem onClick={handleClose}>
-                <ListItemIcon>
-                    <RiShieldUserFill/>
-                </ListItemIcon>
-                Profile
-            </MenuItem>
-          </Link>
-          <Link href='/logout'>
-            <MenuItem onClick={handleClose}>
-                <ListItemIcon>
-                    <CiLogin className='text-red-500'/>
-                </ListItemIcon>
-                <p className='text-red-500 w-24'>Logout</p>
-            </MenuItem>
-          </Link>
-        </List>
-        }
+          </a>
+        </MenuItem>
       </Menu>
     </React.Fragment>
   );
