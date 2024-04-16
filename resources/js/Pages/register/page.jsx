@@ -11,7 +11,6 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Navbar from '../components/Navbar';
 import Paper from '@mui/material/Paper';
 import { BiLock } from 'react-icons/bi';
 

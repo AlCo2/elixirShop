@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {Container, Grid, Button, Modal, Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Chip, IconButton} from '@mui/material'
+import {Container, Grid, Button, Modal, Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Chip, IconButton, Select, FormControl, MenuItem} from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid';
 import { FaPen, FaTrash } from 'react-icons/fa';
 import { FiAlertTriangle } from 'react-icons/fi';
@@ -143,25 +143,32 @@ function OrderModelComponent({order}) {
             </Grid>
             <Grid xs={12} md={5.8} item>
                 <div>
-                    <label className='text-sm font-semibold font-Opensans'>Customer</label>
+                <label className='text-sm font-semibold font-Poppins opacity-70'>Customer</label>
                 </div>
-                <input value={order.customer} type="text" className='border-2 rounded-md h-8 focus:outline-blue-400 p-1 text-sm xl:w-full' name="" id="" />
+                <p className='ml-2 font-Opensans'>{order.customer}</p>
             </Grid>
             <Grid xs={12} md={5.8} item>
                 <div>
-                    <label className='text-sm font-semibold font-Opensans'>Total</label>
+                    <label className='text-sm font-semibold font-Poppins opacity-70'>Total</label>
                 </div>
-                <input value={order.total} type="text" className='border-2 rounded-md h-8 focus:outline-blue-400 p-1 text-sm xl:w-full' name="" id="" />
+                <p className='ml-2 font-Poppins'>{order.total}</p>
             </Grid>
             <Grid xs={12} md={5.8} item>
                 <div>
-                    <label className='text-sm font-semibold font-Opensans'>Status</label>
+                <label className='text-sm font-semibold font-Poppins opacity-70'>Status</label>
                 </div>
-                <select name="role" defaultValue={!order?2:order.status} id="">
-                  <option value="1">Pending</option>
-                  <option value="2">Completed</option>
-                  <option value="3">Declined</option>
-                </select>
+                <FormControl fullWidth>
+                  <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      className='ml-2 h-8 text-black'
+                      defaultValue={!order?null:order.status}
+                  >
+                      <MenuItem value={1}>Pending</MenuItem>
+                      <MenuItem value={2}>Completed</MenuItem> 
+                      <MenuItem value={2}>Declined</MenuItem> 
+                  </Select>
+                </FormControl>
             </Grid>
             <Grid item sx={{display:'flex', justifyContent:'space-between',flexDirection:'row-reverse'}} xs={12} mt={2}>
               <Button onClick={handleClose} variant='contained' size='small' color='primary' sx={{borderRadius:'0.375rem'}}>Update</Button>

@@ -2,10 +2,8 @@ import { Box, List, Button, Checkbox, Container, FormControlLabel, FormGroup, Gr
 import { useState } from 'react';
 import { CgSortAz } from "react-icons/cg";
 import SuggestionCard from './components/SuggestionCard';
-import Navbar from '../components/Navbar';
 import { BiSearch } from 'react-icons/bi';
 import { RiArrowUpDownFill } from 'react-icons/ri';
-import Footer from '../components/Footer';
 
 const SortMenu = () =>{
   const [anchorEl, setAnchorEl] = useState(null);

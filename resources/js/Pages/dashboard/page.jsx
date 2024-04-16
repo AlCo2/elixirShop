@@ -1,7 +1,7 @@
 import { Box, Button, Container, Grid, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
 import { SparkLineChart } from "@mui/x-charts";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { Bar, BarChart, Text, Tooltip, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, Tooltip, XAxis, YAxis } from "recharts";
 
 const data = [ 
   {name:'Jan', data:3200},
@@ -21,11 +21,11 @@ const page = () => {
         <p className="text-sm opacity-70">Get up-to-the-minute insight. No more waiting for reports</p>
       </Box>
       <Box>
-        <Grid container>
-          <Grid xs={7.7} item>
+        <Grid container sx={{justifyContent:'space-between'}}>
+          <Grid xs={7.8} item>
             <Box>
-              <Grid container gap={2} p={2}>
-                <Grid xs={5.8} sx={{borderRadius:2, bgcolor:'white', borderWidth:1}} item>
+              <Grid container sx={{justifyContent:'space-between'}}>
+                <Grid xs={5.8} sx={{borderRadius:4, bgcolor:'white', borderWidth:1}} item>
                   <Box sx={{p:2}}>
                     <p className="font-Roboto font-semibold text-xl">Total Product Viewed</p>
                     <p className="text-xs opacity-70">Customre have visited and clicked product</p>
@@ -38,7 +38,7 @@ const page = () => {
                     <SparkLineChart area colors={['#7c62ff']} curve="natural" data={[7, 10, 8, 12, 10, 14, 13]} width={100} height={70} showHighlight showTooltip/>
                   </Box>
                 </Grid>
-                <Grid xs={5.8} sx={{borderRadius:2, bgcolor:'white', borderWidth:1}} item>
+                <Grid xs={5.8} sx={{borderRadius:4, bgcolor:'white', borderWidth:1}} item>
                   <Box sx={{p:2}}>
                     <p className="font-Roboto font-semibold text-xl">Total Sales</p>
                     <p className="text-xs opacity-70">Product have been saled</p>
@@ -51,7 +51,7 @@ const page = () => {
                     <SparkLineChart area colors={['#7c62ff']} curve="natural" data={[10, 9, 8, 7, 9, 12, 11, 10, 7, 6, 7, 8, 9, 10, 12, 6]} width={100} height={70} showTooltip showHighlight/>
                   </Box>
                 </Grid>
-                <Grid item xs={12} sx={{borderRadius:2, bgcolor:'white', borderWidth:1}} >
+                <Grid item xs={12} sx={{borderRadius:4, bgcolor:'white', borderWidth:1, mt:2}} >
                   <Box sx={{ p:2, display:'flex', justifyContent:'space-between' }}>
                     <Box>
                       <p className="font-Roboto font-semibold text-xl">Newest Product</p>
@@ -128,8 +128,8 @@ const page = () => {
               </Grid>
             </Box>
           </Grid>
-          <Grid xs={4.1} m={2} ml={0} sx={{borderRadius:2}} item>
-            <Box sx={{bgcolor:'white', height:280, borderWidth:1, mb:2, borderRadius:4}}>
+          <Grid xs={4} item>
+            <Box sx={{bgcolor:'white', height:280, borderWidth:1, mb:1, borderRadius:4}}>
               <Box sx={{p:2, display:'flex', alignItems:'center', justifyContent:'space-between'}} >
                 <Box>
                   <p className="font-Roboto font-semibold text-xl">Balance</p>
@@ -150,7 +150,7 @@ const page = () => {
                 </BarChart>
               </Box>
             </Box>
-            <Box sx={{bgcolor:'white', height:250, borderWidth:1, borderRadius:4}}>
+            <Box sx={{bgcolor:'white', height:230, mb:1,borderWidth:1, borderRadius:4}}>
               <Box sx={{p:2, display:'flex', alignItems:'center', justifyContent:'space-between'}} >
                 <Box>
                   <p className="font-Roboto font-semibold text-xl">Audience</p>

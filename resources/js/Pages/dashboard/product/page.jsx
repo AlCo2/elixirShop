@@ -119,9 +119,9 @@ function ProductModelComponent({product}) {
                     <label className='text-sm font-semibold font-Opensans'>Title</label>
                 </div>
                 {!product?
-                <input type="text" className='border-2 rounded-md h-8 focus:outline-blue-400 p-1 text-sm xl:w-full' name="" id="" />
+                <input type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="" id="" />
                 :
-                <input value={product.title} type="text" className='border-2 rounded-md h-8 focus:outline-blue-400 p-1 text-sm xl:w-full' name="" id="" />
+                <input value={product.title} type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="" id="" />
                 }
             </Grid>
             <Grid xs={12} md={5.8} item>
@@ -146,9 +146,9 @@ function ProductModelComponent({product}) {
                     <label className='text-sm font-semibold font-Opensans'>Q</label>
                 </div>
                 {!product?
-                <input type="number" className='border-2 rounded-md h-8 focus:outline-blue-400 p-1 text-sm xl:w-full' name="" id="" />
+                <input type="number" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="" id="" />
                 :
-                <input value={product.Q} type="number" className='border-2 rounded-md h-8 focus:outline-blue-400 p-1 text-sm xl:w-full' name="" id="" />
+                <input value={product.Q} type="number" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="" id="" />
                 }
             </Grid>
             <Grid xs={12} md={5.8} item>
@@ -156,9 +156,9 @@ function ProductModelComponent({product}) {
                     <label className='text-sm font-semibold font-Opensans'>price</label>
                 </div>
                 {!product?
-                <input type="number" className='border-2 rounded-md h-8 focus:outline-blue-400 p-1 text-sm xl:w-full' name="" id="" />
+                <input type="number" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="" id="" />
                 :
-                <input value={product.Q} type="number" className='border-2 rounded-md h-8 focus:outline-blue-400 p-1 text-sm xl:w-full' name="" id="" />
+                <input value={product.Q} type="number" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="" id="" />
                 }
             </Grid>
             <Grid xs={12} item>

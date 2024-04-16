@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardContent, CardMedia, Grid, Typography, ThemeProvider} from '@mui/material';
+import { Box, Button, Card, CardContent, CardMedia, Grid, Typography} from '@mui/material';
 import React from 'react'
 import { FaShoppingBasket } from 'react-icons/fa';
 const IntroCard = ({title, image, price}) => {
@@ -21,7 +21,7 @@ const IntroCard = ({title, image, price}) => {
         </Box>
         <Box display={'flex'} margin={2} justifyContent={'space-between'} alignItems={'center'}>
           <Typography fontFamily={'Poppins'} variant="body2">{price}.00DH</Typography>
-          <Button variant="contained" color='liliana_secondary'><FaShoppingBasket/></Button>
+          <Button href='/store/product/1' variant="contained" color='liliana_secondary'><FaShoppingBasket/></Button>
         </Box>
       </Card>
     </Grid>

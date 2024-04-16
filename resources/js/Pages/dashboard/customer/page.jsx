@@ -125,9 +125,9 @@ function UserModelComponent({user}) {
                     <label className='text-sm font-semibold font-Opensans'>First Name</label>
                 </div>
                 {!user?
-                <input type="text" className='border-2 rounded-md h-8 focus:outline-blue-400 p-1 text-sm xl:w-full' name="" id="" />
+                <input type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="" id="" />
                 :
-                <input value={user.firstname} type="text" className='border-2 rounded-md h-8 focus:outline-blue-400 p-1 text-sm xl:w-full' name="" id="" />
+                <input value={user.firstname} type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="" id="" />
                 }
             </Grid>
             <Grid xs={12} md={5.8} item>
@@ -135,9 +135,9 @@ function UserModelComponent({user}) {
                     <label className='text-sm font-semibold font-Opensans'>Last Name</label>
                 </div>
                 {!user?
-                <input type="text" className='border-2 rounded-md h-8 focus:outline-blue-400 p-1 text-sm xl:w-full' name="" id="" />
+                <input type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="" id="" />
                 :
-                <input value={user.lastname} type="text" className='border-2 rounded-md h-8 focus:outline-blue-400 p-1 text-sm xl:w-full' name="" id="" />
+                <input value={user.lastname} type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="" id="" />
                 }
             </Grid>
             <Grid xs={12} md={5.8} item>
@@ -145,16 +145,16 @@ function UserModelComponent({user}) {
                     <label className='text-sm font-semibold font-Opensans'>email</label>
                 </div>
                 {!user?
-                <input type="text" className='border-2 rounded-md h-8 focus:outline-blue-400 p-1 text-sm xl:w-full' name="" id="" />
+                <input type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="" id="" />
                 :
-                <input value={user.email} type="text" className='border-2 rounded-md h-8 focus:outline-blue-400 p-1 text-sm xl:w-full' name="" id="" />
+                <input value={user.email} type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="" id="" />
                 }
             </Grid>
             <Grid xs={12} md={5.8} item>
                 <div>
                     <label className='text-sm font-semibold font-Opensans'>password</label>
                 </div>
-                <input type="password" className='border-2 rounded-md h-8 focus:outline-blue-400 p-1 text-sm xl:w-full' name="" id="" />
+                <input type="password" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="" id="" />
             </Grid>
             <Grid xs={12} md={5.8} item>
                 <div>

@@ -116,9 +116,9 @@ function CategoryModelComponent({category}) {
                     <label className='text-sm font-semibold font-Opensans'>category</label>
                 </div>
                 {!category?
-                <input type="text" className='border-2 rounded-md h-8 focus:outline-blue-400 p-1 text-sm xl:w-full' name="" id="" />
+                <input type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="" id="" />
                 :
-                <input value={category.name} type="text" className='border-2 rounded-md h-8 focus:outline-blue-400 p-1 text-sm xl:w-full' name="" id="" />
+                <input value={category.name} type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="" id="" />
                 }
             </Grid>
             <Grid item sx={{display:'flex', justifyContent:'space-between',flexDirection:'row-reverse'}} xs={12} mt={2}>

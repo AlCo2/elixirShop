@@ -2,7 +2,6 @@ import { useState } from "react";
 import OrderSummary from "./components/OrderSummary";
 import Order from "./components/Order";
 import { Box, Button, Container, Divider, Grid, Paper } from "@mui/material";
-import Navbar from "../components/Navbar";
 
 
 const page = () => {

@@ -4,7 +4,6 @@ import { BiCartAdd, BiInfoCircle, BiPlusCircle } from 'react-icons/bi';
 import SuggestionCard from '../components/SuggestionCard';
 import { CiDeliveryTruck } from 'react-icons/ci';
 import { FaMoneyBill } from 'react-icons/fa';
-import Navbar from '../../components/Navbar';
 
 const product = () => {
   return (
