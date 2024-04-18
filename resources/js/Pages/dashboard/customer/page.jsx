@@ -8,8 +8,7 @@ import { FaXmark } from 'react-icons/fa6';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'firstname', headerName: 'FirstName', width: 130 },
-  { field: 'lastname', headerName: 'LastName', width: 130 },
+  { field: 'name', headerName: 'Username', width: 130 },
   { field: 'email', headerName: 'Email',width: 200 },
   {
     field: 'role',
@@ -187,7 +186,7 @@ function UserModelComponent({user}) {
   );
 }
 
-const page = () => {
+const page = ({customers}) => {
   return (
     <Container>
       <Grid container mt={4}>
@@ -197,7 +196,7 @@ const page = () => {
         <Grid item xs={12}>
           <DataGrid
             sx={{background:'white'}}
-            rows={data}
+            rows={customers}
             columns={columns}
             initialState={{
               pagination: {

@@ -156,7 +156,7 @@ const FilterMenu = () =>{
                 <p className='font-Poppins'>Categories</p>
               </Grid>
               <Grid item xs={12}>
-               <CategoryMenu/> 
+                <CategoryMenu/>
               </Grid>
             </Grid>
           </Container>
@@ -166,7 +166,7 @@ const FilterMenu = () =>{
   );
 }
 
-const store = () => {
+const store = ({products}) => {
   const [categories, setCategories] = useState([
     {id:1,name:'Brum', status:false},
     {id:2,name:'Corps et bain', status:false},
@@ -231,9 +231,11 @@ const store = () => {
                 </Grid>
               </Paper>
               <Grid container gap={1} marginY={5} justifyContent={{xs:'center'}} mt={2}>
-                <SuggestionCard title='اميرة العرب ORIGINAL 100ML' image='/assets/amirataraboriginal.jpg' price={250}/>
-                <SuggestionCard title='GLOSSE KIKO MILANO' image='/assets/kiko.jpg' price={70}/>
-                <SuggestionCard title='GLOSSE KIKO MILANO' image='/assets/kiko.jpg' price={70}/>
+                { products.map((product)=>(
+                  <SuggestionCard id={product.id} title={product.title} image={'images/'+product.image} price={product.price}/>
+                ))
+                 
+                }
               </Grid>
             </Grid>
           </Grid>

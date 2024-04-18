@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {Container, Grid, Button, Modal, Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton} from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid';
 import { FaPen, FaTrash } from 'react-icons/fa';
 import { FiAlertTriangle } from 'react-icons/fi';
 import { FaXmark } from 'react-icons/fa6';
+import { router } from '@inertiajs/react';
 
 
 const columns = [
@@ -23,12 +24,6 @@ const columns = [
       </div>
     ),
   }
-];
-const data = [
-  {id:'1', name:'Maquilage'},
-  {id:'2', name:'lips'},
-  {id:'3', name:'hands'},
-  {id:'4', name:'eyes'},
 ];
 
 const style = {  position: 'absolute',
@@ -53,9 +48,9 @@ function ConfirmDeleteCategory({row}) {
   };
 
   const handleClose = (choice) => {
-    // if(choice){
-    //   router.post('/api/deleteproduct/'+row.id);
-    // }
+    if(choice){
+      router.delete('/api/category/'+row.id);
+    }
     setOpen(false);
   };
   return (
@@ -92,13 +87,34 @@ function CategoryModelComponent({category}) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  const [values, setValues] = useState({
+    name:"",
+  })
+  function handleChange(e) {
+    const key = e.target.id;
+    const value = e.target.value
+    setValues(values => ({
+        ...values,
+        [key]: value,
+    }))
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    router.post('/api/category', values);
+    values.name = "";
+    handleClose();
+  }
+  function handleUpdate(e) {
+    e.preventDefault();
+    router.patch('/api/category/'+category.id, values);
+    handleClose();
+  }
   return (
     <div>
       {!category?
       <Button onClick={handleOpen} variant='contained' color='primary' sx={{borderRadius:'0.375rem'}}>Add Category</Button>
       :
-      <button onClick={handleOpen} className='bg-liliana-background rounded-md border text-black opacity-70 p-2'><FaPen className='text-sm'/></button>
+      <button onClick={()=>{values.name=category.name;handleOpen()}} className='bg-liliana-background rounded-md border text-black opacity-70 p-2'><FaPen className='text-sm'/></button>
       }
       <Modal 
         open={open}
@@ -116,16 +132,16 @@ function CategoryModelComponent({category}) {
                     <label className='text-sm font-semibold font-Opensans'>category</label>
                 </div>
                 {!category?
-                <input type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="" id="" />
+                <input id='name' type="text" value={values.name} onChange={handleChange} className='border-2 rounded-md h-8 p-1 text-sm xl:w-full'/>
                 :
-                <input value={category.name} type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="" id="" />
+                <input id='name' value={values.name} onChange={handleChange} type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full'/>
                 }
             </Grid>
             <Grid item sx={{display:'flex', justifyContent:'space-between',flexDirection:'row-reverse'}} xs={12} mt={2}>
               {!category?
-                <Button size='small' onClick={handleClose} variant='contained' color='success' sx={{borderRadius:'0.375rem'}}>Add</Button>
+                <Button size='small' onClick={handleSubmit} variant='contained' color='success' sx={{borderRadius:'0.375rem'}}>Add</Button>
               :
-                <Button size='small' onClick={handleClose} variant='contained' color='primary' sx={{borderRadius:'0.375rem'}}>Update</Button>
+                <Button size='small' onClick={handleUpdate} variant='contained' color='primary' sx={{borderRadius:'0.375rem'}}>Update</Button>
               }
               <Button size='small' onClick={handleClose} variant='contained' color='error' sx={{borderRadius:'0.375rem'}}>Cancle</Button>
             </Grid>
@@ -136,7 +152,7 @@ function CategoryModelComponent({category}) {
   );
 }
 
-const page = () => {
+const page = ({categories}) => {
   return (
     <Container>
       <Grid container mt={4}>
@@ -145,8 +161,8 @@ const page = () => {
         </Grid>
         <Grid item xs={12}>
           <DataGrid
-            sx={{background:'white'}}
-            rows={data}
+            sx={{background:'white', minHeight:200}}
+            rows={categories}
             columns={columns}
             initialState={{
               pagination: {
@@ -154,7 +170,6 @@ const page = () => {
               },
             }}
             pageSizeOptions={[5]}
-            // slots={{toolbar:GridToolbar}}
           />
         </Grid>
       </Grid>

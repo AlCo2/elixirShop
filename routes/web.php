@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 Use App\Http\Controllers\StoreController;
 Use App\Http\Controllers\ProductController;
+Use App\Http\Controllers\CategoryController;
+Use App\Http\Controllers\DashboardController;
 Use App\Http\Controllers\CheckoutController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use Illuminate\Foundation\Application;
@@ -24,11 +26,6 @@ Route::get('/store/product/{id}',[StoreController::class, 'product']);
 Route::get('/checkout',[CheckoutController::class, 'index']);
 Route::get('/checkout/fastcheckout',[CheckoutController::class, 'checkout']);
 
-/* product API */
-Route::get('/api/product/{id}', [ProductController::class, 'getProduct']);
-Route::post('/api/product/', [ProductController::class, 'addProduct']);
-Route::patch('/api/product/', [ProductController::class, 'updateProduct']);
-Route::delete('/api/product/', [ProductController::class, 'deleteProduct']);
 
 
 /*        Temp router:            */
@@ -44,21 +41,29 @@ Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])->group(functio
     Route::get('/dashboard', function () {
         return Inertia::render('dashboard/page');
     })->name('dashboard');
-    route::get('/dashboard/customer', function(){
-        return Inertia::render('dashboard/customer/page');
-    });
-    route::get('/dashboard/product', function(){
-        return Inertia::render('dashboard/product/page');
-    });
+    route::get('/dashboard/customer', [DashboardController::class, 'customer']);
+    route::get('/dashboard/product', [DashboardController::class, 'product']);
     route::get('/dashboard/order', function(){
         return Inertia::render('dashboard/order/page');
     });
-    route::get('/dashboard/category', function(){
-        return Inertia::render('dashboard/category/page');
-    });
+    route::get('/dashboard/category', [DashboardController::class, 'category']);
     route::get('/dashboard/message', function(){
         return Inertia::render('dashboard/message/page');
     });
+
+    /* product API */
+    Route::get('/api/product/', [ProductController::class, 'all']);
+    Route::get('/api/product/{id}', [ProductController::class, 'get']);
+    Route::post('/api/product/', [ProductController::class, 'add']);
+    Route::post('/api/product/{id}', [ProductController::class, 'update']);
+    Route::delete('/api/product/{id}', [ProductController::class, 'delete']);
+
+    /* category API */
+    Route::get('/api/category/', [CategoryController::class, 'all']);
+    Route::get('/api/category/{id}', [CategoryController::class, 'get']);
+    Route::post('/api/category/', [CategoryController::class, 'add']);
+    Route::patch('/api/category/{id}', [CategoryController::class, 'update']);
+    Route::delete('/api/category/{id}', [CategoryController::class, 'delete']);
 });
 
 Route::middleware('auth')->group(function () {
