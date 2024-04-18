@@ -4,8 +4,16 @@ import { BiCartAdd, BiInfoCircle, BiPlusCircle } from 'react-icons/bi';
 import SuggestionCard from '../components/SuggestionCard';
 import { CiDeliveryTruck } from 'react-icons/ci';
 import { FaMoneyBill } from 'react-icons/fa';
+import { router } from '@inertiajs/react';
 
 const product = ({product, products}) => {
+    function addToCart(e){
+        e.preventDefault();
+        const data = {
+            product_id:product.id
+        }
+        router.post('/api/cart/add', data);
+    }
   return (
     <>
     <div className='bg-liliana-background'>
@@ -15,7 +23,11 @@ const product = ({product, products}) => {
                     <Paper variant='outlined'>
                         <Grid container columns={16} justifyContent={'center'}>
                             <Grid item display={'flex'} justifyContent={'right'} xs={16}>
+                                {product.Q>0?
                                 <Chip color='error' label="Out of stock" className='mr-2 mt-2' />
+                                :
+                                <Box color='error' label="" className='mr-2 mt-2' />
+                                }
                             </Grid>
                             <Grid item xs={12} sm={6} sx={{flexDirection:{sm:'row-reverse'}}} display={{sm:'flex'}} gap={2}>
                                 <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
@@ -35,7 +47,7 @@ const product = ({product, products}) => {
                                 </Grid>
                                 <Grid item display={'flex'} sx={{flexDirection:'column'}} gap={1} >
                                     <Rating name="size-small" defaultValue={2} size="small" />
-                                    <Button variant='contained' color='liliana_primary' className='h-8'><BiPlusCircle/> Add</Button>
+                                    <Button onClick={addToCart} variant='contained' color='liliana_primary' className='h-8'><BiPlusCircle/> Add</Button>
                                     <Button variant='contained' color='liliana_secondary' className='h-8'><BiCartAdd/> Buy</Button>
                                 </Grid>
                             </Grid>
@@ -73,9 +85,8 @@ const product = ({product, products}) => {
             <Divider/>
             <Grid container gap={1} justifyContent={{xs:'center', sm:'left'}} mt={2}>
                 {products.map((product)=>(
-                    <SuggestionCard title={product.title} image={'/images/'+product.image} price={product.price}/>
+                    <SuggestionCard key={product.id} id={product.id} title={product.title} image={'/images/'+product.image} price={product.price}/>
                 ))}
-                
             </Grid>
         </Container>
     </div>

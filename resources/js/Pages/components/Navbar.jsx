@@ -3,8 +3,10 @@ import { BiShoppingBag } from 'react-icons/bi'
 import {BsHouse, BsShop, BsTicket, } from 'react-icons/bs'
 import AccountMenu from './AccountMenu';
 import SideBar from './SideBar';
+import { usePage } from '@inertiajs/react';
 
 const Navbar = () => {
+  const { cart } = usePage().props;
   const pathname = window.location.pathname
   return (
     <>
@@ -23,7 +25,7 @@ const Navbar = () => {
         <div className='flex mr-4 items-center'>
           <AccountMenu />
           <IconButton href='/checkout' className={`${pathname==='/checkout'?'text-black':'text-white'}`} aria-label="cart">
-            <Badge badgeContent={1} className={`${pathname==='/checkout'?'text-black':'text-white'}`} color="primary">
+            <Badge badgeContent={cart.total} className={`${pathname==='/checkout'?'text-black':'text-white'}`} color="primary">
               <BiShoppingBag/>
             </Badge>
           </IconButton>

@@ -232,9 +232,8 @@ const store = ({products}) => {
               </Paper>
               <Grid container gap={1} marginY={5} justifyContent={{xs:'center'}} mt={2}>
                 { products.map((product)=>(
-                  <SuggestionCard id={product.id} title={product.title} image={'images/'+product.image} price={product.price}/>
+                  <SuggestionCard key={product.id} id={product.id} title={product.title} image={'images/'+product.image} price={product.price}/>
                 ))
-                 
                 }
               </Grid>
             </Grid>

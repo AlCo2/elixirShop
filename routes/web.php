@@ -6,6 +6,8 @@ Use App\Http\Controllers\ProductController;
 Use App\Http\Controllers\CategoryController;
 Use App\Http\Controllers\DashboardController;
 Use App\Http\Controllers\CheckoutController;
+Use App\Http\Controllers\OrderController;
+Use App\Http\Controllers\CartController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +28,11 @@ Route::get('/store/product/{id}',[StoreController::class, 'product']);
 Route::get('/checkout',[CheckoutController::class, 'index']);
 Route::get('/checkout/fastcheckout',[CheckoutController::class, 'checkout']);
 
+
+/* Post request */
+Route::post('/api/cart/add', [CartController::class, 'addToCart']);
+Route::post('/api/cart/sub', [CartController::class, 'subFromCart']);
+Route::post('/api/cart/delete', [CartController::class, 'deleteFromCart']);
 
 
 /*        Temp router:            */
@@ -64,6 +71,7 @@ Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])->group(functio
     Route::post('/api/category/', [CategoryController::class, 'add']);
     Route::patch('/api/category/{id}', [CategoryController::class, 'update']);
     Route::delete('/api/category/{id}', [CategoryController::class, 'delete']);
+
 });
 
 Route::middleware('auth')->group(function () {

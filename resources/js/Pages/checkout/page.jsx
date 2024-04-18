@@ -4,15 +4,13 @@ import Order from "./components/Order";
 import { Box, Button, Container, Divider, Grid, Paper } from "@mui/material";
 
 
-const page = () => {
-  const [track_Q, setTrack_Q] = useState(0);
+const page = ({data}) => {
   const [order_summary, setOrder_summary] = useState({
     discount:0.00,
     delivary:30.00,
     tax:0.00,
     total:550.00,
-  })
-  
+  }) 
   return (
   <>
     <div className="min-h-80 pt-5 bg-liliana-background">
@@ -34,8 +32,9 @@ const page = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <Order key={1} image={'/assets/amirataraboriginal.jpg'} id={1} name={"اميرة العرب ORIGINAL 100ML"} price={250} Q={1}/>
-                    <Order key={2} image={'/assets/philos.jpg'} id={2} name={"PHILOS 100ML ORIGINAL"} price={300} Q={1}/>
+                    {data.map((product)=>(
+                      <Order key={product.product.id} image={'/images/' + product.product.image} id={product.product.id} name={product.product.title} price={product.product.price * product.Q} Q={product.Q}/>
+                    ))}
                   </tbody>
                 </table>
               </div>
