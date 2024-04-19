@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Order;
 
 class DashboardController extends Controller
 {
@@ -23,5 +24,9 @@ class DashboardController extends Controller
         $products = Product::with('category')->get();
         $categories = Category::all();
         return Inertia::render('dashboard/product/page', compact('products', 'categories'));
+    }
+    public function order(){
+        $bigorder = Order::all(); 
+        return Inertia::render('dashboard/order/page', compact('order'));
     }
 }

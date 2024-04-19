@@ -33,14 +33,14 @@ const StatusComponent = ({status}) =>{
 
 const columns = [
   { field: 'id', headerName: 'OrderId', width: 200 },
-  { field: 'customer', headerName: 'Customer', width: 200 },
+  { field: 'user_id', headerName: 'Customer', width: 200 },
   { field: 'total', headerName: 'Total', width: 200 },
   { 
-    field: 'status',
+    field: 'status_id',
     headerName: 'Status', 
     width: 120,
     renderCell: ({row}) =>(
-      <StatusComponent status={row.status}/>
+      <StatusComponent status={row.status_id}/>
     ),
   },
   {
@@ -57,12 +57,6 @@ const columns = [
       </div>
     ),
   }
-];
-const data = [
-  {id:'2131', customer:'abdou lahboub', total:'600DH', status:1},
-  {id:'3423', customer:'John Paul', total:'432DH', status:2},
-  {id:'2321', customer:'Sandra Bowman', total:'144DH', status:2},
-  {id:'5544', customer:'Jimmy Panda', total:'233DH', status:3},
 ];
 
 const style = {  position: 'absolute',
@@ -181,7 +175,7 @@ function OrderModelComponent({order}) {
   );
 }
 
-const page = () => {
+const page = ({order}) => {
   return (
     <Container>
       <Grid container mt={4}>
@@ -190,7 +184,7 @@ const page = () => {
         <Grid item xs={12}>
           <DataGrid
             sx={{background:'white'}}
-            rows={data}
+            rows={order}
             columns={columns}
             initialState={{
               pagination: {

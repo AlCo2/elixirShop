@@ -50,9 +50,7 @@ Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])->group(functio
     })->name('dashboard');
     route::get('/dashboard/customer', [DashboardController::class, 'customer']);
     route::get('/dashboard/product', [DashboardController::class, 'product']);
-    route::get('/dashboard/order', function(){
-        return Inertia::render('dashboard/order/page');
-    });
+    route::get('/dashboard/order', [DashboardController::class, 'order']);
     route::get('/dashboard/category', [DashboardController::class, 'category']);
     route::get('/dashboard/message', function(){
         return Inertia::render('dashboard/message/page');
