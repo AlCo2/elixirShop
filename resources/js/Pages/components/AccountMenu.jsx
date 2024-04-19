@@ -11,8 +11,12 @@ import { AiOutlineUser } from 'react-icons/ai'
 import { CiLogin } from "react-icons/ci";
 import { CiCircleCheck } from "react-icons/ci";
 import { RiShieldUserFill } from "react-icons/ri";
+import { Link, usePage } from '@inertiajs/react';
+import { BiUser } from 'react-icons/bi';
+import { List } from '@mui/material';
 
 export default function AccountMenu() {
+  const { auth } = usePage().props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -32,7 +36,7 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <AiOutlineUser className='text-white'/>
+            <AiOutlineUser className={auth.user?'text-black':'text-white'}/>
           </IconButton>
         </Tooltip>
       </Box>
@@ -47,6 +51,7 @@ export default function AccountMenu() {
           sx: {
             overflow: 'visible',
             filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            width:160,
             mt: 1,
             '& .MuiAvatar-root': {
               width: 32,
@@ -71,29 +76,54 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem  onClick={handleClose}>
-            <ListItemIcon>
-                <CiLogin/>
-            </ListItemIcon>
-            <a href="/login">Login</a>
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-            <ListItemIcon>
-                <RiShieldUserFill/>
-            </ListItemIcon>
-            <a href="/register">
-              Register
-            </a>
-        </MenuItem>
-        <Divider />
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <CiCircleCheck/>
-          </ListItemIcon>
-          <a href="/checkorder">
-            check Order
-          </a>
-        </MenuItem>
+        {!auth.user?
+          <List>
+            <Link href='/login'>
+              <MenuItem onClick={handleClose}>
+                  <ListItemIcon>
+                      <CiLogin/>
+                  </ListItemIcon>
+                  Login
+              </MenuItem>
+            </Link>
+            <Link href='/register'>
+              <MenuItem onClick={handleClose}>
+                  <ListItemIcon>
+                      <RiShieldUserFill/>
+                  </ListItemIcon>
+                    Register
+              </MenuItem>
+            </Link>
+          <Divider />
+          <Link href='/checkorder'>
+            <MenuItem onClick={handleClose}>
+                <ListItemIcon>
+                  <CiCircleCheck/>
+                </ListItemIcon>
+                  check Order
+            </MenuItem>
+          </Link>
+        </List>
+        :
+        <List>
+          <Link>
+            <MenuItem onClick={handleClose}>
+                <ListItemIcon>
+                    <BiUser/>
+                </ListItemIcon>
+                {auth.user.name}
+            </MenuItem>
+          </Link>
+            <MenuItem onClick={handleClose}>
+              <Link method='post' as='button' href='/logout'>
+                <ListItemIcon>
+                    <CiLogin/>
+                </ListItemIcon>
+                Logout
+              </Link>
+            </MenuItem>
+        </List>
+        }
       </Menu>
     </React.Fragment>
   );

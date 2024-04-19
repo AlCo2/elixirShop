@@ -67,7 +67,7 @@ const product = ({product, products}) => {
                     <p className='font-bold font-Poppins flex items-center gap-2 text-liliana-third'>Information</p>
                     <Divider className='my-2'/>
                     <Box ml={2}>
-                        <p className='text-xs flex items-center gap-1'><span className='text-sm font-bold'>Category:</span>{product.category.name}</p>
+                        <p className='text-xs flex items-center gap-1'><span className='text-sm font-bold'>Category:</span>{product.category?product.category.name:''}</p>
                     </Box>
                     <Box ml={2}>
                         <p className='text-xs flex items-center gap-1'><FaMoneyBill/> Paiement à la livraison</p>

@@ -33,7 +33,7 @@ Route::get('/checkout/fastcheckout',[CheckoutController::class, 'checkout']);
 Route::post('/api/cart/add', [CartController::class, 'addToCart']);
 Route::post('/api/cart/sub', [CartController::class, 'subFromCart']);
 Route::post('/api/cart/delete', [CartController::class, 'deleteFromCart']);
-
+Route::post('/api/order/create', [OrderController::class, 'createOrder']);
 
 /*        Temp router:            */
 Route::get('/checkorder', function(){

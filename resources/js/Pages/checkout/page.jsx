@@ -1,16 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import OrderSummary from "./components/OrderSummary";
 import Order from "./components/Order";
 import { Box, Button, Container, Divider, Grid, Paper } from "@mui/material";
+import { router } from "@inertiajs/react";
 
 
 const page = ({data}) => {
   const [order_summary, setOrder_summary] = useState({
     discount:0.00,
-    delivary:30.00,
+    delivary:0.00,
     tax:0.00,
-    total:550.00,
-  }) 
+    total:0.00,
+  })
+  useEffect(()=>{
+    let total = 0;
+    data.map((product)=>(
+      total += product.product.price * product.Q
+    ))
+    setOrder_summary({...order_summary, total:total.toFixed(2)})
+  }, [data])
   return (
   <>
     <div className="min-h-80 pt-5 bg-liliana-background">
@@ -23,6 +31,7 @@ const page = ({data}) => {
               </div>
               <Divider/>
               <div className='ml-8 mt-4'>
+                {data.length>0?
                 <table className='w-11/12'>
                   <thead className='h-10'>
                     <tr>
@@ -37,6 +46,12 @@ const page = ({data}) => {
                     ))}
                   </tbody>
                 </table>
+                :
+                <div className="text-center">
+                  <p className="font-Poppins text-xl mb-5">Your shopping cart is empty!</p>
+                  <Button href="/store" variant="text" color="liliana_third">Buy Something</Button>
+                </div>
+                }
               </div>
             </Paper>
           </Grid>

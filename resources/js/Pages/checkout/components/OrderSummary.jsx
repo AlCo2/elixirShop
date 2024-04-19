@@ -27,7 +27,6 @@ const OrderSummary = ({order_summary}) =>{
                 <p className='font-poppins font-semibold mr-4'>{order_summary.total}DH</p>
               </Box>
             </Box>
-          
         </Box>
         </Paper>
       </>

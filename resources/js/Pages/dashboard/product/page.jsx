@@ -232,7 +232,7 @@ const page = ({products, categories}) => {
       headerName: 'Category',
       width: 130,
       valueGetter: (value)=>{
-        return value.name;
+        return value?value.name:'';
       }  
     },
     { field: 'Qty', headerName: 'Q', width: 130 },
