@@ -4,6 +4,7 @@ import SuggestionCard from '../components/SuggestionCard';
 import { CiDeliveryTruck } from 'react-icons/ci';
 import { FaMoneyBill } from 'react-icons/fa';
 import { router } from '@inertiajs/react';
+import Layout from '@/Layout';
 
 const product = ({product, products}) => {
     function addToCart(e){
@@ -55,14 +56,14 @@ const product = ({product, products}) => {
                 </Grid>
             </Grid> 
             <Grid container justifyContent={'space-between'}>
-                <Grid item sm={12} md={7} className='bg-white p-4 border mt-2 rounded-md'>
+                <Grid item sm={12} md={7} className='bg-white p-4 border mt-2 max-sm:w-full rounded-md'>
                     <p className='font-bold font-Poppins flex items-center gap-1 text-liliana-third'><BiInfoCircle/>Description</p>
                     <Divider className='my-2'/>
                     <p className='text-sm font-Roboto px-6'>
                         {product.description}
                     </p>
                 </Grid>
-                <Grid item sm={12} md={4.9} className='bg-white p-4 border mt-2 rounded-md'>
+                <Grid item sm={12} md={4.9} className='bg-white p-4 border mt-2 max-sm:w-full rounded-md'>
                     <p className='font-bold font-Poppins flex items-center gap-2 text-liliana-third'>Information</p>
                     <Divider className='my-2'/>
                     <Box ml={2}>
@@ -93,4 +94,5 @@ const product = ({product, products}) => {
   )
 }
 
+product.layout = page => <Layout children={page} title="Product" />
 export default product;

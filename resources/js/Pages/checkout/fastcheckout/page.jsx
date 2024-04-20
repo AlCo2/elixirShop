@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../../components/Navbar';
 import { gridColumnLookupSelector } from '@mui/x-data-grid';
 import { router } from '@inertiajs/react';
+import Layout from '@/Layout';
 
 const page = ({order}) => {
     const [countries, setCountries] = useState([]);
@@ -161,4 +162,5 @@ const page = ({order}) => {
   )
 }
 
+page.layout = page => <Layout children={page} tite="FastCheckout" />
 export default page;

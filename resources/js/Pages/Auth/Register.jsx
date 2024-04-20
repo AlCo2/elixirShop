@@ -14,6 +14,7 @@ import { BiLock } from 'react-icons/bi';
 import { useForm } from '@inertiajs/react';
 import { useEffect } from 'react';
 import { theme } from '@/theme';
+import Layout from '@/Layout';
 
 
 const defaultTheme = createTheme();
@@ -148,3 +149,4 @@ const submit = (e) => {
     </>
   );
 }
+SignUp.layout = page => <Layout children={page} tite="checkout" />

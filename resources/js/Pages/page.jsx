@@ -4,6 +4,7 @@ import { LiaMoneyBillSolid, LiaShippingFastSolid } from "react-icons/lia";
 import IntroCard from "./components/IntroCard";
 import ServiceIntro from "./components/home/ServiceIntro";
 import { usePage } from "@inertiajs/react";
+import Layout from "@/Layout";
 
 export default function Home() {
   const { flash } = usePage().props;
@@ -71,3 +72,5 @@ export default function Home() {
     </>
   );
 }
+
+Home.layout = page => <Layout children={page} title="Home" />

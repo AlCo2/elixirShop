@@ -4,6 +4,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { FaPen, FaTrash } from 'react-icons/fa';
 import { FiAlertTriangle } from 'react-icons/fi';
 import { FaXmark } from 'react-icons/fa6';
+import DashboardLayout from '../DashboardLayout';
 
 const StatusComponent = ({status}) =>{
   switch (status)
@@ -200,4 +201,5 @@ const page = ({order}) => {
   )
 }
 
+page.layout = page => <DashboardLayout children={page} tite="order" />
 export default page;

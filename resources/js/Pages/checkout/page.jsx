@@ -3,6 +3,7 @@ import OrderSummary from "./components/OrderSummary";
 import Order from "./components/Order";
 import { Box, Button, Container, Divider, Grid, Paper } from "@mui/material";
 import { router } from "@inertiajs/react";
+import Layout from "@/Layout";
 
 
 const page = ({data}) => {
@@ -71,4 +72,5 @@ const page = ({data}) => {
   )
 }
 
+page.layout = page => <Layout children={page} tite="checkout" />
 export default page;

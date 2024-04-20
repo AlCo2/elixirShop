@@ -5,6 +5,7 @@ import { FaPen, FaTrash } from 'react-icons/fa';
 import { FiAlertTriangle } from 'react-icons/fi';
 import { FaXmark } from 'react-icons/fa6';
 import { router } from '@inertiajs/react';
+import DashboardLayout from '../DashboardLayout';
 
 
 const columns = [
@@ -176,5 +177,5 @@ const page = ({categories}) => {
     </Container>
   )
 }
-
+page.layout = page => <DashboardLayout children={page} tite="category" />
 export default page;

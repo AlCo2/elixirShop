@@ -16,6 +16,7 @@ import { theme } from '@/theme';
 import { Head, useForm } from '@inertiajs/react';
 import { useEffect } from 'react';
 import InputError from '@/Components/InputError';
+import Layout from '@/Layout';
 
 const defaultTheme = createTheme();
 
@@ -136,3 +137,5 @@ export default function SignInSide({ status, canResetPassword }) {
     </>
   );
 }
+
+SignInSide.layout = page => <Layout children={page} tite="checkout" />

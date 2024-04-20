@@ -1,3 +1,4 @@
+import Layout from '@/Layout';
 import { Box, Button, Container, Divider } from '@mui/material';
 import { FaKey } from 'react-icons/fa';
 import { MdEmail } from "react-icons/md";
@@ -35,4 +36,5 @@ const page = () => {
   )
 }
 
+page.layout = page => <Layout children={page} tite="Checkorder" />
 export default page;

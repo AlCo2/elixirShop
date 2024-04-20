@@ -4,6 +4,7 @@ import { CgSortAz } from "react-icons/cg";
 import SuggestionCard from './components/SuggestionCard';
 import { BiSearch } from 'react-icons/bi';
 import { RiArrowUpDownFill } from 'react-icons/ri';
+import Layout from '@/Layout';
 
 const SortMenu = () =>{
   const [anchorEl, setAnchorEl] = useState(null);
@@ -244,4 +245,5 @@ const store = ({products}) => {
   )
 }
 
+store.layout = page => <Layout children={page} title="Store" />
 export default store;

@@ -1,6 +1,8 @@
 import { Box, Button, Container, Grid, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
+import { SparkLineChart } from "@mui/x-charts";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Bar, BarChart, Tooltip, XAxis, YAxis } from "recharts";
+import DashboardLayout from "./DashboardLayout";
 
 const data = [ 
   {name:'Jan', data:3200},
@@ -34,7 +36,7 @@ const page = () => {
                       <Typography sx={{color:'#7c62ff', fontSize:'1.875rem', lineHeight:'2.25rem', fontWeight:700, fontFamily:'Poppins'}}>6.003</Typography>
                       <p className="text-sm font-Poppins"><span className="text-green-500">1K+</span> <span className="text-xs opacity-70">Increase</span></p>
                     </Box>
-                    {/* <SparkLineChart area colors={['#7c62ff']} curve="natural" data={[7, 10, 8, 12, 10, 14, 13]} width={100} height={70} showHighlight showTooltip/> */}
+                    <SparkLineChart area colors={['#7c62ff']} curve="natural" data={[7, 10, 8, 12, 10, 14, 13]} width={100} height={70} showHighlight showTooltip/>
                   </Box>
                 </Grid>
                 <Grid xs={5.8} sx={{borderRadius:4, bgcolor:'white', borderWidth:1}} item>
@@ -47,7 +49,7 @@ const page = () => {
                       <Typography sx={{color:'#7c62ff', fontSize:'1.875rem', lineHeight:'2.25rem', fontWeight:700, fontFamily:'Poppins'}}>2334DH</Typography>
                       <p className="text-sm font-Poppins"><span className="text-green-500">2K+</span> <span className="text-xs opacity-70">Increase</span></p>
                     </Box>
-                    {/* <SparkLineChart area colors={['#7c62ff']} curve="natural" data={[10, 9, 8, 7, 9, 12, 11, 10, 7, 6, 7, 8, 9, 10, 12, 6]} width={100} height={70} showTooltip showHighlight/> */}
+                    <SparkLineChart area colors={['#7c62ff']} curve="natural" data={[10, 9, 8, 7, 9, 12, 11, 10, 7, 6, 7, 8, 9, 10, 12, 6]} width={100} height={70} showTooltip showHighlight/>
                   </Box>
                 </Grid>
                 <Grid item xs={12} sx={{borderRadius:4, bgcolor:'white', borderWidth:1, mt:2}} >
@@ -175,4 +177,5 @@ const page = () => {
   )
 }
 
+page.layout = page => <DashboardLayout children={page} tite="overview" />
 export default page;
