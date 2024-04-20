@@ -70,6 +70,8 @@ Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])->group(functio
     Route::patch('/api/category/{id}', [CategoryController::class, 'update']);
     Route::delete('/api/category/{id}', [CategoryController::class, 'delete']);
 
+    /* order API */
+    Route::patch('/api/order/{id}', [OrderController::class, 'updateOrderStatus']);
 });
 
 Route::middleware('auth')->group(function () {

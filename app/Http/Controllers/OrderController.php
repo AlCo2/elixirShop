@@ -39,4 +39,9 @@ class OrderController extends Controller
         $request->session()->forget(['cart', 'total']);
         return redirect('/')->with('success', 'your order has created succesfuly');
     }
+    public function updateOrderStatus($id, Request $request){
+        $order = Order::find($id);
+        $order->status_id = $request->input('status');
+        $order->save();
+    }
 }

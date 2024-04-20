@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('zip');
             $table->string('phone');
-            $table->foreign('order_id')->references('id')->on('orders');
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->timestamps();
         });
     }

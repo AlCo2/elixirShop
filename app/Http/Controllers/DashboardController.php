@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Order_detail;
 
 class DashboardController extends Controller
 {
@@ -26,7 +27,7 @@ class DashboardController extends Controller
         return Inertia::render('dashboard/product/page', compact('products', 'categories'));
     }
     public function order(){
-        $order = Order::all(); 
+        $order = Order::with('order_detail')->get();
         return Inertia::render('dashboard/order/page', compact('order'));
     }
 }

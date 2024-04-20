@@ -123,6 +123,7 @@ const page = ({order}) => {
                                             <MenuItem value={'Kenitra'}>Kenitra</MenuItem>
                                             <MenuItem value={'rabat'}>rabat</MenuItem>
                                             <MenuItem value={'fes'}>Fes</MenuItem>
+                                            <MenuItem value={'Kamoni'}>Kamoni</MenuItem>
                                         </Select>
                                     </FormControl>
                                 </Grid>

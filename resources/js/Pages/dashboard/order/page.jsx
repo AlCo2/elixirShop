@@ -5,6 +5,7 @@ import { FaPen, FaTrash } from 'react-icons/fa';
 import { FiAlertTriangle } from 'react-icons/fi';
 import { FaXmark } from 'react-icons/fa6';
 import DashboardLayout from '../DashboardLayout';
+import { router } from '@inertiajs/react';
 
 const StatusComponent = ({status}) =>{
   switch (status)
@@ -33,15 +34,55 @@ const StatusComponent = ({status}) =>{
 }
 
 const columns = [
-  { field: 'id', headerName: 'OrderId', width: 200 },
-  { field: 'user_id', headerName: 'Customer', width: 200 },
-  { field: 'total', headerName: 'Total', width: 200 },
+  { field: 'id', headerName: 'ID', width: 80 },
+  { 
+    field: 'customer',
+    headerName: 'Customer',
+    width: 150,
+    valueGetter: (value, row) =>(
+      row.order_detail.firstname + ' ' +row.order_detail.lastname
+    ),
+  },
+  { 
+    field: 'country',
+    headerName: 'Country',
+    width: 100,
+    valueGetter: (value, row) =>(
+      row.order_detail.country 
+    ),
+  },
+  { 
+    field: 'city',
+    headerName: 'City',
+    width: 100,
+    valueGetter: (value, row) =>(
+      row.order_detail.city 
+    ),
+  },
+  { 
+    field: 'address',
+    headerName: 'Address',
+    width: 130,
+    valueGetter: (value, row) =>(
+      row.order_detail.address 
+    ),
+  },
   { 
     field: 'status_id',
-    headerName: 'Status', 
-    width: 120,
+    headerName: 'Status',
+    width: 110,
+    headerAlign: 'center',
+    align:'center',
     renderCell: ({row}) =>(
       <StatusComponent status={row.status_id}/>
+    ),
+  },
+  { 
+    field: 'total',
+    headerName: 'Total',
+    width: 100,
+    valueGetter: (value, row) =>(
+      value + 'DH'
     ),
   },
   {
@@ -121,7 +162,22 @@ function OrderModelComponent({order}) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [values, setValues] = useState({
+    status:order.status_id,
+  })
 
+  function handleSelectChange(e) {
+    const { name, value } = e.target;
+    setValues(prevValues => ({
+        ...prevValues,
+        [name]: value,
+    }));
+  }
+  function handleUpdate(e) {
+    e.preventDefault();
+    router.patch('/api/order/'+order.id, values);
+    handleClose();
+  }
   return (
     <div>
       <button onClick={handleOpen} className='bg-liliana-background rounded-md border text-black opacity-70 p-2'><FaPen className='text-sm'/></button>
@@ -140,13 +196,13 @@ function OrderModelComponent({order}) {
                 <div>
                 <label className='text-sm font-semibold font-Poppins opacity-70'>Customer</label>
                 </div>
-                <p className='ml-2 font-Opensans'>{order.customer}</p>
+                <p className='ml-2 font-Opensans'>{order.order_detail.firstname + " " + order.order_detail.lastname}</p>
             </Grid>
             <Grid xs={12} md={5.8} item>
                 <div>
                     <label className='text-sm font-semibold font-Poppins opacity-70'>Total</label>
                 </div>
-                <p className='ml-2 font-Poppins'>{order.total}</p>
+                <p className='ml-2 font-Poppins'>{order.total}DH</p>
             </Grid>
             <Grid xs={12} md={5.8} item>
                 <div>
@@ -154,19 +210,21 @@ function OrderModelComponent({order}) {
                 </div>
                 <FormControl fullWidth>
                   <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
+                      labelId="status"
+                      id="status"
+                      name='status'
                       className='ml-2 h-8 text-black'
-                      defaultValue={!order?null:order.status}
+                      defaultValue={!order?"":order.status_id}
+                      onChange={handleSelectChange}
                   >
-                      <MenuItem value={1}>Pending</MenuItem>
-                      <MenuItem value={2}>Completed</MenuItem> 
-                      <MenuItem value={2}>Declined</MenuItem> 
+                      <MenuItem value={1} >Pending</MenuItem>
+                      <MenuItem value={2} >Completed</MenuItem> 
+                      <MenuItem value={3} >Declined</MenuItem> 
                   </Select>
                 </FormControl>
             </Grid>
             <Grid item sx={{display:'flex', justifyContent:'space-between',flexDirection:'row-reverse'}} xs={12} mt={2}>
-              <Button onClick={handleClose} variant='contained' size='small' color='primary' sx={{borderRadius:'0.375rem'}}>Update</Button>
+              <Button onClick={handleUpdate} variant='contained' size='small' color='primary' sx={{borderRadius:'0.375rem'}}>Update</Button>
               <Button onClick={handleClose} variant='contained' size='small' color='error' sx={{borderRadius:'0.375rem'}}>Cancle</Button>
             </Grid>
           </Grid>
@@ -177,6 +235,7 @@ function OrderModelComponent({order}) {
 }
 
 const page = ({order}) => {
+  console.log(order);
   return (
     <Container>
       <Grid container mt={4}>
