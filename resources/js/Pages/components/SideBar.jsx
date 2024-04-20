@@ -1,5 +1,3 @@
-'use client'
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -19,9 +17,10 @@ import { RiArrowDropDownLine } from 'react-icons/ri';
 import { CiLogin } from "react-icons/ci";
 import { CiCircleCheck } from "react-icons/ci";
 import { RiShieldUserFill } from "react-icons/ri";
+import { useState } from 'react';
 
 export default function SideBar() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);

@@ -1,5 +1,4 @@
 import { Box, Button, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
-import React from 'react'
 import { FaShoppingBasket } from 'react-icons/fa';
 
 const SuggestionCard = ({id, title, image, price}) => {

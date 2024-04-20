@@ -26,7 +26,7 @@ class DashboardController extends Controller
         return Inertia::render('dashboard/product/page', compact('products', 'categories'));
     }
     public function order(){
-        $bigorder = Order::all(); 
+        $order = Order::all(); 
         return Inertia::render('dashboard/order/page', compact('order'));
     }
 }

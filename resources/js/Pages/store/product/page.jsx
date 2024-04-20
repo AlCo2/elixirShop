@@ -1,5 +1,4 @@
 import { Box, Button, Chip, Container, Divider, Grid, Paper, Rating, Typography } from '@mui/material';
-import React from 'react'
 import { BiCartAdd, BiInfoCircle, BiPlusCircle } from 'react-icons/bi';
 import SuggestionCard from '../components/SuggestionCard';
 import { CiDeliveryTruck } from 'react-icons/ci';

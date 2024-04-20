@@ -1,4 +1,3 @@
-import React from 'react'
 import { Box, Button, Container, Divider } from '@mui/material';
 import { FaKey } from 'react-icons/fa';
 import { MdEmail } from "react-icons/md";

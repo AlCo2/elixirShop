@@ -1,5 +1,3 @@
-'use client'
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -14,10 +12,11 @@ import { RiShieldUserFill } from "react-icons/ri";
 import { Link, usePage } from '@inertiajs/react';
 import { BiUser } from 'react-icons/bi';
 import { List } from '@mui/material';
+import { Fragment, useState } from 'react';
 
 export default function AccountMenu() {
   const { auth } = usePage().props;
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -26,7 +25,7 @@ export default function AccountMenu() {
     setAnchorEl(null);
   };
   return (
-    <React.Fragment>
+    <Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         <Tooltip>
           <IconButton
@@ -125,6 +124,6 @@ export default function AccountMenu() {
         </List>
         }
       </Menu>
-    </React.Fragment>
+    </Fragment>
   );
 }

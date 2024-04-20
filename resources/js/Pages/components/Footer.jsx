@@ -1,5 +1,4 @@
 import { Box, Button, Container, Grid } from '@mui/material';
-import React from 'react'
 import { FaFacebook, FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa';
 const Footer = () => {
   return (
