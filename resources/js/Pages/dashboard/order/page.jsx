@@ -235,7 +235,6 @@ function OrderModelComponent({order}) {
 }
 
 const page = ({order}) => {
-  console.log(order);
   return (
     <Container>
       <Grid container mt={4}>

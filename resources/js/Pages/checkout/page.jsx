@@ -58,9 +58,13 @@ const page = ({data}) => {
           </Grid>
           <Grid item xs={12} md={2.5}>
             <OrderSummary order_summary={order_summary}/>
+            {data.length>0?
             <Box sx={{display:'flex', justifyContent:'center', mt:2}}>
               <Button variant='contained' href="/checkout/fastcheckout" color="liliana_third">Continue</Button>
             </Box>
+            :
+            <></>
+            }
           </Grid>
         </Grid>
         <Box py={4}>

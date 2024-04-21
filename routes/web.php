@@ -29,7 +29,7 @@ Route::get('/checkout',[CheckoutController::class, 'index']);
 Route::get('/checkout/fastcheckout',[CheckoutController::class, 'checkout']);
 
 
-/* Post request */
+/*         Post request          */
 Route::post('/api/cart/add', [CartController::class, 'addToCart']);
 Route::post('/api/cart/sub', [CartController::class, 'subFromCart']);
 Route::post('/api/cart/delete', [CartController::class, 'deleteFromCart']);
@@ -45,9 +45,7 @@ Route::get('/promotions', function(){
 
 /* finish of temp router  */
 Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('dashboard/page');
-    })->name('dashboard');
+    route::get('/dashboard', [DashboardController::class, 'overview']);
     route::get('/dashboard/customer', [DashboardController::class, 'customer']);
     route::get('/dashboard/product', [DashboardController::class, 'product']);
     route::get('/dashboard/order', [DashboardController::class, 'order']);

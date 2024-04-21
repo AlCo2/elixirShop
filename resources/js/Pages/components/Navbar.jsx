@@ -6,7 +6,7 @@ import SideBar from './SideBar';
 import { usePage } from '@inertiajs/react';
 
 const Navbar = () => {
-  const { cart } = usePage().props;
+  const { cart, auth } = usePage().props;
   const pathname = window.location.pathname
   return (
     <>
@@ -20,6 +20,11 @@ const Navbar = () => {
                 <li><a className={`duration-300 font-semibold hover:text-black flex items-center gap-1 ${pathname==='/'?'text-black':''}`} href="/"><BsHouse/>Home</a></li>
                 <li><a className={`duration-300 font-semibold hover:text-black flex items-center gap-1 ${pathname==='/store'?'text-black':''}`}  href="/store"><BsShop/>Store</a></li>
                 <li><a className={`duration-300 font-semibold hover:text-black flex items-center gap-1 ${pathname==='/promotions'?'text-black':''}`} href="/promotions"><BsTicket/>Promotions</a></li>
+                {auth.user && auth.user.role_id==1?
+                <li><a className={`duration-300 font-semibold hover:text-black flex items-center gap-1 ${pathname==='/promotions'?'text-black':''}`} href="/dashboard"><BsTicket/>Dashboard</a></li>
+                :
+                <></>
+                }
             </ul>
         </div>
         <div className='flex mr-4 items-center'>

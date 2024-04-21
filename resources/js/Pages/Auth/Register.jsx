@@ -23,6 +23,7 @@ export default function SignUp() {
   const { data, setData, post, processing, errors, reset } = useForm({
     name: '',
     email: '',
+    phone: '',
     password: '',
     password_confirmation: '',
 });
@@ -66,11 +67,13 @@ const submit = (e) => {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         autoComplete="given-name"
-                        name="firstName"
+                        name="name"
                         required
                         fullWidth
-                        id="firstName"
+                        id="name"
                         label="First Name"
+                        onChange={(e) => setData('name', e.target.value)}
+                        value={data.name}
                         autoFocus
                       />
                     </Grid>
@@ -92,6 +95,8 @@ const submit = (e) => {
                         label="Email Address"
                         name="email"
                         autoComplete="email"
+                        onChange={(e) => setData('email', e.target.value)}
+                        value={data.email}
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -103,6 +108,21 @@ const submit = (e) => {
                         type="password"
                         id="password"
                         autoComplete="new-password"
+                        onChange={(e) => setData('password', e.target.value)}
+                        value={data.password}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        required
+                        fullWidth
+                        name="password_confirmation"
+                        label="Confirm Password"
+                        type="password"
+                        id="password_confirmation"
+                        autoComplete="new-password"
+                        onChange={(e) => setData('password_confirmation', e.target.value)}
+                        value={data.password_confirmation}
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -112,6 +132,8 @@ const submit = (e) => {
                         name="phone"
                         label="Phone"
                         id="phone"
+                        onChange={(e) => setData('phone', e.target.value)}
+                        value={data.phone}
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -129,6 +151,7 @@ const submit = (e) => {
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
                     color='liliana_primary'
+                    onSubmit={submit}
                   >
                     Sign Up
                   </Button>

@@ -1,7 +1,5 @@
 import { Box, Button, Container, Divider, FormControl, Grid, MenuItem, Select } from '@mui/material';
-import React, { useEffect, useState } from 'react'
-import Navbar from '../../components/Navbar';
-import { gridColumnLookupSelector } from '@mui/x-data-grid';
+import React, { useState } from 'react'
 import { router } from '@inertiajs/react';
 import Layout from '@/Layout';
 

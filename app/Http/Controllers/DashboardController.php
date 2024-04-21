@@ -12,6 +12,10 @@ use App\Models\Order_detail;
 
 class DashboardController extends Controller
 {
+    public function overview(){
+        $products = Product::limit(5)->with('category')->get();
+        return Inertia::render('dashboard/page', compact('products'));
+    }
     public function customer(){
         $customers = User::all();
         return Inertia::render('dashboard/customer/page', compact('customers'));
