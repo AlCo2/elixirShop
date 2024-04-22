@@ -10,11 +10,12 @@ import DashboardLayout from '../DashboardLayout';
 const columns = [
   { field: 'id', headerName: 'ID', width: 70 },
   { field: 'name', headerName: 'Username', width: 130 },
-  { field: 'email', headerName: 'Email',width: 200 },
+  { field: 'email', headerName: 'Email',width: 160 },
+  { field: 'phone', headerName: 'Phone',width: 120 },
   {
-    field: 'role',
+    field: 'role_id',
     headerName: 'Role',
-    width: 200,
+    width: 100,
     sortable: false,
     valueGetter: (value, row) => `${value===1?"Admin":"Customer"}`,
   },
@@ -32,12 +33,6 @@ const columns = [
       </div>
     ),
   }
-];
-const data = [
-  {id:'1', firstname:'Admin', lastname:'', email:'admin@gmail.com', role:1},
-  {id:'2', firstname:'John', lastname:'remoro', email:'john@gmail.com', role:2},
-  {id:'3', firstname:'sandra', lastname:'denero', email:'sandra@gmail.com', role:2},
-  {id:'4', firstname:'user122', lastname:'davinchi',email:'user@gmail.com', role:2},
 ];
 
 const style = {  position: 'absolute',

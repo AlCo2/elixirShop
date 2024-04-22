@@ -219,7 +219,7 @@ const store = ({products}) => {
               <Paper className='p-5 pb-1 rounded-md'>
                 <Grid container alignItems={'center'} justifyContent={'space-between'}>
                   <Grid item>
-                    <p className='font-bold text-sm opacity-70'>23 Items</p>
+                    <p className='font-bold text-sm opacity-70'>{products.length} Items</p>
                   </Grid>
                   <Grid item display={'flex'} alignItems={'center'} gap={2}>
                     <Box display={'flex'} alignItems={'center'}>
@@ -233,7 +233,7 @@ const store = ({products}) => {
               </Paper>
               <Grid container gap={1} marginY={5} justifyContent={{xs:'center'}} mt={2}>
                 { products.map((product)=>(
-                  <SuggestionCard key={product.id} id={product.id} title={product.title} image={'images/'+product.image} price={product.price}/>
+                  <SuggestionCard key={product.id} id={product.id} title={product.title} image={product.image} price={product.price}/>
                 ))
                 }
               </Grid>

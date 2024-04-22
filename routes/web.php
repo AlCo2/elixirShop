@@ -13,16 +13,11 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('page', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+/* temp */
+Route::get('/test', [StoreController::class, 'test']);
 
 /* main Pages */
+Route::get('/',[StoreController::class, 'home']);
 Route::get('/store',[StoreController::class, 'index']);
 Route::get('/store/product/{id}',[StoreController::class, 'product']);
 Route::get('/checkout',[CheckoutController::class, 'index']);

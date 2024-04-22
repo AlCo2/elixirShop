@@ -43,7 +43,7 @@ const page = ({data}) => {
                   </thead>
                   <tbody>
                     {data.map((product)=>(
-                      <Order key={product.product.id} image={'/images/' + product.product.image} id={product.product.id} name={product.product.title} price={product.product.price * product.Q} Q={product.Q}/>
+                      <Order key={product.product.id} image={product.product.image} id={product.product.id} name={product.product.title} price={product.product.price * product.Q} Q={product.Q}/>
                     ))}
                   </tbody>
                 </table>

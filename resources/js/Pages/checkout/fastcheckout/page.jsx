@@ -119,8 +119,8 @@ const page = ({order}) => {
                                             onChange={handleSelectChange}
                                         >
                                             <MenuItem value={'Kenitra'}>Kenitra</MenuItem>
-                                            <MenuItem value={'rabat'}>rabat</MenuItem>
-                                            <MenuItem value={'fes'}>Fes</MenuItem>
+                                            <MenuItem value={'Rabat'}>rabat</MenuItem>
+                                            <MenuItem value={'Fes'}>Fes</MenuItem>
                                             <MenuItem value={'Kamoni'}>Kamoni</MenuItem>
                                         </Select>
                                     </FormControl>

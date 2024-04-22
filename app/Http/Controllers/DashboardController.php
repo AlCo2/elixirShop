@@ -9,12 +9,19 @@ use App\Models\Product;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Order_detail;
+use App\Models\Order_item;
 
 class DashboardController extends Controller
 {
     public function overview(){
         $products = Product::limit(5)->with('category')->get();
-        return Inertia::render('dashboard/page', compact('products'));
+        $total_sales = 0;
+        $order_item = Order_item::with('order')->get();
+        foreach ($order_item as $order){
+            if ($order->order->status_id === 2)
+                $total_sales += $order->total;
+        }
+        return Inertia::render('dashboard/page', compact('products', 'total_sales'));
     }
     public function customer(){
         $customers = User::all();

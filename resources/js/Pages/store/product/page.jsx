@@ -31,7 +31,7 @@ const product = ({product, products}) => {
                             </Grid>
                             <Grid item xs={12} sm={6} sx={{flexDirection:{sm:'row-reverse'}}} display={{sm:'flex'}} gap={2}>
                                 <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
-                                    <img src={"/images/"+product.image} className='max-h-80 border mb-2' alt="packfakhama" />
+                                    <img src={product.image} className='max-h-80 border mb-2' alt="packfakhama" />
                                 </Box>
                                 <Box sx={{display:'flex', gap:1, justifyContent:'center', flexDirection:{sm:'column'}}}>
                                     <img src="/assets/kiko.jpg" className='max-w-10 cursor-pointer hover:scale-105 duration-300 border-2 border-liliana-primary rounded-md' alt="kiko"/>
@@ -85,7 +85,7 @@ const product = ({product, products}) => {
             <Divider/>
             <Grid container gap={1} justifyContent={{xs:'center', sm:'left'}} mt={2}>
                 {products.map((product)=>(
-                    <SuggestionCard key={product.id} id={product.id} title={product.title} image={'/images/'+product.image} price={product.price}/>
+                    <SuggestionCard key={product.id} id={product.id} title={product.title} image={product.image} price={product.price}/>
                 ))}
             </Grid>
         </Container>

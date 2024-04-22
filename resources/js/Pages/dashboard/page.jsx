@@ -22,7 +22,7 @@ const TableCellDate = ({date}) =>{
     </TableCell>
   )
 }
-const page = ({products}) => {
+const page = ({products, total_sales}) => {
   return (
     <Container>
       <Box sx={{p:2}}>
@@ -54,7 +54,7 @@ const page = ({products}) => {
                   </Box>
                   <Box sx={{pl:2, display:'flex', alignItems:'center'}}>
                     <Box sx={{ display:'flex', flexDirection:'column', justifyContent:'space-between', height:70}}>
-                      <Typography sx={{color:'#7c62ff', fontSize:'1.875rem', lineHeight:'2.25rem', fontWeight:700, fontFamily:'Poppins'}}>2334DH</Typography>
+                      <Typography sx={{color:'#7c62ff', fontSize:'1.875rem', lineHeight:'2.25rem', fontWeight:700, fontFamily:'Poppins'}}>{total_sales}DH</Typography>
                       <p className="text-sm font-Poppins"><span className="text-green-500">2K+</span> <span className="text-xs opacity-70">Increase</span></p>
                     </Box>
                     <SparkLineChart area colors={['#7c62ff']} curve="natural" data={[10, 9, 8, 7, 9, 12, 11, 10, 7, 6, 7, 8, 9, 10, 12, 6]} width={100} height={70} showTooltip showHighlight/>

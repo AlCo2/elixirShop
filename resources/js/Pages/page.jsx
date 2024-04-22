@@ -6,7 +6,7 @@ import ServiceIntro from "./components/home/ServiceIntro";
 import { usePage } from "@inertiajs/react";
 import Layout from "@/Layout";
 
-export default function Home() {
+export default function Home({featured, bestsellers, latest}) { 
   const { flash } = usePage().props;
   return (
     <>
@@ -43,30 +43,39 @@ export default function Home() {
           <p className="font-Opensans text-white">See Our Most featured Products</p>
         </div>
         <Grid container justifyContent={'center'} rowGap={2} columnGap={5} className="my-10">
-          <IntroCard title='Pack انوثة' image='/assets/anotapack.jpeg' price={199}/>
-          <IntroCard title='Pack ITARA' image='/assets/packitara.jpeg' price={210}/>
-          <IntroCard title='Pack AL FAKHAMA' image='/assets/packalfakhama.jpeg' price={300}/>
-          <IntroCard title='Pack ITARA' image='/assets/packitara.jpeg' price={210}/>
+          {featured.length>1?
+            featured.map((product)=>(
+            <IntroCard key={product.id} title={product.title} image={product.image} price={product.price}/>
+          ))
+          :
+          <>There is no products Available</>
+          }
         </Grid>
         <div className="text-center mt-10 bg-liliana-secondary rounded-md py-2">
           <h1 className="text-5xl font-Opensans max-xs:text-3xl text-white">Bestsellers</h1>
           <p className="font-Opensans text-white">See Best Selling Products</p>
         </div>
         <Grid container justifyContent={'center'} rowGap={2} columnGap={5} className="my-10">
-          <IntroCard title='GLOSSE KIKO MILANO' image='/assets/kiko.jpg' price={70}/>
-          <IntroCard title='اميرة العرب ORIGINAL 100ML' image='/assets/amirataraboriginal.jpg' price={250}/>
-          <IntroCard title='PHILOS 100ML ORIGINAL' image='/assets/philos.jpg' price={300}/>
-          <IntroCard title='اميرة العرب ORIGINAL 100ML' image='/assets/amirataraboriginal.jpg' price={250}/>
+          {bestsellers.length>1?
+            bestsellers.map((product)=>(
+            <IntroCard key={product.id} title={product.title} image={product.image} price={product.price}/>
+          ))
+          :
+          <>There is no products Available</>
+          }
         </Grid>
         <div className="text-center mt-10 bg-liliana-secondary rounded-md py-2">
           <h1 className="text-5xl font-Opensans max-xs:text-3xl text-white">Latest Products</h1>
           <p className="font-Opensans text-white">See new Products</p>
         </div>
         <Grid container justifyContent={'center'} rowGap={2} columnGap={5} className="my-10">
-          <IntroCard title='Pack AL FAKHAMA' image='/assets/packalfakhama.jpeg' price={300}/>
-          <IntroCard title='Pack ITARA' image='/assets/packitara.jpeg' price={210}/>
-          <IntroCard title='Pack انوثة' image='/assets/anotapack.jpeg' price={199}/>
-          <IntroCard title='Pack ITARA' image='/assets/packitara.jpeg' price={210}/>
+          {latest.length>1?
+            latest.map((product)=>(
+            <IntroCard key={product.id} title={product.title} image={product.image} price={product.price}/>
+          ))
+          :
+          <>There is no products Available</>
+          }
         </Grid>
       </Container>
     </>
