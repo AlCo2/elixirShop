@@ -1,10 +1,11 @@
-import { Box, List, Button, Checkbox, Container, FormControlLabel, FormGroup, Grid, IconButton, Menu, MenuItem, Paper } from '@mui/material';
+import { Box, List, Button, Checkbox, Container, FormControlLabel, FormGroup, Grid, IconButton, Menu, MenuItem, Paper, Pagination, PaginationItem } from '@mui/material';
 import { useState } from 'react';
 import { CgSortAz } from "react-icons/cg";
 import SuggestionCard from './components/SuggestionCard';
 import { BiSearch } from 'react-icons/bi';
 import { RiArrowUpDownFill } from 'react-icons/ri';
 import Layout from '@/Layout';
+import { Link } from '@inertiajs/react';
 
 const SortMenu = () =>{
   const [anchorEl, setAnchorEl] = useState(null);
@@ -168,6 +169,7 @@ const FilterMenu = () =>{
 }
 
 const store = ({products}) => {
+  const [page, setPage] = useState(products.current_page);
   const [categories, setCategories] = useState([
     {id:1,name:'Brum', status:false},
     {id:2,name:'Corps et bain', status:false},
@@ -198,7 +200,9 @@ const store = ({products}) => {
       )
     );
   };
-
+  const handlePageChange = (e, value) =>{
+    setPage(value);
+  }
   return (
     <>
       <div className='min-h-screen pt-5 bg-liliana-background'>
@@ -232,13 +236,26 @@ const store = ({products}) => {
                 </Grid>
               </Paper>
               <Grid container gap={1} marginY={5} justifyContent={{xs:'center'}} mt={2}>
-                { products.map((product)=>(
+                { products.data.map((product)=>(
                   <SuggestionCard key={product.id} id={product.id} title={product.title} image={product.images[0].url} price={product.price}/>
                 ))
                 }
               </Grid>
             </Grid>
           </Grid>
+          <Box sx={{display:'flex', justifyContent:'center'}}>
+            <Pagination onChange={handlePageChange}
+              renderItem={(item) =>(
+              <PaginationItem
+                component={Link}
+                href={'/store?page='+item.page}
+                {...item}
+              />
+            )} 
+            count={products.last_page}
+            page={page} 
+            sx={{py:5}}/>
+          </Box>
         </Container>
       </div>
     </>

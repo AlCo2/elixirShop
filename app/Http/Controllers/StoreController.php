@@ -19,7 +19,7 @@ class StoreController extends Controller
         return Inertia::render('page', compact('featured', 'bestsellers', 'latest'));
     }
     public function index(){
-        $products = Product::with('images')->get();
+        $products = Product::with('images')->paginate(12);
         return Inertia::render('store/page', compact('products'));
     }
 
