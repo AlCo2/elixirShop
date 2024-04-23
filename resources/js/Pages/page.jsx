@@ -45,7 +45,7 @@ export default function Home({featured, bestsellers, latest}) {
         <Grid container justifyContent={'center'} rowGap={2} columnGap={5} className="my-10">
           {featured.length>1?
             featured.map((product)=>(
-            <IntroCard key={product.id} title={product.title} image={product.image} price={product.price}/>
+            <IntroCard key={product.id} id={product.id} title={product.title} image={product.images[0].url} price={product.price}/>
           ))
           :
           <>There is no products Available</>
@@ -58,7 +58,7 @@ export default function Home({featured, bestsellers, latest}) {
         <Grid container justifyContent={'center'} rowGap={2} columnGap={5} className="my-10">
           {bestsellers.length>1?
             bestsellers.map((product)=>(
-            <IntroCard key={product.id} title={product.title} image={product.image} price={product.price}/>
+            <IntroCard key={product.id} id={product.id} title={product.title} image={product.images[0].url} price={product.price}/>
           ))
           :
           <>There is no products Available</>
@@ -71,7 +71,7 @@ export default function Home({featured, bestsellers, latest}) {
         <Grid container justifyContent={'center'} rowGap={2} columnGap={5} className="my-10">
           {latest.length>1?
             latest.map((product)=>(
-            <IntroCard key={product.id} title={product.title} image={product.image} price={product.price}/>
+            <IntroCard key={product.id} id={product.id} title={product.title} image={product.images[0].url} price={product.price}/>
           ))
           :
           <>There is no products Available</>

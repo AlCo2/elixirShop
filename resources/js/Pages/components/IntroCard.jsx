@@ -1,6 +1,6 @@
 import { Box, Button, Card, CardContent, CardMedia, Grid, Typography} from '@mui/material';
 import { FaShoppingBasket } from 'react-icons/fa';
-const IntroCard = ({title, image, price}) => {
+const IntroCard = ({id, title, image, price}) => {
   return (
     <Grid item >
       <Card sx={{width:240, ":hover":{boxShadow:5}, cursor:'pointer'}}>
@@ -19,8 +19,8 @@ const IntroCard = ({title, image, price}) => {
           </CardContent>
         </Box>
         <Box display={'flex'} margin={2} justifyContent={'space-between'} alignItems={'center'}>
-          <Typography fontFamily={'Poppins'} variant="body2">{price}.00DH</Typography>
-          <Button href='/store/product/1' variant="contained" color='liliana_secondary'><FaShoppingBasket/></Button>
+          <Typography fontFamily={'Poppins'} variant="body2">{price}DH</Typography>
+          <Button href={'/store/product/'+id} variant="contained" color='liliana_secondary'><FaShoppingBasket/></Button>
         </Box>
       </Card>
     </Grid>

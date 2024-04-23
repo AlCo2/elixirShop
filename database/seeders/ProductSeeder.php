@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
+use App\Models\Product;
 
 class ProductSeeder extends Seeder
 {
@@ -18,15 +19,19 @@ class ProductSeeder extends Seeder
         $jsonData = $response->json();
         $products = [];
         foreach ($jsonData as $product){
-            $products[] = [
-                'title'=>$product['title'],
-                'price'=>$product['price'],
-                'category_id'=>$product['category']['id'],
-                'description'=>$product['description'],
-                'image'=>$product['images'][0],
-                'Qty'=>100,
-            ];
+            $images = [];
+            foreach ($product['images'] as $image){
+                $images[] = $image;
+                DB::table('images')->updateOrInsert(['url'=>$image]);
+            }
+            $p = new Product();
+            $p->title = $product['title'];
+            $p->price = $product['price'];
+            $p->category_id = $product['category']['id'];
+            $p->description = $product['description'];
+            $p->Qty = 100;
+            $p->save();
+            $p->images()->sync($images);
         }
-        DB::table('products')->insert($products);
     }
 }

@@ -16,29 +16,28 @@ class StoreController extends Controller
     public function test(){
         $response = Http::get('https://api.escuelajs.co/api/v1/products');
         $jsonData = $response->json();
-        $categories = [];
+        $products = [];
         foreach ($jsonData as $product){
-            if (!in_array(['name'=>$product['category']], $categories))
-                $categories[] = ['name'=>$product['category']];
+            $images = [];
+            dd($product['images']);
         }
-        return $categories;
     }
     /* end */
 
     public function home(){
-        $featured = Product::inRandomOrder()->limit(4)->get();
-        $bestsellers = Product::inRandomOrder()->limit(4)->get();
-        $latest = Product::inRandomOrder()->limit(4)->get();
+        $featured = Product::inRandomOrder()->limit(4)->with('images')->get();
+        $bestsellers = Product::inRandomOrder()->limit(4)->with('images')->get();
+        $latest = Product::inRandomOrder()->limit(4)->with('images')->get();
         return Inertia::render('page', compact('featured', 'bestsellers', 'latest'));
     }
     public function index(){
-        $products = Product::all();
+        $products = Product::with('images')->get();
         return Inertia::render('store/page', compact('products'));
     }
 
     public function product($id){
-        $product = Product::with('category')->find($id);
-        $products = Product::limit(5)->get();
+        $product = Product::with('category', 'images')->find($id);
+        $products = Product::inRandomOrder()->limit(5)->with('images')->get();
         return Inertia::render('store/product/page', compact('product', 'products'));
     }
 }

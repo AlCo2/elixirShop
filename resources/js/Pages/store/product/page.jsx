@@ -5,8 +5,11 @@ import { CiDeliveryTruck } from 'react-icons/ci';
 import { FaMoneyBill } from 'react-icons/fa';
 import { router } from '@inertiajs/react';
 import Layout from '@/Layout';
+import { useState } from 'react';
 
 const product = ({product, products}) => {
+    const [selectedImage, setSelectedImage] = useState(0)
+
     function addToCart(e){
         e.preventDefault();
         const data = {
@@ -31,12 +34,12 @@ const product = ({product, products}) => {
                             </Grid>
                             <Grid item xs={12} sm={6} sx={{flexDirection:{sm:'row-reverse'}}} display={{sm:'flex'}} gap={2}>
                                 <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
-                                    <img src={product.image} className='max-h-80 border mb-2' alt="packfakhama" />
+                                    <img src={product.images[selectedImage]?product.images[selectedImage].url:null} className='max-h-80 border mb-2' alt="packfakhama" />
                                 </Box>
                                 <Box sx={{display:'flex', gap:1, justifyContent:'center', flexDirection:{sm:'column'}}}>
-                                    <img src="/assets/kiko.jpg" className='max-w-10 cursor-pointer hover:scale-105 duration-300 border-2 border-liliana-primary rounded-md' alt="kiko"/>
-                                    <img src="/assets/amirataraboriginal.jpg" className='max-w-10 border cursor-pointer hover:scale-105 duration-300 hover:border-2 hover:border-liliana-primary hover:rounded-md' alt="amiratarab" />
-                                    <img src="/assets/product.webp" className='max-w-10 border cursor-pointer hover:scale-105 duration-300 hover:border-2 hover:border-liliana-primary hover:rounded-md' alt="packfakhama" />
+                                    <img src={product.images[0]?product.images[0].url:null} onClick={()=>setSelectedImage(0)} className={'max-w-10 cursor-pointer hover:scale-105 duration-300 hover:border-liliana-primary hover:rounded-md '+ (selectedImage===0?'border-2 border-liliana-primary rounded-md':'')} alt={product.title}/>
+                                    <img src={product.images[1]?product.images[1].url:null} onClick={()=>setSelectedImage(1)} className={'max-w-10 cursor-pointer hover:scale-105 duration-300 hover:border-liliana-primary hover:rounded-md '+ (selectedImage===1?'border-2 border-liliana-primary rounded-md':'')} alt={product.title} />
+                                    <img src={product.images[2]?product.images[2].url:null} onClick={()=>setSelectedImage(2)} className={'max-w-10 cursor-pointer hover:scale-105 duration-300 hover:border-liliana-primary hover:rounded-md '+ (selectedImage===2?'border-2 border-liliana-primary rounded-md':'')} alt={product.title} />
                                 </Box>
                             </Grid>
                             <Grid item xs={12} sm={6} m={6} sx={{flexDirection:'column'}} display={'flex'} justifyContent={'space-between'}>
@@ -85,7 +88,7 @@ const product = ({product, products}) => {
             <Divider/>
             <Grid container gap={1} justifyContent={{xs:'center', sm:'left'}} mt={2}>
                 {products.map((product)=>(
-                    <SuggestionCard key={product.id} id={product.id} title={product.title} image={product.image} price={product.price}/>
+                    <SuggestionCard key={product.id} id={product.id} title={product.title} image={product.images[0].url} price={product.price}/>
                 ))}
             </Grid>
         </Container>
