@@ -7,7 +7,7 @@ const Product = ({title, total, image}) =>{
     <Box sx={{my:2, display:'flex', alignItems:'center', justifyContent:'space-between',gap:5}}>
       <Box sx={{display:'flex', alignItems:'center', gap:5}}>
         <Box sx={{maxWidth:50, maxHeight:50, borderRadius:50}}>
-          <img src={image} alt={title} />
+          <img className='rounded-md' src={image} alt={title} />
         </Box>
         <p className='opacity-70 text-sm font-Poppins'>{title}</p>
       </Box>

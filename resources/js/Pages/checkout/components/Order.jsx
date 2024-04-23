@@ -1,4 +1,4 @@
-import { router } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import { Box, Button, ButtonGroup } from "@mui/material";
 import { useState } from "react";
 import { BsTrashFill } from "react-icons/bs";
@@ -42,7 +42,7 @@ const Order = ({id, name, image, price, Q}) =>{
 
     return(
     <tr className=''>
-    <td className='flex gap-4 items-center p-2'><Box minWidth={30} maxWidth={60}><img className='rounded-sm' src={`${image}`} alt="" /></Box>{name}</td>
+    <td className='flex gap-4 items-center p-2'><Link href={"/store/product/"+id}><Box minWidth={30} maxWidth={60}><img className='rounded-sm' src={`${image}`} alt="" /></Box></Link><Link href={"/store/product/"+id}>{name}</Link></td>
     <td className='text-center'><QuentityBar id={id} q={Q}/></td>
     <td className="text-center">{price}DH</td>
     <td className='text-red-500 px-4'><BsTrashFill className='cursor-pointer' onClick={deleteFromCart}/></td>

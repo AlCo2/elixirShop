@@ -1,9 +1,37 @@
-import { Box, Button, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
+import { router } from '@inertiajs/react';
+import { Alert, Box, Button, Card, CardContent, CardMedia, Grid, Snackbar, Typography } from '@mui/material';
+import { useState } from 'react';
 import { FaShoppingBasket } from 'react-icons/fa';
+import { IoIosAdd } from 'react-icons/io';
 
 const SuggestionCard = ({id, title, image, price}) => {
+  const [open, setOpen] = useState(false);
+  function addToCart(e){
+    e.preventDefault();
+    const data = {
+        product_id:id
+    }
+    router.post('/api/cart/add', data, {preserveScroll:true});
+    setOpen(true);
+  }
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
   return (
     <Grid item >
+      <Snackbar
+      open={open}
+      autoHideDuration={5000}
+      onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity='success' variant='filled' sx={{width:'100%'}}>
+          {title} added to cart
+        </Alert>
+      </Snackbar>
       <Card sx={{width:200, ":hover":{boxShadow:5}, cursor:'pointer'}}>
         <Box mt={1} display={'flex'} justifyContent={'center'}>
           <CardMedia component={'img'}
@@ -19,9 +47,12 @@ const SuggestionCard = ({id, title, image, price}) => {
             </Typography>
           </CardContent>
         </Box>
-        <Box display={'flex'} margin={2} justifyContent={'space-between'} alignItems={'center'}>
+        <Box display={'flex'} margin={2} mt={0} justifyContent={'space-between'} alignItems={'center'}>
           <Typography fontFamily={'Poppins'} variant="body2">{price}DH</Typography>
-          <Button href={'/store/product/'+id} variant="contained" color='liliana_secondary'><FaShoppingBasket/></Button>
+          <Box sx={{display:'flex', flexDirection:'column', gap:1}}>
+            <Button onClick={addToCart} variant="contained" color='liliana_primary'><IoIosAdd/></Button>
+            <Button href={'/store/product/'+id} variant="contained" color='liliana_secondary'><FaShoppingBasket/></Button>
+          </Box>
         </Box>
       </Card>
     </Grid>
