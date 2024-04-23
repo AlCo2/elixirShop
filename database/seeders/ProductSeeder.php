@@ -26,7 +26,7 @@ class ProductSeeder extends Seeder
             }
             $p = new Product();
             $p->title = $product['title'];
-            $p->price = $product['price'];
+            $p->price = $product['price'] * 10;
             $p->category_id = $product['category']['id'];
             $p->description = $product['description'];
             $p->Qty = 100;

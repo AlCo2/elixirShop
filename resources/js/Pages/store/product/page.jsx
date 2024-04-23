@@ -1,4 +1,4 @@
-import { Box, Button, Chip, Container, Divider, Grid, Paper, Rating, Typography } from '@mui/material';
+import { Alert, Box, Button, Chip, Container, Divider, Grid, Paper, Rating, Snackbar, Typography } from '@mui/material';
 import { BiCartAdd, BiInfoCircle, BiPlusCircle } from 'react-icons/bi';
 import SuggestionCard from '../components/SuggestionCard';
 import { CiDeliveryTruck } from 'react-icons/ci';
@@ -9,19 +9,36 @@ import { useState } from 'react';
 
 const product = ({product, products}) => {
     const [selectedImage, setSelectedImage] = useState(0)
+    const [open, setOpen] = useState(false);
 
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setOpen(false);
+      };
     function addToCart(e){
         e.preventDefault();
         const data = {
             product_id:product.id
         }
-        router.post('/api/cart/add', data);
+        router.post('/api/cart/add', data, {preserveScroll:true});
+        setOpen(true);
     }
   return (
     <>
     <div className='bg-liliana-background'>
         <Container className='min-h-screen py-5'>
-            <Grid container>
+        <Snackbar
+        open={open}
+        autoHideDuration={5000}
+        onClose={handleClose}
+        >
+            <Alert onClose={handleClose} severity='success' variant='filled' sx={{width:'100%'}}>
+            {product.title} added to cart
+            </Alert>
+        </Snackbar>
+            <Grid container className='mb-2'>
                 <Grid item sm={12} md={12}>
                     <Paper variant='outlined'>
                         <Grid container columns={16} justifyContent={'center'}>
@@ -34,7 +51,7 @@ const product = ({product, products}) => {
                             </Grid>
                             <Grid item xs={12} sm={6} sx={{flexDirection:{sm:'row-reverse'}}} display={{sm:'flex'}} gap={2}>
                                 <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
-                                    <img src={product.images[selectedImage]?product.images[selectedImage].url:null} className='max-h-80 border mb-2' alt="packfakhama" />
+                                    <img src={product.images[selectedImage]?product.images[selectedImage].url:null} className='max-h-80 rounded-md border mb-2' alt="packfakhama" />
                                 </Box>
                                 <Box sx={{display:'flex', gap:1, justifyContent:'center', flexDirection:{sm:'column'}}}>
                                     <img src={product.images[0]?product.images[0].url:null} onClick={()=>setSelectedImage(0)} className={'max-w-10 cursor-pointer hover:scale-105 duration-300 hover:border-liliana-primary hover:rounded-md '+ (selectedImage===0?'border-2 border-liliana-primary rounded-md':'')} alt={product.title}/>
@@ -57,16 +74,16 @@ const product = ({product, products}) => {
                         </Grid>
                     </Paper>
                 </Grid>
-            </Grid> 
-            <Grid container justifyContent={'space-between'}>
-                <Grid item sm={12} md={7} className='bg-white p-4 border mt-2 max-sm:w-full rounded-md'>
+            </Grid>
+            <Grid container gap={1}>
+                <Grid item xs sm md={7} className='bg-white p-4 border mt-2 max-sm:w-full rounded-md'>
                     <p className='font-bold font-Poppins flex items-center gap-1 text-liliana-third'><BiInfoCircle/>Description</p>
                     <Divider className='my-2'/>
                     <p className='text-sm font-Roboto px-6'>
                         {product.description}
                     </p>
                 </Grid>
-                <Grid item sm={12} md={4.9} className='bg-white p-4 border mt-2 max-sm:w-full rounded-md'>
+                <Grid item sm md className='bg-white p-4 border mt-2 max-sm:w-full rounded-md'>
                     <p className='font-bold font-Poppins flex items-center gap-2 text-liliana-third'>Information</p>
                     <Divider className='my-2'/>
                     <Box ml={2}>

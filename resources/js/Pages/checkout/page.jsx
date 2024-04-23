@@ -50,7 +50,7 @@ const page = ({data}) => {
                 :
                 <div className="text-center">
                   <p className="font-Poppins text-xl mb-5">Your shopping cart is empty!</p>
-                  <Button href="/store" variant="text" color="liliana_third">Buy Something</Button>
+                  <Button href="/store" variant="text" sx={{my:2}} color="liliana_third">Buy Something</Button>
                 </div>
                 }
               </div>
