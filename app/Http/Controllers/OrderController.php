@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Models\Order;
 use App\Models\Order_detail;
 use App\Models\Order_item;
+use App\Models\Product;
 
 class OrderController extends Controller
 {
@@ -43,5 +44,25 @@ class OrderController extends Controller
         $order = Order::find($id);
         $order->status_id = $request->input('status');
         $order->save();
+    }
+
+    public function checkOrder(){
+        return Inertia::render('checkorder/page');
+    }
+    public function showOrder(Request $request){
+        $id = $request->input('order_id');
+        $order = Order::with('order_detail', 'Order_item')->find($id);
+        $products = [];
+        if (!$order)
+            return Inertia::render('checkorder/showorder/page', compact('order', 'products'));
+        foreach($order->order_item as $item)
+        {
+            $product = Product::with('images')->find($item['product_id']);
+            $products[] = [
+                'product'=> $product,
+                'total' => $item['total'],
+            ];
+        }
+        return Inertia::render('checkorder/showorder/page', compact('order', 'products'));
     }
 }

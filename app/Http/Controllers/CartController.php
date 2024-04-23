@@ -19,7 +19,7 @@ class CartController extends Controller
         }
         else
         {
-            $product = Product::find($product_id);
+            $product = Product::with('images')->find($product_id);
             $cart[$product_id] = [
                 'product' => $product,
                 'Q' => 1

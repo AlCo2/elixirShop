@@ -13,15 +13,14 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-/* temp */
-Route::get('/test', [StoreController::class, 'test']);
-
 /* main Pages */
 Route::get('/',[StoreController::class, 'home']);
 Route::get('/store',[StoreController::class, 'index']);
 Route::get('/store/product/{id}',[StoreController::class, 'product']);
 Route::get('/checkout',[CheckoutController::class, 'index']);
 Route::get('/checkout/fastcheckout',[CheckoutController::class, 'checkout']);
+Route::get('/checkorder', [OrderController::class, 'checkOrder']);
+Route::get('/showorder', [OrderController::class, 'showOrder']);
 
 
 /*         Post request          */
@@ -30,10 +29,8 @@ Route::post('/api/cart/sub', [CartController::class, 'subFromCart']);
 Route::post('/api/cart/delete', [CartController::class, 'deleteFromCart']);
 Route::post('/api/order/create', [OrderController::class, 'createOrder']);
 
+
 /*        Temp router:            */
-Route::get('/checkorder', function(){
-    return Inertia::render('checkorder/page');
-});
 Route::get('/promotions', function(){
     return Inertia::render('Promotions');
 });

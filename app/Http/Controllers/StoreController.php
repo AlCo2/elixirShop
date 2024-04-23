@@ -12,18 +12,6 @@ use Illuminate\Support\Facades\Http;
 
 class StoreController extends Controller
 {
-    /* temp */
-    public function test(){
-        $response = Http::get('https://api.escuelajs.co/api/v1/products');
-        $jsonData = $response->json();
-        $products = [];
-        foreach ($jsonData as $product){
-            $images = [];
-            dd($product['images']);
-        }
-    }
-    /* end */
-
     public function home(){
         $featured = Product::inRandomOrder()->limit(4)->with('images')->get();
         $bestsellers = Product::inRandomOrder()->limit(4)->with('images')->get();
