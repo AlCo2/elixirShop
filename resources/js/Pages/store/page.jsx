@@ -1,11 +1,11 @@
 import { Box, List, Button, Checkbox, Container, FormControlLabel, FormGroup, Grid, IconButton, Menu, MenuItem, Paper, Pagination, PaginationItem } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CgSortAz } from "react-icons/cg";
 import SuggestionCard from './components/SuggestionCard';
 import { BiSearch } from 'react-icons/bi';
 import { RiArrowUpDownFill } from 'react-icons/ri';
 import Layout from '@/Layout';
-import { Link } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 
 const SortMenu = () =>{
   const [anchorEl, setAnchorEl] = useState(null);
@@ -72,28 +72,28 @@ const SortMenu = () =>{
   );
 }
 
-const CategoryMenu = () =>{
-  const [categories, setCategories] = useState([
-    {id:1,name:'Brum', status:false},
-    {id:2,name:'Corps et bain', status:false},
-    {id:3,name:'Packs', status:false},
-    {id:4,name:'Parfum', status:false},
-    {id:5,name:'Maquillage', status:false},
-    {id:6,name:'Soin de visage', status:false},
-  ])
-  const [selectAll, setSelectAll] = useState(false);
+const CategoryMenu = ({categories}) =>{
   const handleSelectAllChange = (e) => {
     const checked = e.target.checked;
     setSelectAll(checked);
-    setCategories(categories.map(category => ({ ...category, status: checked })));
+    if (categories.length>0){
+      setCategories([]);
+    }
+    else
+    {
+      setCategories(category_list.map(category => category.id))
+    }
   };
 
   const handleCheckboxChange = (id) => (e) => {
-    setCategories(prevCategories =>
-      prevCategories.map(category =>
-        category.id === id ? { ...category, status: e.target.checked } : category
-      )
-    );
+    if(categories.includes(id))
+    {
+      setCategories(categories.filter(category_id=> category_id !== id));
+    }
+    else
+    {
+      setCategories(categories => [...categories, id]);
+    }
   };
   return (
         <List
@@ -109,7 +109,7 @@ const CategoryMenu = () =>{
   )
 }
 
-const FilterMenu = () =>{
+const FilterMenu = ({categories}) =>{
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -158,7 +158,7 @@ const FilterMenu = () =>{
                 <p className='font-Poppins'>Categories</p>
               </Grid>
               <Grid item xs={12}>
-                <CategoryMenu/>
+                <CategoryMenu categories={categories}/>
               </Grid>
             </Grid>
           </Container>
@@ -168,18 +168,14 @@ const FilterMenu = () =>{
   );
 }
 
-const store = ({products}) => {
+const store = ({products, category_list, filter}) => {
   const [page, setPage] = useState(products.current_page);
-  const [categories, setCategories] = useState([
-    {id:1,name:'Brum', status:false},
-    {id:2,name:'Corps et bain', status:false},
-    {id:3,name:'Packs', status:false},
-    {id:4,name:'Parfum', status:false},
-    {id:5,name:'Maquillage', status:false},
-    {id:6,name:'Soin de visage', status:false},
-  ])
+  const convertedData = filter.map(item => Number(item));
+  const [categories, setCategories] = useState(convertedData);
   const [selectAll, setSelectAll] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const isFirstRender = useRef(true);
+  console.log(window.location.href)
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -190,19 +186,37 @@ const store = ({products}) => {
   const handleSelectAllChange = (e) => {
     const checked = e.target.checked;
     setSelectAll(checked);
-    setCategories(categories.map(category => ({ ...category, status: checked })));
+    if (categories.length>0){
+      setCategories([]);
+    }
+    else
+    {
+      setCategories(category_list.map(category => category.id))
+    }
   };
 
   const handleCheckboxChange = (id) => (e) => {
-    setCategories(prevCategories =>
-      prevCategories.map(category =>
-        category.id === id ? { ...category, status: e.target.checked } : category
-      )
-    );
+    if(categories.includes(id))
+    {
+      setCategories(categories.filter(category_id=> category_id !== id));
+    }
+    else
+    {
+      setCategories(categories => [...categories, id]);
+    }
   };
+
   const handlePageChange = (e, value) =>{
     setPage(value);
   }
+  useEffect(()=>{
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    router.get('/store', { filter:categories });
+  }, [categories])
+  
   return (
     <>
       <div className='min-h-screen pt-5 bg-liliana-background'>
@@ -211,10 +225,10 @@ const store = ({products}) => {
             <Grid xs={2} item className='max-xl:hidden'>
               <Paper className='p-5 rounded-md'>
                 <p className='font-bold'>categories</p>
-                <FormControlLabel control={<Checkbox onChange={handleSelectAllChange}/>} label="All" />
+                <FormControlLabel control={<Checkbox onChange={handleSelectAllChange}/>} checked={categories.length===category_list.length} label="All" />
                 <FormGroup className='pl-5'>
-                  {categories.map(category=>(
-                    <FormControlLabel key={category.id} control={<Checkbox checked={category.status} size='small' onChange={handleCheckboxChange(category.id)} />} label={category.name} />  
+                  {category_list.map(category=>(
+                    <FormControlLabel key={category.id} control={<Checkbox checked={categories.includes(category.id)} size='small' onChange={handleCheckboxChange(category.id)} />} label={category.name} />  
                   ))}
                 </FormGroup>
               </Paper>
@@ -223,12 +237,12 @@ const store = ({products}) => {
               <Paper className='p-5 pb-1 rounded-md'>
                 <Grid container alignItems={'center'} justifyContent={'space-between'}>
                   <Grid item>
-                    <p className='font-bold text-sm opacity-70'>{products.length} Items</p>
+                    <p className='font-bold text-sm opacity-70'>{products.total} Items</p>
                   </Grid>
                   <Grid item display={'flex'} alignItems={'center'} gap={2}>
                     <Box display={'flex'} alignItems={'center'}>
                       <p className='text-sm'>Filter</p>
-                      <FilterMenu/>
+                      <FilterMenu categories={category_list} />
                       <p className='text-sm'>Sort</p>
                       <SortMenu/>
                     </Box>
@@ -248,7 +262,7 @@ const store = ({products}) => {
               renderItem={(item) =>(
               <PaginationItem
                 component={Link}
-                href={'/store?page='+item.page}
+                href={categories.length>0?window.location.href +'&page='+item.page:'/store?page='+item.page}
                 {...item}
               />
             )} 
