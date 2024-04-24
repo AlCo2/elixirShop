@@ -72,44 +72,22 @@ const SortMenu = () =>{
   );
 }
 
-const CategoryMenu = ({categories}) =>{
-  const handleSelectAllChange = (e) => {
-    const checked = e.target.checked;
-    setSelectAll(checked);
-    if (categories.length>0){
-      setCategories([]);
-    }
-    else
-    {
-      setCategories(category_list.map(category => category.id))
-    }
-  };
-
-  const handleCheckboxChange = (id) => (e) => {
-    if(categories.includes(id))
-    {
-      setCategories(categories.filter(category_id=> category_id !== id));
-    }
-    else
-    {
-      setCategories(categories => [...categories, id]);
-    }
-  };
+const CategoryMenu = ({category_list, categories, handleSelectAllChange, handleCheckboxChange}) =>{
   return (
         <List
           id="basic-menu"
         >
           <FormControlLabel className='pl-2' control={<Checkbox onChange={handleSelectAllChange}/>} label="All" />
           <FormGroup className='pl-5'>
-            {categories.map(category=>(
-              <FormControlLabel key={category.id} control={<Checkbox checked={category.status} size='small' onChange={handleCheckboxChange(category.id)} />} label={category.name} />  
-            ))}
+                {category_list.map(category=>(
+                    <FormControlLabel key={category.id} control={<Checkbox checked={categories.includes(category.id)} size='small' onChange={handleCheckboxChange(category.id)} />} label={category.name} />  
+                ))}
           </FormGroup>
         </List>
   )
 }
 
-const FilterMenu = ({categories}) =>{
+const FilterMenu = ({category_list, categories, handleSelectAllChange, handleCheckboxChange}) =>{
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -158,7 +136,7 @@ const FilterMenu = ({categories}) =>{
                 <p className='font-Poppins'>Categories</p>
               </Grid>
               <Grid item xs={12}>
-                <CategoryMenu categories={categories}/>
+                <CategoryMenu category_list={category_list} categories={categories} handleSelectAllChange={handleSelectAllChange} handleCheckboxChange={handleCheckboxChange}/>
               </Grid>
             </Grid>
           </Container>
@@ -175,7 +153,6 @@ const store = ({products, category_list, filter}) => {
   const [selectAll, setSelectAll] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const isFirstRender = useRef(true);
-  console.log(window.location.href)
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -242,7 +219,7 @@ const store = ({products, category_list, filter}) => {
                   <Grid item display={'flex'} alignItems={'center'} gap={2}>
                     <Box display={'flex'} alignItems={'center'}>
                       <p className='text-sm'>Filter</p>
-                      <FilterMenu categories={category_list} />
+                      <FilterMenu category_list={category_list} categories={categories} handleCheckboxChange={handleCheckboxChange} handleSelectAllChange={handleSelectAllChange} />
                       <p className='text-sm'>Sort</p>
                       <SortMenu/>
                     </Box>
