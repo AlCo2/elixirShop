@@ -9,8 +9,10 @@ import DashboardLayout from '../DashboardLayout';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'name', headerName: 'Username', width: 130 },
+  { field: 'firstname', headerName: 'FirstName', width: 120 },
+  { field: 'lastname', headerName: 'LastName', width: 120 },
   { field: 'email', headerName: 'Email',width: 160 },
+  { field: 'address', headerName: 'Address', width: 130 },
   { field: 'phone', headerName: 'Phone',width: 120 },
   {
     field: 'role_id',

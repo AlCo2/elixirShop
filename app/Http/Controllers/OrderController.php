@@ -21,9 +21,9 @@ class OrderController extends Controller
             'zip' => 'required',
             'phone' => 'required',
         ]);
-        $this->saveOrder($request);
-        $this->saveOrderDetail($order->id, $request);
-        $this->saveOrderItem($order->id, $request->order['detail']);
+        $order_id = $this->saveOrder($request);
+        $this->saveOrderDetail($order_id, $request);
+        $this->saveOrderItem($order_id, $request->order['detail']);
         $this->deleteCart();
         return redirect('/')->with('success', 'your order has created succesfuly');
     }
@@ -68,6 +68,7 @@ class OrderController extends Controller
             $order->user_id = $request->user_id;
         $order->total = $request->order['total'];
         $order->save();
+        return $order->id;
     }
 
     private function saveOrderDetail($order_id, $request): void
@@ -89,7 +90,7 @@ class OrderController extends Controller
         foreach ($products as $product)
         {
             $order_product = new Order_item();
-            $order_product->order_id = $order->id;
+            $order_product->order_id = $order_id;
             $order_product->product_id = $product['product']['id'];
             $order_product->Qty = $product['Q'];
             $order_product->total = $product['product']['price'] * $product['Q'];

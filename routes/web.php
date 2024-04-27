@@ -35,7 +35,8 @@ Route::get('/promotions', function(){
     return Inertia::render('Promotions');
 });
 
-/* finish of temp router  */
+
+
 Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])->group(function () {
     route::get('/dashboard', [DashboardController::class, 'overview']);
     route::get('/dashboard/customer', [DashboardController::class, 'customer']);

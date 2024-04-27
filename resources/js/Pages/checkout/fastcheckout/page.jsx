@@ -7,16 +7,18 @@ import InputError from '@/Components/InputError';
 const page = ({order}) => {
     const [countries, setCountries] = useState([]);
     const [cities, setCities] = useState([]);
-    const { errors } = usePage().props;
+    const { auth, errors } = usePage().props;
 
+    console.log(auth);
     const [values, setValues] = useState({
-        firstname:"",
-        lastname:"",
+        user_id: auth.user.id?auth.user.id:null,
+        firstname:auth.user.firstname?auth.user.firstname:"",
+        lastname:auth.user.lastname?auth.user.lastname:"",
         country: "Morocco",
         city:"Kenitra",
-        address: "",
+        address: auth.user.address?auth.user.address:"",
         zip: "",
-        phone: "",
+        phone:auth.user.phone?auth.user.phone:"",
         order: order,
     })
     function handleSelectChange(e) {

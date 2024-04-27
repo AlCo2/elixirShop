@@ -15,13 +15,16 @@ import { useForm } from '@inertiajs/react';
 import { useEffect } from 'react';
 import { theme } from '@/theme';
 import Layout from '@/Layout';
+import InputError from '@/Components/InputError';
 
 
 const defaultTheme = createTheme();
 
 export default function SignUp() {
   const { data, setData, post, processing, errors, reset } = useForm({
-    name: '',
+    firstname: '', 
+    lastname: '',
+    address: '',
     email: '',
     phone: '',
     password: '',
@@ -65,19 +68,21 @@ const submit = (e) => {
                 <Box component="form" noValidate onSubmit={submit} sx={{ mt: 3 }}>
                   <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
+                      <InputError message={errors.firstname} />
                       <TextField
                         autoComplete="given-name"
-                        name="name"
+                        name="firstname"
                         required
                         fullWidth
-                        id="name"
+                        id="firstname"
                         label="First Name"
-                        onChange={(e) => setData('name', e.target.value)}
-                        value={data.name}
+                        onChange={(e) => setData('firstname', e.target.value)}
+                        value={data.firstname}
                         autoFocus
                       />
                     </Grid>
                     <Grid item xs={12} sm={6}>
+                      <InputError message={errors.lastname} />
                       <TextField
                         required
                         fullWidth
@@ -85,9 +90,12 @@ const submit = (e) => {
                         label="Last Name"
                         name="lastName"
                         autoComplete="family-name"
+                        onChange={(e) => setData('lastname', e.target.value)}
+                        value={data.lastname}
                       />
                     </Grid>
                     <Grid item xs={12}>
+                      <InputError message={errors.email} />
                       <TextField
                         required
                         fullWidth
@@ -100,6 +108,7 @@ const submit = (e) => {
                       />
                     </Grid>
                     <Grid item xs={12}>
+                      <InputError message={errors.password} />
                       <TextField
                         required
                         fullWidth
@@ -113,6 +122,7 @@ const submit = (e) => {
                       />
                     </Grid>
                     <Grid item xs={12}>
+                      <InputError message={errors.password_confirmation} />
                       <TextField
                         required
                         fullWidth
@@ -126,6 +136,19 @@ const submit = (e) => {
                       />
                     </Grid>
                     <Grid item xs={12}>
+                      <InputError message={errors.address} />
+                      <TextField
+                        required
+                        fullWidth
+                        name="address"
+                        label="Address"
+                        id="address"
+                        onChange={(e) => setData('address', e.target.value)}
+                        value={data.address}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <InputError message={errors.phone} />
                       <TextField
                         required
                         fullWidth

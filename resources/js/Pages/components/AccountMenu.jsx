@@ -110,7 +110,7 @@ export default function AccountMenu() {
                 <ListItemIcon>
                     <BiUser/>
                 </ListItemIcon>
-                {auth.user.name}
+                {auth.user.firstname}
             </MenuItem>
           </Link>
             <MenuItem onClick={handleClose}>
