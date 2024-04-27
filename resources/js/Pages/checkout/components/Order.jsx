@@ -1,6 +1,5 @@
 import { Link, router } from "@inertiajs/react";
 import { Box, Button, ButtonGroup } from "@mui/material";
-import { useState } from "react";
 import { BsTrashFill } from "react-icons/bs";
 
 const QuentityBar = ({id, q}) =>{
