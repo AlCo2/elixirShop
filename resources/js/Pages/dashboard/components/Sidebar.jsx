@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Grid, List, ListItemButton, Collapse, Box, IconButton, Button } from '@mui/material'
-import { BiMessage, BiSolidDashboard, BiUser } from 'react-icons/bi';
+import { BiMessage, BiSolidDashboard, BiStore, BiUser } from 'react-icons/bi';
 import { FaAngleDown, FaAngleUp, FaBars, FaBuffer, FaCalculator, FaCalendarCheck, FaDolly } from 'react-icons/fa';
 
 
@@ -75,8 +75,8 @@ const Sidebar = () => {
                     <p>Order</p>
                 </ListItemButton>
                 <ListItemButton href='/' sx={style('/dashboard/SiteWeb')}>
-                    <FaCalendarCheck/>
-                    <p>SiteWeb</p>
+                    <BiStore/>
+                    <p>Store</p>
                 </ListItemButton>
             </List>
             </div>
