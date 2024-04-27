@@ -17,7 +17,8 @@ class DashboardController extends Controller
         $products = Product::limit(5)->with('category')->get();
         $total_sales = 0;
         $order_item = Order_item::with('order')->get();
-        foreach ($order_item as $order){
+        foreach ($order_item as $order)
+        {
             if ($order->order->status_id === 2)
                 $total_sales += $order->total;
         }

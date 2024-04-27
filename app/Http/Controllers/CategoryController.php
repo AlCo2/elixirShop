@@ -21,14 +21,14 @@ class CategoryController extends Controller
         return "not found";
     }
     public function add(Request $request){
-        $category_name = $request->input('name');
+        $category_name = $request->name;
         $category = new Category();
         $category->name = $category_name;
         $category->save();
     }
 
     public function update($id, Request $request){
-        $new_category_name = $request->input('name');
+        $new_category_name = $request->name;
         $category = Category::find($id);
         if ($category){
             $category->name = $new_category_name;

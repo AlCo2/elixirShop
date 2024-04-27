@@ -1,11 +1,14 @@
 import { Box, Button, Container, Divider, FormControl, Grid, MenuItem, Select } from '@mui/material';
 import React, { useState } from 'react'
-import { router } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import Layout from '@/Layout';
+import InputError from '@/Components/InputError';
 
 const page = ({order}) => {
     const [countries, setCountries] = useState([]);
     const [cities, setCities] = useState([]);
+    const { errors } = usePage().props;
+
     const [values, setValues] = useState({
         firstname:"",
         lastname:"",
@@ -78,12 +81,14 @@ const page = ({order}) => {
                                         <label className='text-sm font-semibold font-Opensans'>First Name</label>
                                     </div>
                                     <input value={values.firstname} type="text" className='border-2 rounded-md h-8 focus:outline-blue-400 p-1 text-sm w-full' name="firstname" id="firstname" onChange={handleChange} />
+                                    <InputError message={errors.firstname} className="" />
                                 </Grid>
                                 <Grid xs={12} md={5.9} item>
                                     <div>
                                         <label className='text-sm font-semibold font-Opensans'>Last Name</label>
                                     </div>
                                     <input onChange={handleChange} value={values.lastname} type="text" className='border-2 rounded-md h-8 focus:outline-blue-400 p-1 text-sm w-full' name="lastname" id="lastname" />
+                                    <InputError message={errors.lastname} className="" />
                                 </Grid>
                                 <Grid xs={12} md={5.9} item>
                                     <div>
@@ -132,18 +137,21 @@ const page = ({order}) => {
                                     <Box>
                                         <input onChange={handleChange} value={values.address} type="text" className='border-2 rounded-md h-8 focus:outline-blue-400 p-1 text-sm w-full' name="address" id="address" />
                                     </Box>
+                                    <InputError message={errors.address} className="" />
                                 </Grid>
                                 <Grid xs={12} md={5.9} item>
                                     <div>
                                         <label className='text-sm font-semibold font-Opensans'>Zip/Post Code</label>
                                     </div>
                                     <input onChange={handleChange} value={values.zip} type="text" className='border-2 rounded-md h-8 focus:outline-blue-400 p-1 text-sm w-full' name="zip" id="zip" />
+                                    <InputError message={errors.zip} className="" />
                                 </Grid>
                                 <Grid xs={12} md={5.9} item>
                                     <div>
                                         <label className='text-sm font-semibold font-Opensans'>Phone</label>
                                     </div>
                                     <input onChange={handleChange} value={values.phone} type="text" className='border-2 rounded-md h-8 focus:outline-blue-400 p-1 text-sm w-full' name="phone" id="phone" />
+                                    <InputError message={errors.phone} className="" />
                                 </Grid>
                                 <Grid xs={12} item mt={3}>
                                     <Box sx={{display:'flex', justifyContent:'space-between'}}>

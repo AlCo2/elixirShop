@@ -12,50 +12,45 @@ use App\Models\Product;
 class OrderController extends Controller
 {
     public function createOrder(Request $request){
-        $order = new Order();
-        if ($request->input('user_id'));
-            $order->user_id = $request->input('user_id');
-        $order->total = $request->input('order')['total'];
-        // save order before continue
-        $order->save();
-        $order_detail = new Order_detail();
-        $order_detail->order_id = $order->id;
-        $order_detail->firstname = $request->input('firstname');
-        $order_detail->lastname = $request->input('lastname');
-        $order_detail->country = $request->input('country');
-        $order_detail->city = $request->input('city');
-        $order_detail->address = $request->input('address');
-        $order_detail->zip = $request->input('zip');
-        $order_detail->phone = $request->input('phone');
-        // save order_detail before contrinue
-        $order_detail->save();
-        foreach ($request->input('order')['detail'] as $product){
-            $order_product = new Order_item();
-            $order_product->order_id = $order->id;
-            $order_product->product_id = $product['product']['id'];
-            $order_product->Qty = $product['Q'];
-            $order_product->total = $product['product']['price'] * $product['Q'];
-            $order_product->save();
-        }
-        $request->session()->forget(['cart', 'total']);
+        $request->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'country' => 'required',
+            'city' => 'required',
+            'address' => 'required',
+            'zip' => 'required',
+            'phone' => 'required',
+        ]);
+        $this->saveOrder($request);
+        $this->saveOrderDetail($order->id, $request);
+        $this->saveOrderItem($order->id, $request->order['detail']);
+        $this->deleteCart();
         return redirect('/')->with('success', 'your order has created succesfuly');
     }
     public function updateOrderStatus($id, Request $request){
         $order = Order::find($id);
-        $order->status_id = $request->input('status');
+        $order->status_id = $request->status;
         $order->save();
     }
 
     public function checkOrder(){
         return Inertia::render('checkorder/page');
     }
+
     public function showOrder(Request $request){
-        $id = $request->input('order_id');
+        $id = $request->order_id;
         $order = Order::with('order_detail', 'Order_item')->find($id);
         $products = [];
         if (!$order)
             return Inertia::render('checkorder/showorder/page', compact('order', 'products'));
-        foreach($order->order_item as $item)
+        $products = $this->prepereProducts($order->order_item);
+        return Inertia::render('checkorder/showorder/page', compact('order', 'products'));
+    }
+
+    private function prepereProducts($items): array
+    {
+        $products = [];
+        foreach($items as $item)
         {
             $product = Product::with('images')->find($item['product_id']);
             $products[] = [
@@ -63,6 +58,46 @@ class OrderController extends Controller
                 'total' => $item['total'],
             ];
         }
-        return Inertia::render('checkorder/showorder/page', compact('order', 'products'));
+        return $products;
+    }
+
+    private function saveOrder($request)
+    {
+        $order = new Order();
+        if ($request->user_id);
+            $order->user_id = $request->user_id;
+        $order->total = $request->order['total'];
+        $order->save();
+    }
+
+    private function saveOrderDetail($order_id, $request): void
+    {
+        $order_detail = new Order_detail();
+        $order_detail->order_id = $order_id;
+        $order_detail->firstname = $request->firstname;
+        $order_detail->lastname = $request->lastname;
+        $order_detail->country = $request->country;
+        $order_detail->city = $request->city;
+        $order_detail->address = $request->address;
+        $order_detail->zip = $request->zip;
+        $order_detail->phone = $request->phone;
+        $order_detail->save();        
+    }
+    
+    private function saveOrderItem($order_id, $products)
+    {
+        foreach ($products as $product)
+        {
+            $order_product = new Order_item();
+            $order_product->order_id = $order->id;
+            $order_product->product_id = $product['product']['id'];
+            $order_product->Qty = $product['Q'];
+            $order_product->total = $product['product']['price'] * $product['Q'];
+            $order_product->save();
+        }
+    }
+    private function deleteCart()
+    {
+        session()->forget(['cart', 'total']);
     }
 }

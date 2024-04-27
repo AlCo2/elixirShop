@@ -8,11 +8,30 @@ use App\models\Product;
 class CheckoutController extends Controller
 {
     public function index(Request $request){
-        $data = [];
-        if (!$request->session()->has('cart')){
-            return Inertia::render('checkout/page', compact('data'));
+        $data = $this->prepareData();
+        return Inertia::render('checkout/page', compact('data'));
+    }
+
+    public function checkout(Request $request){
+        if (!$this->haveAccessFastCheckout()){
+            return back();
         }
-        $products = $request->session()->get('cart');
+        $order = $this->prepareOrder();
+        return Inertia::render('checkout/fastcheckout/page', compact('order'));
+    }
+    
+    private function isCartExist(): bool
+    {
+        return session()->has('cart');
+    }
+
+    private function prepareData(): array
+    {
+        $data = [];
+        if (!$this->isCartExist()){
+            return $data;
+        }
+        $products = session('cart');
         $total = 0;
         foreach ($products as $product)
         {
@@ -22,17 +41,27 @@ class CheckoutController extends Controller
             ];
             $total += $product['product']->price * $product['Q'];
         }
-        $request->session()->put('total', $total);
-        return Inertia::render('checkout/page', compact('data'));
+        $this->createTotal($total);
+        return $data;
     }
-    public function checkout(Request $request){
-        if (!$request->session()->has('cart')){
-            return Inertia::render('/');
-        }
+    
+    private function createTotal($total): void
+    {
+        session(['total'=>$total]);
+    }
+
+    private function haveAccessFastCheckout():bool
+    {
+        $total = session('total');
+        return $this->isCartExist() && $total > 0;
+    }
+
+    private function prepareOrder():array
+    {
         $order = [
-            'detail'=> $request->session()->get('cart'),
-            'total'=> $request->session()->get('total'),
+            'detail'=> session('cart'),
+            'total'=> session('total'),
         ];
-        return Inertia::render('checkout/fastcheckout/page', compact('order'));
+        return $order;
     }
 }
