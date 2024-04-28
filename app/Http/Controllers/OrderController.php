@@ -27,6 +27,7 @@ class OrderController extends Controller
         $this->deleteCart();
         return redirect('/')->with('success', 'your order has created succesfuly');
     }
+    
     public function updateOrderStatus($id, Request $request){
         $order = Order::find($id);
         $order->status_id = $request->status;
@@ -35,6 +36,11 @@ class OrderController extends Controller
 
     public function checkOrder(){
         return Inertia::render('checkorder/page');
+    }
+
+    public function listUserOrders(Request $request){
+        $orders = Order::with('order_detail')->where('user_id', $request->user()->id)->get();
+        return Inertia::render('checkorder/listorder', compact("orders"));
     }
 
     public function showOrder(Request $request){

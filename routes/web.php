@@ -20,6 +20,7 @@ Route::get('/store/product/{id}',[StoreController::class, 'product']);
 Route::get('/checkout',[CheckoutController::class, 'index']);
 Route::get('/checkout/fastcheckout',[CheckoutController::class, 'checkout']);
 Route::get('/checkorder', [OrderController::class, 'checkOrder']);
+Route::get('/orders', [OrderController::class, 'listUserOrders']);
 Route::get('/showorder', [OrderController::class, 'showOrder']);
 
 
