@@ -9,16 +9,15 @@ const page = ({order}) => {
     const [cities, setCities] = useState([]);
     const { auth, errors } = usePage().props;
 
-    console.log(auth);
     const [values, setValues] = useState({
-        user_id: auth.user.id?auth.user.id:null,
-        firstname:auth.user.firstname?auth.user.firstname:"",
-        lastname:auth.user.lastname?auth.user.lastname:"",
+        user_id: auth.user?auth.user.id:null,
+        firstname:auth.user?auth.user.firstname:"",
+        lastname:auth.user?auth.user.lastname:"",
         country: "Morocco",
         city:"Kenitra",
-        address: auth.user.address?auth.user.address:"",
+        address: auth.user?auth.user.address:"",
         zip: "",
-        phone:auth.user.phone?auth.user.phone:"",
+        phone:auth.user?auth.user.phone:"",
         order: order,
     })
     function handleSelectChange(e) {
