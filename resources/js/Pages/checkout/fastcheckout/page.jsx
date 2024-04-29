@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { router, usePage } from '@inertiajs/react';
 import Layout from '@/Layout';
 import InputError from '@/Components/InputError';
+import { useEffect } from 'react';
 
 const page = ({order}) => {
     const [countries, setCountries] = useState([]);
@@ -13,20 +14,28 @@ const page = ({order}) => {
         user_id: auth.user?auth.user.id:null,
         firstname:auth.user?auth.user.firstname:"",
         lastname:auth.user?auth.user.lastname:"",
-        country: "Morocco",
-        city:"Kenitra",
+        country: "",
+        city:"",
         address: auth.user?auth.user.address:"",
         zip: "",
         phone:auth.user?auth.user.phone:"",
         order: order,
     })
-    function handleSelectChange(e) {
+    function handleCountryChange(e) {
+        const { name, value } = e.target;
+        setValues(prevValues => ({
+            ...prevValues,
+            [name]: value.country,
+        }));
+        setCities(value.cities);
+    }
+    function handleCityChange(e) {
         const { name, value } = e.target;
         setValues(prevValues => ({
             ...prevValues,
             [name]: value,
         }));
-      }
+    }
       function handleChange(e) {
         const { id, value, type } = e.target;
         setValues(prevValues => ({
@@ -38,6 +47,13 @@ const page = ({order}) => {
       {
         router.post('/api/order/create', values);
       }
+    const fetchdata = async () =>{
+        const response = await fetch('https://countriesnow.space/api/v0.1/countries').then((res)=>res.json());
+        setCountries(response.data);
+    }
+    useEffect(()=>{
+        fetchdata();
+    }, [])
   return (
     <> 
         <div className='min-h-screen bg-liliana-background py-5'>
@@ -100,14 +116,14 @@ const page = ({order}) => {
                                             labelId="demo-simple-select-label"
                                             id="country"
                                             name='country'
-                                            defaultValue={'Morocco'}
                                             className='h-8 text-black'
-                                            onChange={handleSelectChange}
+                                            defaultValue={""}
+                                            onChange={handleCountryChange}
                                         >
-                                            {/* {countries & countries.map((country)=>(
-                                                <MenuItem value={country.cca3}>{country.name.common}</MenuItem>
-                                            ))} */}
-                                            <MenuItem value={'Morocco'}>Morocco</MenuItem>
+                                        {countries.map((country)=>(
+                                            <MenuItem key={country.country} value={country}>{country.country}</MenuItem>
+                                        ))}
+                                            
                                         </Select>
                                     </FormControl>
                                 </Grid>
@@ -120,14 +136,14 @@ const page = ({order}) => {
                                             labelId="demo-simple-select-label"
                                             id="city"
                                             name='city'
-                                            defaultValue={'Kenitra'}
+                                            defaultValue={""}
                                             className='h-8 text-black'
-                                            onChange={handleSelectChange}
+                                            onChange={handleCityChange}
                                         >
-                                            <MenuItem value={'Kenitra'}>Kenitra</MenuItem>
-                                            <MenuItem value={'Rabat'}>rabat</MenuItem>
-                                            <MenuItem value={'Fes'}>Fes</MenuItem>
-                                            <MenuItem value={'Kamoni'}>Kamoni</MenuItem>
+                                            {cities.map((city)=>(
+                                                <MenuItem key={city} value={city}>{city}</MenuItem>
+                                            ))}
+                                            
                                         </Select>
                                     </FormControl>
                                 </Grid>
