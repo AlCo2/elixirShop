@@ -7,9 +7,8 @@ import { RiArrowUpDownFill } from 'react-icons/ri';
 import Layout from '@/Layout';
 import { Link, router } from '@inertiajs/react';
 
-const SortMenu = () =>{
+const SortMenu = ({selectedSort, setselectedSort}) =>{
   const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedIndex, setSelectedIndex] = useState(0);
   const options = [
     'Best Match',
     'Price Low - High',
@@ -22,7 +21,7 @@ const SortMenu = () =>{
   };
 
   const handleMenuItemClick = (event, index) => {
-    setSelectedIndex(index);
+    setselectedSort(index);
     setAnchorEl(null);
   };
 
@@ -61,7 +60,7 @@ const SortMenu = () =>{
         {options.map((option, index) => (
           <MenuItem
             key={option}
-            selected={index === selectedIndex}
+            selected={index === selectedSort}
             onClick={(event) => handleMenuItemClick(event, index)}
           >
             {option}
@@ -146,11 +145,12 @@ const FilterMenu = ({category_list, categories, handleSelectAllChange, handleChe
   );
 }
 
-const store = ({products, category_list, filter}) => {
+const store = ({products, category_list, filter, sort}) => {
   const [page, setPage] = useState(products.current_page);
   const convertedData = filter.map(item => Number(item));
   const [categories, setCategories] = useState(convertedData);
   const [selectAll, setSelectAll] = useState(false);
+  const [selectedSort, setselectedSort] = useState(Number(sort));
   const [anchorEl, setAnchorEl] = useState(null);
   const isFirstRender = useRef(true);
   const open = Boolean(anchorEl);
@@ -191,8 +191,11 @@ const store = ({products, category_list, filter}) => {
       isFirstRender.current = false;
       return;
     }
-    router.get('/store', { filter:categories });
-  }, [categories])
+    if(selectedSort>0)
+      router.get('/store', { filter:categories, sort: selectedSort});
+    else
+      router.get('/store', { filter:categories});
+  }, [categories, selectedSort])
   
   return (
     <>
@@ -221,7 +224,7 @@ const store = ({products, category_list, filter}) => {
                       <p className='text-sm'>Filter</p>
                       <FilterMenu category_list={category_list} categories={categories} handleCheckboxChange={handleCheckboxChange} handleSelectAllChange={handleSelectAllChange} />
                       <p className='text-sm'>Sort</p>
-                      <SortMenu/>
+                      <SortMenu selectedSort={selectedSort} setselectedSort={setselectedSort}/>
                     </Box>
                   </Grid>
                 </Grid>
@@ -239,7 +242,7 @@ const store = ({products, category_list, filter}) => {
               renderItem={(item) =>(
               <PaginationItem
                 component={Link}
-                href={categories.length>0?window.location.href +'&page='+item.page:'/store?page='+item.page}
+                href={categories.length>0?window.location.href +'&page='+item.page:'/store?page='+item.page +(selectedSort>0?'&sort='+selectedSort:'')}
                 {...item}
               />
             )} 

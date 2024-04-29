@@ -21,13 +21,48 @@ class StoreController extends Controller
     }
     public function index(Request $request){
         $category_list = Category::all();
-        $products = Product::with('images')->paginate(12);
         $filter = [];
-        if($request->has('filter')){
-            $filter = $request->input('filter');
-            $products = Product::with('images')->whereIn('category_id', $filter)->paginate(12);
+        $sort = null;
+        if($request->has('sort'))
+        {
+            $word = "";
+            $sort = $request->sort;
+            if ($sort == 3)
+            {
+                if($request->has('filter')){
+                    $filter = $request->input('filter');
+                    $products = Product::with('images')->whereIn('category_id', $filter)->orderByDesc('created_at')->paginate(12);
+                }else{
+                    $products = Product::with('images')->orderByDesc('created_at')->paginate(12);
+                }
+            }
+            else{
+                switch($sort){
+                    case 1:
+                        $word = "asc";
+                        break;
+                    case 2:
+                        $word = "desc";
+                        break;
+                }
+                if($request->has('filter')){
+                    $filter = $request->input('filter');
+                    $products = Product::with('images')->whereIn('category_id', $filter)->orderBy('price', $word)->paginate(12);
+                }else{
+                    $products = Product::with('images')->orderBy('price', $word)->paginate(12);
+                }
+            }
         }
-        return Inertia::render('store/page', compact('products', 'category_list', 'filter'));
+        else
+        {
+            if($request->has('filter')){
+                $filter = $request->input('filter');
+                $products = Product::with('images')->whereIn('category_id', $filter)->inRandomOrder()->paginate(12);
+            }else{
+                $products = Product::with('images')->inRandomOrder()->paginate(12);
+            }
+        }
+        return Inertia::render('store/page', compact('products', 'category_list', 'filter', 'sort'));
     }
 
     public function product($id){
