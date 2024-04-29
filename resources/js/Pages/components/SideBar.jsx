@@ -6,7 +6,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { FaBars } from "react-icons/fa";
+import { FaBars, FaUserCheck } from "react-icons/fa";
 import {BsHouse, BsShop, BsTicket, } from 'react-icons/bs'
 import { AiOutlineUser } from 'react-icons/ai'
 import { IoClose } from "react-icons/io5";
@@ -105,8 +105,7 @@ export default function SideBar() {
                         <ListItemIcon>
                           <CiLogin/>
                         </ListItemIcon>
-                        <ListItemText primary="Logout" />
-                      
+                        <ListItemText primary="Logout" />                      
                     </ListItemButton>
                     </Link>
                   </ListItem>
@@ -133,13 +132,23 @@ export default function SideBar() {
                 }
                 <Divider />
                   <ListItem disablePadding>
-                    <ListItemButton>
+                    <ListItemButton href='checkorder'>
                       <ListItemIcon>
                         <CiCircleCheck/>
                       </ListItemIcon>
                       <ListItemText primary="Check Order" />
                     </ListItemButton>
                   </ListItem>
+                  {auth.user &&
+                  <ListItem disablePadding>
+                    <ListItemButton href='/orders'>
+                      <ListItemIcon>
+                        <FaUserCheck/>
+                      </ListItemIcon>
+                      <ListItemText primary="My Orders" />
+                    </ListItemButton>
+                  </ListItem>
+                  }
               </Box>
             </AccordionDetails>
           </Accordion>

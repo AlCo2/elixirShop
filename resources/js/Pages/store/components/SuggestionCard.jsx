@@ -1,4 +1,4 @@
-import { router } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import { Alert, Box, Button, Card, CardContent, CardMedia, Grid, Snackbar, Typography } from '@mui/material';
 import { useState } from 'react';
 import { FaShoppingBasket } from 'react-icons/fa';
@@ -32,13 +32,15 @@ const SuggestionCard = ({id, title, image, price}) => {
           {title} added to cart
         </Alert>
       </Snackbar>
-      <Card sx={{width:200, ":hover":{boxShadow:5}, cursor:'pointer'}}>
+      <Card sx={{width:{xs:230,sm:200}, ":hover":{boxShadow:5}, cursor:'pointer'}}>
         <Box mt={1} display={'flex'} justifyContent={'center'}>
-          <CardMedia component={'img'}
-            sx={{height:150, width:150, borderRadius:5}}
-            image={image}
-            alt={title}
-          />
+          <Link href={'/store/product/'+id}>
+            <CardMedia component={'img'}
+              sx={{height:150, width:150, borderRadius:5}}
+              image={image}
+              alt={title}
+            />
+          </Link>
         </Box>
         <Box display={'flex'} height={70} justifyContent={'center'}>
           <CardContent>

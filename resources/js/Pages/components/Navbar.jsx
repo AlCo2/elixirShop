@@ -82,7 +82,7 @@ const Navbar = () => {
       </a>
       <div className='flex items-center gap-3'>
         <IconButton href='/checkout' aria-label="cart">
-          <Badge badgeContent={1} color="primary">
+        <Badge badgeContent={cart.total} className={`${pathname==='/checkout'?'text-black':'text-white'}`} color="primary">
             <BiShoppingBag className='text-white'/>
           </Badge>
         </IconButton>
