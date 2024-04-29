@@ -14,14 +14,16 @@ import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import { RiArrowDropDownLine } from 'react-icons/ri';
-import { CiLogin } from "react-icons/ci";
+import { CiLogin, CiSettings } from "react-icons/ci";
 import { CiCircleCheck } from "react-icons/ci";
 import { RiShieldUserFill } from "react-icons/ri";
 import { useState } from 'react';
+import { Link, usePage } from '@inertiajs/react';
+import { BiUser } from 'react-icons/bi';
 
 export default function SideBar() {
   const [open, setOpen] = useState(false);
-
+  const { auth } = usePage().props;
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
@@ -62,6 +64,18 @@ export default function SideBar() {
               <ListItemText primary={"Promotions"} />
             </ListItemButton>
           </ListItem>
+          {auth.user && auth.user.role_id==1?
+          <ListItem disablePadding>
+            <ListItemButton href='/dashboard'>
+              <ListItemIcon>
+                <CiSettings/>
+              </ListItemIcon>
+              <ListItemText primary={"Dashboard"} />
+            </ListItemButton>
+          </ListItem>
+          :
+          null
+          }
           <Accordion>
             <AccordionSummary
               expandIcon={<RiArrowDropDownLine/>}
@@ -75,6 +89,29 @@ export default function SideBar() {
             </AccordionSummary>
             <AccordionDetails>
               <Box sx={{ width: '100%'}}>
+                {auth.user?
+                  <List disablePadding>
+                  <ListItem disablePadding>
+                    <ListItemButton>
+                      <ListItemIcon>
+                        <BiUser/>
+                      </ListItemIcon>
+                      <ListItemText primary={auth.user.firstname} />
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem disablePadding>
+                  <Link method='post' as='button' href='/logout' className='w-full'>
+                    <ListItemButton>
+                        <ListItemIcon>
+                          <CiLogin/>
+                        </ListItemIcon>
+                        <ListItemText primary="Logout" />
+                      
+                    </ListItemButton>
+                    </Link>
+                  </ListItem>
+                </List>
+                :
                 <List disablePadding>
                   <ListItem disablePadding>
                     <ListItemButton>
@@ -93,6 +130,7 @@ export default function SideBar() {
                     </ListItemButton>
                   </ListItem>
                 </List>
+                }
                 <Divider />
                   <ListItem disablePadding>
                     <ListItemButton>

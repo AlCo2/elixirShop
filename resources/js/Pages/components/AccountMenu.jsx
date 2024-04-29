@@ -13,6 +13,7 @@ import { Link, usePage } from '@inertiajs/react';
 import { BiUser } from 'react-icons/bi';
 import { List } from '@mui/material';
 import { Fragment, useState } from 'react';
+import { FaUserCheck } from 'react-icons/fa';
 
 export default function AccountMenu() {
   const { auth } = usePage().props;
@@ -113,14 +114,15 @@ export default function AccountMenu() {
                 {auth.user.firstname}
             </MenuItem>
           </Link>
-          <MenuItem onClick={handleClose}>
-            <Link method='post' as='button' href='/logout'>
-              <ListItemIcon>
-                  <CiLogin/>
-              </ListItemIcon>
-              Logout
-            </Link>
-          </MenuItem>
+          <Link method='post' as='button' href='/logout' className='w-full'>
+            <MenuItem onClick={handleClose}>
+                <ListItemIcon>
+                    <CiLogin/>
+                </ListItemIcon>
+                Logout
+              
+            </MenuItem>
+          </Link>
           <Divider />
           <Link href='/checkorder'>
             <MenuItem onClick={handleClose}>
@@ -133,7 +135,7 @@ export default function AccountMenu() {
           <Link href='/orders'>
             <MenuItem onClick={handleClose}>
                 <ListItemIcon>
-                  <CiCircleCheck/>
+                  <FaUserCheck/>
                 </ListItemIcon>
                   My Orders
             </MenuItem>

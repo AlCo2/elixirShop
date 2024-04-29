@@ -6,6 +6,7 @@ import SideBar from './SideBar';
 import { usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { CiSettings } from 'react-icons/ci';
 
 const Navbar = () => {
   const [sticky, setSticky] = useState(false);
@@ -33,7 +34,7 @@ const Navbar = () => {
         <li><a className={`duration-300 font-semibold hover:text-black flex items-center gap-1 ${pathname==='/store'?'text-black':''}`}  href="/store"><BsShop/>Store</a></li>
         <li><a className={`duration-300 font-semibold hover:text-black flex items-center gap-1 ${pathname==='/promotions'?'text-black':''}`} href="/promotions"><BsTicket/>Promotions</a></li>
         {auth.user && auth.user.role_id==1?
-        <li><a className={`duration-300 font-semibold hover:text-black flex items-center gap-1 ${pathname==='/promotions'?'text-black':''}`} href="/dashboard"><BsTicket/>Dashboard</a></li>
+        <li><a className={`duration-300 font-semibold hover:text-black flex items-center gap-1 ${pathname==='/promotions'?'text-black':''}`} href="/dashboard"><CiSettings/>Dashboard</a></li>
         :
         <></>
         }
@@ -59,9 +60,9 @@ const Navbar = () => {
                 <li><a className={`duration-300 font-semibold hover:text-black flex items-center gap-1 ${pathname==='/store'?'text-black':''}`}  href="/store"><BsShop/>Store</a></li>
                 <li><a className={`duration-300 font-semibold hover:text-black flex items-center gap-1 ${pathname==='/promotions'?'text-black':''}`} href="/promotions"><BsTicket/>Promotions</a></li>
                 {auth.user && auth.user.role_id==1?
-                <li><a className={`duration-300 font-semibold hover:text-black flex items-center gap-1 ${pathname==='/promotions'?'text-black':''}`} href="/dashboard"><BsTicket/>Dashboard</a></li>
+                <li><a className={`duration-300 font-semibold hover:text-black flex items-center gap-1 ${pathname==='/promotions'?'text-black':''}`} href="/dashboard"><CiSettings/> Dashboard</a></li>
                 :
-                <></>
+                null
                 }
             </ul>
         </div>
