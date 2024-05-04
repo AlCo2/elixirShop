@@ -57,9 +57,9 @@ class StoreController extends Controller
         {
             if($request->has('filter')){
                 $filter = $request->input('filter');
-                $products = Product::with('images')->whereIn('category_id', $filter)->inRandomOrder()->paginate(12);
+                $products = Product::with('images')->whereIn('category_id', $filter)->paginate(12);
             }else{
-                $products = Product::with('images')->inRandomOrder()->paginate(12);
+                $products = Product::with('images')->paginate(12);
             }
         }
         return Inertia::render('store/page', compact('products', 'category_list', 'filter', 'sort'));

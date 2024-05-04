@@ -32,29 +32,28 @@ const SuggestionCard = ({id, title, image, price}) => {
           {title} added to cart
         </Alert>
       </Snackbar>
-      <Card sx={{width:{xs:230,sm:200}, ":hover":{boxShadow:5}, cursor:'pointer'}}>
-        <Box mt={1} display={'flex'} justifyContent={'center'}>
-          <Link href={'/store/product/'+id}>
-            <CardMedia component={'img'}
-              sx={{height:150, width:150, borderRadius:5}}
-              image={image}
-              alt={title}
-            />
-          </Link>
-        </Box>
+      <Card sx={{width:220, ":hover":{boxShadow:5}, cursor:'pointer'}}>
+        <Link href={'/store/product/'+id}>
+          <Box display={'flex'} justifyContent={'center'}>
+              <CardMedia component={'img'}
+                sx={{height:150, width:'100%'}}
+                image={image}
+                alt={title}
+              />
+          </Box>
+        </Link>
         <Box display={'flex'} height={70} justifyContent={'center'}>
           <CardContent>
-            <Typography textAlign={'center'} variant="body1">
+            <Typography sx={{fontFamily:'Roboto', fontWeight:'bold'}} textAlign={'left'} variant="body1">
               {title}
             </Typography>
           </CardContent>
         </Box>
-        <Box display={'flex'} margin={2} mt={0} justifyContent={'space-between'} alignItems={'center'}>
-          <Typography fontFamily={'Poppins'} variant="body2">{price}DH</Typography>
-          <Box sx={{display:'flex', flexDirection:'column', gap:1}}>
-            <Button onClick={addToCart} variant="contained" color='liliana_primary'><IoIosAdd/></Button>
-            <Button href={'/store/product/'+id} variant="contained" color='liliana_secondary'><FaShoppingBasket/></Button>
-          </Box>
+        <Box display={'flex'} margin={2} justifyContent={'space-between'} alignItems={'center'}>
+          <Typography fontFamily={'Poppins'} variant="body2">{price}.00DH</Typography>
+        </Box>
+        <Box display={'flex'} margin={2} justifyContent={'space-between'} alignItems={'center'}>
+          <Button onClick={addToCart} sx={{borderRadius:0}} fullWidth variant="contained" color='liliana_third'>ADD TO CART</Button>
         </Box>
       </Card>
     </Grid>
