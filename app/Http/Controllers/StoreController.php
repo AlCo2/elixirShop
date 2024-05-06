@@ -23,6 +23,20 @@ class StoreController extends Controller
         $category_list = Category::all();
         $filter = [];
         $sort = null;
+        $max_price = Product::max('price');
+        $min_price = Product::min('price');
+        $active = False;
+        if($request->min && $request->max)
+        {
+            $min_price = $request->min;
+            $max_price = $request->max;
+            $active = True;
+        }
+        $filteredprice = [
+            'min'=>$min_price, 
+            'max'=>$max_price,
+            'active'=>$active,
+        ];
         if($request->has('sort'))
         {
             $word = "";
@@ -31,9 +45,9 @@ class StoreController extends Controller
             {
                 if($request->has('filter')){
                     $filter = $request->input('filter');
-                    $products = Product::with('images')->whereIn('category_id', $filter)->orderByDesc('created_at')->paginate(12);
+                    $products = Product::with('images')->whereIn('category_id', $filter)->whereBetween('price', [$min_price, $max_price])->orderByDesc('created_at')->paginate(12);
                 }else{
-                    $products = Product::with('images')->orderByDesc('created_at')->paginate(12);
+                    $products = Product::with('images')->whereBetween('price', [$min_price, $max_price])->orderByDesc('created_at')->paginate(12);
                 }
             }
             else{
@@ -47,9 +61,9 @@ class StoreController extends Controller
                 }
                 if($request->has('filter')){
                     $filter = $request->input('filter');
-                    $products = Product::with('images')->whereIn('category_id', $filter)->orderBy('price', $word)->paginate(12);
+                    $products = Product::with('images')->whereIn('category_id', $filter)->whereBetween('price', [$min_price, $max_price])->orderBy('price', $word)->paginate(12);
                 }else{
-                    $products = Product::with('images')->orderBy('price', $word)->paginate(12);
+                    $products = Product::with('images')->whereBetween('price', [$min_price, $max_price])->orderBy('price', $word)->paginate(12);
                 }
             }
         }
@@ -57,12 +71,12 @@ class StoreController extends Controller
         {
             if($request->has('filter')){
                 $filter = $request->input('filter');
-                $products = Product::with('images')->whereIn('category_id', $filter)->paginate(12);
+                $products = Product::with('images')->whereIn('category_id', $filter)->whereBetween('price', [$min_price, $max_price])->paginate(12);
             }else{
-                $products = Product::with('images')->paginate(12);
+                $products = Product::with('images')->whereBetween('price', [$min_price, $max_price])->paginate(12);
             }
         }
-        return Inertia::render('store/page', compact('products', 'category_list', 'filter', 'sort'));
+        return Inertia::render('store/page', compact('products', 'category_list', 'filter', 'sort', 'filteredprice'));
     }
 
     public function product($id){

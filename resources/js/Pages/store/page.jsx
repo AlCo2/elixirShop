@@ -7,6 +7,7 @@ import { RiArrowUpDownFill } from 'react-icons/ri';
 import Layout from '@/Layout';
 import { Link, router } from '@inertiajs/react';
 import { FaCheckCircle } from 'react-icons/fa';
+import { FaXmark } from 'react-icons/fa6';
 
 const SortMenu = ({selectedSort, setselectedSort}) =>{
   const [anchorEl, setAnchorEl] = useState(null);
@@ -86,7 +87,7 @@ const CategoryMenu = ({category_list, categories, handleSelectAllChange, handleC
   )
 }
 
-const FilterMenu = ({category_list, categories, handleSelectAllChange, handleCheckboxChange}) =>{
+const FilterMenu = ({category_list, categories, handleSelectAllChange, handleCheckboxChange, price, setPrice, setPriceFilterActive, priceFilterActive}) =>{
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -133,7 +134,7 @@ const FilterMenu = ({category_list, categories, handleSelectAllChange, handleChe
               </Grid>
               <Grid item xs={12}>
                 <p className='font-Poppins'>price</p>
-                <FilterPrice/>
+                <FilterPrice price={price} setPrice={setPrice} setPriceFilterActive={setPriceFilterActive} priceFilterActive={priceFilterActive}/>
               </Grid>
               <Grid item xs={12}>
                 <p className='font-Poppins'>Categories</p>
@@ -149,12 +150,12 @@ const FilterMenu = ({category_list, categories, handleSelectAllChange, handleChe
   );
 }
 
-const FilterPrice = () =>{
-  const [value1, setValue1] = useState([300, 1250]);
+const FilterPrice = ({price, setPrice, setPriceFilterActive, priceFilterActive}) =>{
+  const [value1, setValue1] = useState([price[0], price[1]]);
   function valuetext(value) {
-    return `${value}°C`;
+    return `${value}`;
   }
-  const minDistance = 10;
+  const minDistance = 50;
 
   const handleChange1 = (event, newValue, activeThumb) => {
     if (!Array.isArray(newValue)) {
@@ -167,6 +168,11 @@ const FilterPrice = () =>{
       setValue1([value1[0], Math.max(newValue[1], value1[0] + minDistance)]);
     }
   };
+  function handleSubmite(e)
+  {
+    setPrice([value1[0], value1[1]]);
+    setPriceFilterActive(true);
+  }
   return (
     <>
         <Slider
@@ -178,12 +184,12 @@ const FilterPrice = () =>{
           getAriaValueText={valuetext}
           disableSwap
           min={0}
-          max={3000}
+          max={1000}
         />
         <div className='flex flex-wrap gap-1'>
           <FormControl fullWidth sx={{width:85}}>
             <TextField
-              id="outlined-start-adornment"
+              id="min"
               sx={{bgcolor:'white'}}
               InputProps={{
                 startAdornment: <InputAdornment position="start">DH</InputAdornment>,
@@ -196,7 +202,7 @@ const FilterPrice = () =>{
           -
           <FormControl fullWidth sx={{width:85}}>
             <TextField
-              id="outlined-start-adornment"
+              id="max"
               sx={{bgcolor:'white'}}
               InputProps={{
                 startAdornment: <InputAdornment position="start">DH</InputAdornment>,
@@ -206,16 +212,23 @@ const FilterPrice = () =>{
               value={value1[1]}
             />
           </FormControl>
-          <IconButton size='small'>
+          <IconButton onClick={handleSubmite} size='small'>
             <FaCheckCircle className='text-green-600'/>
           </IconButton>
+          {priceFilterActive &&
+          <IconButton onClick={()=>setPriceFilterActive(false)} size='small'>
+            <FaXmark className='text-red-600'/>
+          </IconButton>
+          }
         </div>
       </>
   )
 }
 
-const store = ({products, category_list, filter, sort}) => {
+const store = ({products, category_list, filter, sort, filteredprice}) => {  
   const [page, setPage] = useState(products.current_page);
+  const [price, setPrice] = useState([filteredprice.min, filteredprice.max]);
+  const [priceFilterActive, setPriceFilterActive] = useState(filteredprice.active);
   const convertedData = filter.map(item => Number(item));
   const [categories, setCategories] = useState(convertedData);
   const [selectAll, setSelectAll] = useState(false);
@@ -260,11 +273,14 @@ const store = ({products, category_list, filter, sort}) => {
       isFirstRender.current = false;
       return;
     }
+    let price_filter = [null, null];
+    if (priceFilterActive)
+      price_filter = price;
     if(selectedSort>0)
-      router.get('/store', { filter:categories, sort: selectedSort});
+      router.get('/store', { filter:categories, sort: selectedSort, min: price_filter[0], max:price_filter[1]});
     else
-      router.get('/store', { filter:categories});
-  }, [categories, selectedSort])
+      router.get('/store', { filter:categories, min: price_filter[0], max:price_filter[1]});
+  }, [categories, selectedSort, price, priceFilterActive])
   
   return (
     <>
@@ -273,7 +289,7 @@ const store = ({products, category_list, filter, sort}) => {
             <Grid xs={2.5} item sx={{p:"1.25rem", pb:'0.25rem', pt:'1.9rem'}} className='max-lg:hidden '>
               <p className='font-bold font-Opensans text-xl'>Filters</p>
               <p className='font-Opensans font-semibold mt-5'>Price</p>
-              <FilterPrice/>
+              <FilterPrice price={price} setPrice={setPrice} setPriceFilterActive={setPriceFilterActive} priceFilterActive={priceFilterActive}/>
               <p className='font-Opensans font-semibold mt-5'>Categories</p>
               <FormControlLabel control={<Checkbox color='liliana_third' size='small' onChange={handleSelectAllChange}/>} label="All" />
               <FormGroup className='pl-2 font-Opensans'>
@@ -291,7 +307,7 @@ const store = ({products, category_list, filter, sort}) => {
                     <Box display={'flex'} alignItems={'center'}>
                       <div className='flex items-center lg:hidden'>
                         <p className='text-sm'>Filters</p>
-                        <FilterMenu category_list={category_list} categories={categories} handleCheckboxChange={handleCheckboxChange} handleSelectAllChange={handleSelectAllChange} />
+                        <FilterMenu category_list={category_list} categories={categories} handleCheckboxChange={handleCheckboxChange} handleSelectAllChange={handleSelectAllChange} price={price} setPrice={setPrice} setPriceFilterActive={setPriceFilterActive} priceFilterActive={priceFilterActive}/>
                       </div>
                       <p className='text-sm'>Sort</p>
                       <SortMenu selectedSort={selectedSort} setselectedSort={setselectedSort}/>
@@ -311,7 +327,7 @@ const store = ({products, category_list, filter, sort}) => {
               renderItem={(item) =>(
               <PaginationItem
                 component={Link}
-                href={categories.length>0?window.location.href +'&page='+item.page:'/store?page='+item.page +(selectedSort>0?'&sort='+selectedSort:'')}
+                href={categories.length>0?window.location.href +'&page='+item.page:'/store?page='+item.page +(selectedSort>0?'&sort='+selectedSort:'')+(priceFilterActive?'&min='+price[0]+'&max='+price[1]:'')}
                 {...item}
               />
             )} 
