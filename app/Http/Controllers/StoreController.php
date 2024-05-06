@@ -81,6 +81,10 @@ class StoreController extends Controller
 
     public function product($id){
         $product = Product::with('category', 'images')->find($id);
+        if (!$product)
+        {
+            return abort(404);
+        }
         $products = Product::inRandomOrder()->limit(5)->with('images')->get();
         return Inertia::render('store/product/page', compact('product', 'products'));
     }

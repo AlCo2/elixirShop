@@ -76,6 +76,8 @@ function ProductModelComponent({product, categories}) {
     category:"",
     price: "",
     image: null,
+    image2: null,
+    image3:null,
   })
 
   function handleSelectChange(e) {
@@ -209,6 +211,18 @@ function ProductModelComponent({product, categories}) {
                     <label className='text-sm font-semibold font-Opensans'>image</label>
                 </div>
                 <input type="file" onChange={handleChange} name="image" id="image" />
+            </Grid>
+            <Grid xs={12} item>
+                <div>
+                    <label className='text-sm font-semibold font-Opensans'>image 2</label>
+                </div>
+                <input type="file" onChange={handleChange} name="image2" id="image2" />
+            </Grid>
+            <Grid xs={12} item>
+                <div>
+                    <label className='text-sm font-semibold font-Opensans'>image 3</label>
+                </div>
+                <input type="file" onChange={handleChange} name="image3" id="image3" />
             </Grid>
             <Grid item sx={{display:'flex', justifyContent:'space-between',flexDirection:'row-reverse'}} xs={12} mt={2}>
               {!product?

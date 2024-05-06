@@ -11,6 +11,7 @@ class Image extends Model
     use HasFactory;
     protected $primaryKey = 'url';
     public $incrementing = false;
+    public $timestamps = false;
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'product_images');

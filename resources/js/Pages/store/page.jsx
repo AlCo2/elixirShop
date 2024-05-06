@@ -315,13 +315,16 @@ const store = ({products, category_list, filter, sort, filteredprice}) => {
                   </Grid>
                 </Grid>
               <Grid container gap={2} marginY={5} justifyContent={{xs:'center'}} mt={2}>
-                { products.data.map((product)=>(
+                { products.data.length>0?products.data.map((product)=>(
                   <SuggestionCard key={product.id} id={product.id} title={product.title} image={product.images[0].url} price={product.price}/>
                 ))
+                :
+                <p>There is no product to Show</p>
                 }
               </Grid>
             </Grid>
           </Grid>
+          {products.data.length>0 &&
           <Box sx={{display:'flex', justifyContent:'center'}}>
             <Pagination onChange={handlePageChange}
               renderItem={(item) =>(
@@ -335,6 +338,7 @@ const store = ({products, category_list, filter, sort, filteredprice}) => {
             page={page} 
             sx={{py:5}}/>
           </Box>
+          }
       </div>
     </>
   )
