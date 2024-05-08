@@ -183,7 +183,7 @@ const FilterPrice = ({price, setPrice, setPriceFilterActive, priceFilterActive})
           valueLabelDisplay="auto"
           getAriaValueText={valuetext}
           disableSwap
-          min={0}
+          min={10}
           max={1000}
         />
         <div className='flex flex-wrap gap-1'>
@@ -291,7 +291,9 @@ const store = ({products, category_list, filter, sort, filteredprice}) => {
               <p className='font-Opensans font-semibold mt-5'>Price</p>
               <FilterPrice price={price} setPrice={setPrice} setPriceFilterActive={setPriceFilterActive} priceFilterActive={priceFilterActive}/>
               <p className='font-Opensans font-semibold mt-5'>Categories</p>
+              {category_list.length > 0 &&
               <FormControlLabel control={<Checkbox color='liliana_third' size='small' onChange={handleSelectAllChange}/>} label="All" />
+              }
               <FormGroup className='pl-2 font-Opensans'>
                 {category_list.map(category=>(
                     <FormControlLabel key={category.id} control={<Checkbox color='liliana_third' checked={categories.includes(category.id)} size='small' onChange={handleCheckboxChange(category.id)} />} label={category.name} />  

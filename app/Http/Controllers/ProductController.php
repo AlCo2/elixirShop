@@ -25,6 +25,15 @@ class ProductController extends Controller
         return "not found";
     }
 
+    private function addProductImage($product, $image)
+    {
+        $imageName = time().$image->getClientOriginalName();
+        $image->move(public_path('images'), $imageName);
+        $name = "/images/" . $imageName;
+        DB::table('images')->updateOrInsert(['url'=>$name]);
+        $product->images()->attach($name);
+    }
+
     public function add(Request $request){
         $request->validate([
             'title' => ['required', 'max:50'],
@@ -38,49 +47,61 @@ class ProductController extends Controller
         $product->Qty  = $request->Q;
         $product->price  = $request->price;
         $product->save();
-        $images = [];
         if($request->hasFile('image')){
             $image = $request->file('image');
-            $imageName = time().$image->getClientOriginalName();
-            $image->move(public_path('images'), $imageName);
-            $name = "/images/" . $imageName;
-            $images[] = $name;
-            DB::table('images')->updateOrInsert(['url'=>$name]);
+            $this->addProductImage($product, $image);
         }
         if($request->hasFile('image2')){
             $image = $request->file('image2');
-            $imageName = time().$image->getClientOriginalName();
-            $image->move(public_path('images'), $imageName);
-            $name = "/images/" . $imageName;
-            $images[] = $name;
-            DB::table('images')->updateOrInsert(['url'=>$name]);
+            $this->addProductImage($product, $image);
         }
         if($request->hasFile('image3')){
             $image = $request->file('image3');
-            $imageName = time().$image->getClientOriginalName();
-            $image->move(public_path('images'), $imageName);
-            $name = "/images/" . $imageName;
-            $images[] = $name;
-            DB::table('images')->updateOrInsert(['url'=>$name]);
+            $this->addProductImage($product, $image);
         }
-        $product->images()->sync($images);
     }
 
     public function update($id, Request $request){
-        $product = Product::find($id);
+        $product = Product::with('images')->find($id);
         $product->title = $request->title;
         $product->category_id = $request->category;
         $product->description = $request->description;
         $product->Qty = $request->Q;
         $product->price = $request->price;
         if($request->hasFile('image')){
-            $image = $request->file('image');
-            $imageName = time().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('images'), $imageName);
-            File::delete(public_path('images/' . $product->image));
-            $product->image  = $imageName;
-        }        
+            $req_image = $request->file('image');
+            $this->updateProductImage(0, $product, $req_image);
+        }
+        if($request->hasFile('image2')){
+            $req_image = $request->file('image2');
+            $this->updateProductImage(1, $product, $req_image);
+        }
+        if($request->hasFile('image3')){
+            $req_image = $request->file('image3');
+            $this->updateProductImage(2, $product, $req_image);
+        }
         $product->save();
+    }
+
+    private function updateProductImage($id, $product, $req_image)
+    {
+        $imageName = time().$req_image->getClientOriginalName();
+        $req_image->move(public_path('images'), $imageName);
+        $name = "/images/" . $imageName;
+        if (isset($product->images[$id]))
+        {
+            $url = $product->images[$id]->url;
+            File::delete(public_path($url));
+            $image = Image::find($url);
+            $image->url = $name;
+            $product->images()->detach($url);
+            $image->save();
+        }
+        else
+        {
+            DB::table('images')->updateOrInsert(['url'=>$name]);
+        }
+        $product->images()->attach($name);
     }
 
     public function delete($id)

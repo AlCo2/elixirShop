@@ -109,7 +109,9 @@ function ProductModelComponent({product, categories}) {
     values.Q = "";
     values.category = "";
     values.price = "";
-    values.image = null; 
+    values.image = null;
+    values.image2 = null; 
+    values.image3 = null;
     handleClose();
   }
   const prepereUpdate = (product) =>{
@@ -119,11 +121,13 @@ function ProductModelComponent({product, categories}) {
     values.Q = product.Qty;
     values.price = product.price;
     values.image = null;
+    values.image2 = null; 
+    values.image3 = null;
   }
 
   function handleUpdate(e) {
     e.preventDefault();
-    router.post('/api/product/' + product.id, values); 
+    router.post('/api/product/' + product.id, values);
     handleClose();
   }
   return (
@@ -141,7 +145,7 @@ function ProductModelComponent({product, categories}) {
         <Box sx={style}>
           <Grid container gap={1}>
             <Grid item xs={12} className='flex justify-between'>
-              <p className='font-Poppins font-semibold'>Add New Product</p>
+              <p className='font-Poppins font-semibold'>{product?"Update Product":"Add New Product"}</p>
               <IconButton size='small' onClick={handleClose}><FaXmark/></IconButton>
             </Grid>
             <Grid xs={12} md={5.8} item>

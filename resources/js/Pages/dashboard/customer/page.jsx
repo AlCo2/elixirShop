@@ -193,7 +193,7 @@ const page = ({customers}) => {
         </Grid>
         <Grid item xs={12}>
           <DataGrid
-            sx={{background:'white'}}
+            sx={{background:'white', minHeight:200}}
             rows={customers}
             columns={columns}
             initialState={{

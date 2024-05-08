@@ -242,7 +242,7 @@ const page = ({order}) => {
         </Grid>
         <Grid item xs={12}>
           <DataGrid
-            sx={{background:'white'}}
+            sx={{background:'white', minHeight:200}}
             rows={order}
             columns={columns}
             initialState={{
