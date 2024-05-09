@@ -41,6 +41,11 @@ class CartController extends Controller
         $this->updateCart($cart);
     }
     
+    public function deleteAllFromCart()
+    {
+        session()->forget('cart');                
+    }
+
     private function getCart(): array
     {
         return session('cart');

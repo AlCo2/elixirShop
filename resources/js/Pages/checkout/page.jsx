@@ -13,6 +13,12 @@ const page = ({data}) => {
     tax:0.00,
     total:0.00,
   })
+
+  function deleteAll()
+  {
+    router.post('/api/cart/deleteall');
+  }
+
   useEffect(()=>{
     let total = 0;
     data.map((product)=>(
@@ -27,8 +33,11 @@ const page = ({data}) => {
         <Grid container gap={4} justifyContent={'center'} columns={12}>
           <Grid item xs={12} md={9}>
             <Paper className="overflow-auto">
-              <div className='ml-8 py-4'>
+              <div className='mx-8 py-4 flex justify-between'>
                 <p className='font-poppins font-bold text-xl'>Shopping Cart</p>
+                {
+                  data.length>0 && <Button onClick={deleteAll} variant="text" sx={{my:2}} color="liliana_third">All</Button>
+                }
               </div>
               <Divider/>
               <div className='ml-8 mt-4'>

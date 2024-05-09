@@ -30,6 +30,7 @@ Route::get('/showorder', [OrderController::class, 'showOrder']);
 Route::post('/api/cart/add', [CartController::class, 'addToCart']);
 Route::post('/api/cart/sub', [CartController::class, 'subFromCart']);
 Route::post('/api/cart/delete', [CartController::class, 'deleteFromCart']);
+Route::post('/api/cart/deleteall', [CartController::class, 'deleteAllfromCart']);
 Route::post('/api/order/create', [OrderController::class, 'createOrder']);
 
 /*        Temp router:            */
