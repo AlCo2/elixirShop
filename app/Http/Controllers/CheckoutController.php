@@ -39,7 +39,10 @@ class CheckoutController extends Controller
                 'product' => $product['product'],
                 'Q' => $product['Q'],
             ];
-            $total += $product['product']->price * $product['Q'];
+            if ($product['product']->promotion)
+                $total += $product['product']->promotion['promotion_price'] * $product['Q'];
+            else
+                $total += $product['product']->price * $product['Q'];
         }
         $this->createTotal($total);
         return $data;

@@ -7,7 +7,6 @@ import { useState } from 'react';
 const product = ({product, products}) => {
     const [selectedImage, setSelectedImage] = useState(0)
     const [open, setOpen] = useState(false);
-
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
           return;
@@ -37,14 +36,26 @@ const product = ({product, products}) => {
                 </Box>
             </Grid>
             <Grid item xs={12} sm={6} p={4} bgcolor={"white"} >
-                <div className='my-5'>
+                <div className='my-5 flex justify-between'>
                     <p className='font-Roboto uppercase opacity-40 font-semibold'>{product.category?product.category.name:''}</p>
+                    {product.promotion && product.promotion.active?
+                        <Chip sx={{borderRadius:1}} size='small' label="PROMO" variant='outlined' color="error"/>
+                        :
+                        null
+                    }
                 </div>
-                <div className='flex justify-between'>
-                    <div className='w-4/6'>
+                <div className='flex justify-between flex-wrap'>
+                    <div className='w-4/6 max-sm:w-full'>
                         <p className='font-Roboto font-semibold uppercase text-2xl'>{product.title}</p>
                     </div>
-                    <p className='font-Poppins text-xl'>{product.price}.00DH</p>
+                    <div>
+                    <p className={'font-Poppins '+(product.promotion && product.promotion.active?'line-through text-sm text-right text-liliana-primary':'text-xl')}>{product.price}.00DH</p>
+                    {product.promotion && product.promotion.active?
+                        <p className='font-Poppins text-xl'>{product.promotion.promotion_price}.00DH</p>
+                        :
+                        null
+                    }
+                    </div>
                 </div>
                 <div className='my-5'>
                     <p className='font-Roboto text-sm'>{product.description}</p>

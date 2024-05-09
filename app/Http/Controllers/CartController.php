@@ -60,7 +60,7 @@ class CartController extends Controller
     private function addProduct($product_id): void
     {
         $cart = $this->getCart();
-        $product = Product::with('images')->find($product_id);
+        $product = Product::with('images', 'promotion')->find($product_id);
         $cart[$product_id] = [
             'product' => $product,
             'Q' => 1

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Promotion extends Model
 {
     use HasFactory;
+
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);

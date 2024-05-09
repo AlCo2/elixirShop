@@ -1,10 +1,8 @@
 import { Link, router } from '@inertiajs/react';
 import { Alert, Box, Button, Card, CardContent, CardMedia, Grid, Snackbar, Typography } from '@mui/material';
 import { useState } from 'react';
-import { FaShoppingBasket } from 'react-icons/fa';
-import { IoIosAdd } from 'react-icons/io';
 
-const SuggestionCard = ({id, title, image, price}) => {
+const SuggestionCard = ({id, title, image, price, promotion}) => {
   const [open, setOpen] = useState(false);
   function addToCart(e){
     e.preventDefault();
@@ -42,16 +40,21 @@ const SuggestionCard = ({id, title, image, price}) => {
               />
           </Box>
         </Link>
-        <Box display={'flex'} height={70} justifyContent={'center'}>
+        <Box height={60}>
           <CardContent>
-            <Typography sx={{fontFamily:'Roboto', fontWeight:'bold'}} textAlign={'left'} variant="body1">
-              {title}
-            </Typography>
+            <p className='text-sm font-Roboto font-bold text-left'>{title}</p>
           </CardContent>
         </Box>
+        {promotion && promotion.active?
+        <Box display={'flex'} justifyContent={'space-between'} margin={2} alignItems={'center'}>
+          <Typography fontFamily={'Poppins'} variant="body2">{promotion.promotion_price}.00DH</Typography>
+          <p className='text-xs opacity-70 line-through'>{price}.00DH</p>
+        </Box>
+        :
         <Box display={'flex'} margin={2} justifyContent={'space-between'} alignItems={'center'}>
           <Typography fontFamily={'Poppins'} variant="body2">{price}.00DH</Typography>
         </Box>
+        }
         <Box display={'flex'} margin={2} justifyContent={'space-between'} alignItems={'center'}>
           <Button onClick={addToCart} sx={{borderRadius:0}} fullWidth variant="contained" color='liliana_third'>ADD TO CART</Button>
         </Box>

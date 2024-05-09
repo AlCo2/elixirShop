@@ -318,7 +318,7 @@ const store = ({products, category_list, filter, sort, filteredprice}) => {
                 </Grid>
               <Grid container gap={2} marginY={5} justifyContent={{xs:'center'}} mt={2}>
                 { products.data.length>0?products.data.map((product)=>(
-                  <SuggestionCard key={product.id} id={product.id} title={product.title} image={product.images[0].url} price={product.price}/>
+                  <SuggestionCard key={product.id} id={product.id} title={product.title} image={product.images[0].url} price={product.price} promotion={product.promotion}/>
                 ))
                 :
                 <p>There is no product to Show</p>

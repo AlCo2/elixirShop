@@ -47,9 +47,9 @@ class StoreController extends Controller
             {
                 if($request->has('filter')){
                     $filter = $request->input('filter');
-                    $products = Product::with('images')->whereIn('category_id', $filter)->whereBetween('price', [$min_price, $max_price])->orderByDesc('created_at')->paginate(12);
+                    $products = Product::with('images', 'promotion')->whereIn('category_id', $filter)->whereBetween('price', [$min_price, $max_price])->orderByDesc('created_at')->paginate(12);
                 }else{
-                    $products = Product::with('images')->whereBetween('price', [$min_price, $max_price])->orderByDesc('created_at')->paginate(12);
+                    $products = Product::with('images', 'promotion')->whereBetween('price', [$min_price, $max_price])->orderByDesc('created_at')->paginate(12);
                 }
             }
             else{
@@ -63,9 +63,9 @@ class StoreController extends Controller
                 }
                 if($request->has('filter')){
                     $filter = $request->input('filter');
-                    $products = Product::with('images')->whereIn('category_id', $filter)->whereBetween('price', [$min_price, $max_price])->orderBy('price', $word)->paginate(12);
+                    $products = Product::with('images', 'promotion')->whereIn('category_id', $filter)->whereBetween('price', [$min_price, $max_price])->orderBy('price', $word)->paginate(12);
                 }else{
-                    $products = Product::with('images')->whereBetween('price', [$min_price, $max_price])->orderBy('price', $word)->paginate(12);
+                    $products = Product::with('images', 'promotion')->whereBetween('price', [$min_price, $max_price])->orderBy('price', $word)->paginate(12);
                 }
             }
         }
@@ -73,16 +73,16 @@ class StoreController extends Controller
         {
             if($request->has('filter')){
                 $filter = $request->input('filter');
-                $products = Product::with('images')->whereIn('category_id', $filter)->whereBetween('price', [$min_price, $max_price])->paginate(12);
+                $products = Product::with('images', 'promotion')->whereIn('category_id', $filter)->whereBetween('price', [$min_price, $max_price])->paginate(12);
             }else{
-                $products = Product::with('images')->whereBetween('price', [$min_price, $max_price])->paginate(12);
+                $products = Product::with('images', 'promotion')->whereBetween('price', [$min_price, $max_price])->paginate(12);
             }
         }
         return Inertia::render('store/page', compact('products', 'category_list', 'filter', 'sort', 'filteredprice'));
     }
 
     public function product($id){
-        $product = Product::with('category', 'images')->find($id);
+        $product = Product::with('category', 'images', 'promotion')->find($id);
         if (!$product)
         {
             return abort(404);

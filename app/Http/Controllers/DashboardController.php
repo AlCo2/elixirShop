@@ -48,7 +48,7 @@ class DashboardController extends Controller
     }
 
     public function promotion(){
-        $products = Product::get();
+        $products = Product::whereDoesntHave('promotion')->get();
         $promotions = Promotion::with('product')->get();
         return Inertia::render('dashboard/promotion/page', compact('products', 'promotions'));
     }

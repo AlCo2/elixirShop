@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('promotions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('product_id')->unique();
             $table->bigInteger('promotion_price');
             $table->boolean('active')->default(true);
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');

@@ -16,7 +16,7 @@ const page = ({data}) => {
   useEffect(()=>{
     let total = 0;
     data.map((product)=>(
-      total += product.product.price * product.Q
+      product.product.promotion && product.product.promotion.active?total += product.product.promotion.promotion_price * product.Q:total += product.product.price * product.Q
     ))
     setOrder_summary({...order_summary, total:total.toFixed(2)})
   }, [data])
@@ -43,7 +43,7 @@ const page = ({data}) => {
                   </thead>
                   <tbody>
                     {data.map((product)=>(
-                      <Order key={product.product.id} image={product.product.images[0].url} id={product.product.id} name={product.product.title} price={product.product.price * product.Q} Q={product.Q}/>
+                      <Order key={product.product.id} image={product.product.images[0].url} id={product.product.id} name={product.product.title} price={product.product.promotion && product.product.promotion.active?product.product.promotion.promotion_price * product.Q : product.product.price * product.Q} Q={product.Q}/>
                     ))}
                   </tbody>
                 </table>
