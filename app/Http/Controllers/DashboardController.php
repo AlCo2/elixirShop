@@ -16,6 +16,7 @@ class DashboardController extends Controller
 {
     public function overview(){
         $products = Product::limit(5)->with('category')->get();
+        $total_products = Product::count();
         $total_sales = 0;
         $order_item = Order_item::with('order')->get();
         foreach ($order_item as $order)
@@ -23,7 +24,7 @@ class DashboardController extends Controller
             if ($order->order->status_id === 2)
                 $total_sales += $order->total;
         }
-        return Inertia::render('dashboard/page', compact('products', 'total_sales'));
+        return Inertia::render('dashboard/page', compact('products', 'total_sales', 'total_products'));
     }
 
     public function customer(){

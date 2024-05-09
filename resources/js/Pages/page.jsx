@@ -126,7 +126,7 @@ export default function Home({promotions, featured, bestsellers, latest}) {
         <Grid container justifyContent={'center'} rowGap={2} columnGap={5} className="my-10">
           {promotions.length>0?
             promotions.map((promotion)=>(
-            <DiscountCard key={promotion.id} id={promotion.product.id} title={promotion.product.title} image={promotion.product.images[0].url} price={promotion.product.price} discountPrice={promotion.promotion_price}/>
+            <DiscountCard key={promotion.id} id={promotion.product.id} title={promotion.product.title} image={promotion.product.images[0]?promotion.product.images[0].url:null} price={promotion.product.price} discountPrice={promotion.promotion_price}/>
           ))
           :
           <>There is no products Available</>
@@ -136,7 +136,7 @@ export default function Home({promotions, featured, bestsellers, latest}) {
         <Grid container justifyContent={'center'} rowGap={2} columnGap={5} className="my-10">
           {featured.length>0?
             featured.map((product)=>(
-            <IntroCard key={product.id} id={product.id} title={product.title} image={product.images[0].url} price={product.price}/>
+            <IntroCard key={product.id} id={product.id} title={product.title} image={product.images[0]?product.images[0].url:null} price={product.price}/>
           ))
           :
           <>There is no products Available</>
@@ -156,7 +156,7 @@ export default function Home({promotions, featured, bestsellers, latest}) {
         <Grid container justifyContent={'center'} rowGap={2} columnGap={5} className="my-10">
           {latest.length>0?
             latest.map((product)=>(
-            <IntroCard key={product.id} id={product.id} title={product.title} image={product.images[0].url} price={product.price}/>
+            <IntroCard key={product.id} id={product.id} title={product.title} image={product.images[0]?product.images[0].url:null} price={product.price}/>
           ))
           :
           <>There is no products Available</>

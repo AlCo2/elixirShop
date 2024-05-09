@@ -71,7 +71,7 @@ const product = ({product, products}) => {
             <p className='font-Poppins text-xl my-4'>Produits similaires</p>
             <Grid container gap={1} justifyContent={{xs:'center', sm:'left'}} my={2}>
                 {products.map((product)=>(
-                    <SuggestionCard key={product.id} id={product.id} title={product.title} image={product.images[0].url} price={product.price}/>
+                    <SuggestionCard key={product.id} id={product.id} title={product.title} image={product.images[0]?product.images[0].url:null} price={product.price}/>
                 ))}
             </Grid>
         </Container>

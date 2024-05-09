@@ -22,7 +22,8 @@ const TableCellDate = ({date}) =>{
     </TableCell>
   )
 }
-const page = ({products, total_sales}) => {
+const page = ({products, total_products,total_sales}) => {
+
   return (
     <Container>
       <Box sx={{p:2}}>
@@ -36,12 +37,12 @@ const page = ({products, total_sales}) => {
               <Grid gap={1} container sx={{justifyContent:'space-between'}}>
                 <Grid xs sx={{borderRadius:4, bgcolor:'white', borderWidth:1}} item>
                   <Box sx={{p:2}}>
-                    <p className="font-Roboto font-semibold text-xl">Total Product Viewed</p>
+                    <p className="font-Roboto font-semibold text-xl">Total Product</p>
                     <p className="text-xs opacity-70">Customre have visited and clicked product</p>
                   </Box>
                   <Box sx={{pl:2, display:'flex', alignItems:'center'}}>
                     <Box sx={{ display:'flex', flexDirection:'column', justifyContent:'space-between', height:70}}>
-                      <Typography sx={{color:'#7c62ff', fontSize:'1.875rem', lineHeight:'2.25rem', fontWeight:700, fontFamily:'Poppins'}}>6.003</Typography>
+                      <Typography sx={{color:'#7c62ff', fontSize:'1.875rem', lineHeight:'2.25rem', fontWeight:700, fontFamily:'Poppins'}}>{total_products}</Typography>
                       <p className="text-sm font-Poppins"><span className="text-green-500">1K+</span> <span className="text-xs opacity-70">Increase</span></p>
                     </Box>
                     <SparkLineChart area colors={['#7c62ff']} curve="natural" data={[7, 10, 8, 12, 10, 14, 13]} width={100} height={70} showHighlight showTooltip/>
