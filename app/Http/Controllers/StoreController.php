@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Product;
+use App\Models\Promotion;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
@@ -14,10 +15,11 @@ use Illuminate\Support\Facades\Http;
 class StoreController extends Controller
 {
     public function home(){
+        $promotions = Promotion::inRandomOrder()->limit(4)->with('product', 'product.images')->where('active', true)->get();
         $featured = Product::inRandomOrder()->limit(4)->with('images')->get();
         $bestsellers = Product::inRandomOrder()->limit(4)->with('images')->get();
         $latest = Product::inRandomOrder()->limit(4)->with('images')->get();
-        return Inertia::render('page', compact('featured', 'bestsellers', 'latest'));
+        return Inertia::render('page', compact('featured', 'bestsellers', 'latest', 'promotions'));
     }
     public function index(Request $request){
         $category_list = Category::all();

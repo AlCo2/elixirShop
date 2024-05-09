@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Promotion;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Order_detail;
@@ -24,10 +25,12 @@ class DashboardController extends Controller
         }
         return Inertia::render('dashboard/page', compact('products', 'total_sales'));
     }
+
     public function customer(){
         $customers = User::all();
         return Inertia::render('dashboard/customer/page', compact('customers'));
     }
+
     public function category(){
         $categories = Category::all();
         return Inertia::render('dashboard/category/page', compact('categories'));
@@ -38,8 +41,15 @@ class DashboardController extends Controller
         $categories = Category::all();
         return Inertia::render('dashboard/product/page', compact('products', 'categories'));
     }
+
     public function order(){
         $order = Order::with('order_detail')->get();
         return Inertia::render('dashboard/order/page', compact('order'));
+    }
+
+    public function promotion(){
+        $products = Product::get();
+        $promotions = Promotion::with('product')->get();
+        return Inertia::render('dashboard/promotion/page', compact('products', 'promotions'));
     }
 }

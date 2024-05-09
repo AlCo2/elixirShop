@@ -5,6 +5,7 @@ Use App\Http\Controllers\StoreController;
 Use App\Http\Controllers\ProductController;
 Use App\Http\Controllers\CategoryController;
 Use App\Http\Controllers\DashboardController;
+Use App\Http\Controllers\PromotionController;
 Use App\Http\Controllers\CheckoutController;
 Use App\Http\Controllers\OrderController;
 Use App\Http\Controllers\CartController;
@@ -30,7 +31,6 @@ Route::post('/api/cart/sub', [CartController::class, 'subFromCart']);
 Route::post('/api/cart/delete', [CartController::class, 'deleteFromCart']);
 Route::post('/api/order/create', [OrderController::class, 'createOrder']);
 
-
 /*        Temp router:            */
 Route::get('/promotions', function(){
     return Inertia::render('Promotions');
@@ -44,6 +44,7 @@ Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])->group(functio
     route::get('/dashboard/product', [DashboardController::class, 'product']);
     route::get('/dashboard/order', [DashboardController::class, 'order']);
     route::get('/dashboard/category', [DashboardController::class, 'category']);
+    route::get('/dashboard/promotion', [DashboardController::class, 'promotion']);
     route::get('/dashboard/message', function(){
         return Inertia::render('dashboard/message/page');
     });
@@ -64,6 +65,12 @@ Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])->group(functio
 
     /* order API */
     Route::patch('/api/order/{id}', [OrderController::class, 'updateOrderStatus']);
+
+    /* promotion API */
+    Route::post('/api/promotion/', [PromotionController::class, 'createNewPromotion']);
+    Route::patch('/api/promotion/{id}', [PromotionController::class, 'updatePromotion']);
+    Route::delete('/api/promotion/{id}', [PromotionController::class, 'deletePromotion']);
+
 });
 
 Route::middleware('auth')->group(function () {

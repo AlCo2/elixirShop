@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Grid, List, ListItemButton, Collapse, Box, IconButton, Button } from '@mui/material'
 import { BiMessage, BiSolidDashboard, BiStore, BiUser } from 'react-icons/bi';
-import { FaAngleDown, FaAngleUp, FaBars, FaBuffer, FaCalculator, FaCalendarCheck, FaDolly } from 'react-icons/fa';
+import { FaAngleDown, FaAngleUp, FaBars, FaBuffer, FaCalculator, FaCalendarCheck, FaDolly, FaMoneyCheck } from 'react-icons/fa';
 import { Link } from '@inertiajs/react';
 
 
@@ -58,12 +58,16 @@ const Sidebar = () => {
                 <Collapse in={open} timeout="auto" unmountOnExit>
                 <List sx={{pl:2}} className='flex flex-col gap-1' disablePadding>
                     <ListItemButton LinkComponent={Link} href='/dashboard/product' sx={style('/dashboard/product')}>
-                    <FaCalculator/>
-                    <p>Stock</p>
+                        <FaCalculator/>
+                        <p>Stock</p>
                     </ListItemButton>
                     <ListItemButton LinkComponent={Link} href='/dashboard/category' sx={style('/dashboard/category')}>
-                    <FaBuffer/>
-                    <p>Category</p>
+                        <FaBuffer/>
+                        <p>Category</p>
+                    </ListItemButton>
+                    <ListItemButton LinkComponent={Link} href='/dashboard/promotion' sx={style('/dashboard/promotion')}>
+                        <FaMoneyCheck/>
+                        <p>Promotion</p>
                     </ListItemButton>
                 </List>
                 </Collapse>

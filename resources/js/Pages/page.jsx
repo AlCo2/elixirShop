@@ -5,6 +5,7 @@ import IntroCard from "./components/IntroCard";
 import ServiceIntro from "./components/home/ServiceIntro";
 import { usePage } from "@inertiajs/react";
 import Layout from "@/Layout";
+import DiscountCard from "./components/DiscountCard";
 
 const SectionBanner = ({title, text}) =>{
   return (
@@ -15,8 +16,9 @@ const SectionBanner = ({title, text}) =>{
   )
 }
 
-export default function Home({featured, bestsellers, latest}) { 
+export default function Home({promotions, featured, bestsellers, latest}) { 
   const { flash } = usePage().props;
+  console.log(promotions);
   return (
     <>
       <Container>
@@ -120,9 +122,19 @@ export default function Home({featured, bestsellers, latest}) {
           </Grid>
         </Grid>
         </Container>
+        <SectionBanner title={"Promotions"} text={"Our Best Offers"}/>
+        <Grid container justifyContent={'center'} rowGap={2} columnGap={5} className="my-10">
+          {promotions.length>0?
+            promotions.map((promotion)=>(
+            <DiscountCard key={promotion.id} id={promotion.id} title={promotion.product.title} image={promotion.product.images[0].url} price={promotion.product.price} discountPrice={promotion.promotion_price}/>
+          ))
+          :
+          <>There is no products Available</>
+          }
+        </Grid>
         <SectionBanner title={"Featured"} text={"See Our Most featured Products"}/>
         <Grid container justifyContent={'center'} rowGap={2} columnGap={5} className="my-10">
-          {featured.length>1?
+          {featured.length>0?
             featured.map((product)=>(
             <IntroCard key={product.id} id={product.id} title={product.title} image={product.images[0].url} price={product.price}/>
           ))
@@ -132,9 +144,9 @@ export default function Home({featured, bestsellers, latest}) {
         </Grid>
         <SectionBanner title={"Bestsellers"} text={"See Best Selling Products"} />
         <Grid container justifyContent={'center'} rowGap={2} columnGap={5} className="my-10">
-          {bestsellers.length>1?
+          {bestsellers.length>0?
             bestsellers.map((product)=>(
-            <IntroCard key={product.id} id={product.id} title={product.title} image={product.images[0].url} price={product.price}/>
+            <IntroCard key={product.id} id={product.id} title={product.title} price={product.price}/>
           ))
           :
           <>There is no products Available</>
@@ -142,7 +154,7 @@ export default function Home({featured, bestsellers, latest}) {
         </Grid>
         <SectionBanner title={"Latest Products"} text={"See new Products"} />
         <Grid container justifyContent={'center'} rowGap={2} columnGap={5} className="my-10">
-          {latest.length>1?
+          {latest.length>0?
             latest.map((product)=>(
             <IntroCard key={product.id} id={product.id} title={product.title} image={product.images[0].url} price={product.price}/>
           ))
