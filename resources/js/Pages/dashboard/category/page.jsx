@@ -132,11 +132,7 @@ function CategoryModelComponent({category}) {
                 <div>
                     <label className='text-sm font-semibold font-Opensans'>category</label>
                 </div>
-                {!category?
                 <input id='name' type="text" value={values.name} onChange={handleChange} className='border-2 rounded-md h-8 p-1 text-sm xl:w-full'/>
-                :
-                <input id='name' value={values.name} onChange={handleChange} type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full'/>
-                }
             </Grid>
             <Grid item sx={{display:'flex', justifyContent:'space-between',flexDirection:'row-reverse'}} xs={12} mt={2}>
               {!category?

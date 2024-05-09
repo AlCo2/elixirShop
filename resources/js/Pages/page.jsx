@@ -18,7 +18,6 @@ const SectionBanner = ({title, text}) =>{
 
 export default function Home({promotions, featured, bestsellers, latest}) { 
   const { flash } = usePage().props;
-  console.log(promotions);
   return (
     <>
       <Container>
@@ -26,7 +25,7 @@ export default function Home({promotions, featured, bestsellers, latest}) {
           <Alert severity="success" sx={{mt:2}}>{flash.success}</Alert>
         }
         {flash.error && 
-          <Alert severity="error">{flash.error}</Alert>
+          <Alert severity="error" sx={{mt:2}}>{flash.error}</Alert>
         }
       </Container>
       <Grid container columns={{xs:6,md:12}}>

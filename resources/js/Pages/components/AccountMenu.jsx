@@ -114,15 +114,6 @@ export default function AccountMenu() {
                 {auth.user.firstname}
             </MenuItem>
           </Link>
-          <Link method='post' as='button' href='/logout' className='w-full'>
-            <MenuItem onClick={handleClose}>
-                <ListItemIcon>
-                    <CiLogin/>
-                </ListItemIcon>
-                Logout
-              
-            </MenuItem>
-          </Link>
           <Divider />
           <Link href='/checkorder'>
             <MenuItem onClick={handleClose}>
@@ -138,6 +129,16 @@ export default function AccountMenu() {
                   <FaUserCheck/>
                 </ListItemIcon>
                   My Orders
+            </MenuItem>
+          </Link>
+          <Divider />
+          <Link method='post' as='button' href='/logout' className='w-full'>
+            <MenuItem onClick={handleClose}>
+                <ListItemIcon>
+                    <CiLogin/>
+                </ListItemIcon>
+                Logout
+              
             </MenuItem>
           </Link>
         </List>

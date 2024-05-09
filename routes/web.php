@@ -7,6 +7,7 @@ Use App\Http\Controllers\CategoryController;
 Use App\Http\Controllers\DashboardController;
 Use App\Http\Controllers\PromotionController;
 Use App\Http\Controllers\CheckoutController;
+Use App\Http\Controllers\UserController;
 Use App\Http\Controllers\OrderController;
 Use App\Http\Controllers\CartController;
 use App\Http\Middleware\EnsureUserIsAdmin;
@@ -48,6 +49,11 @@ Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])->group(functio
     route::get('/dashboard/message', function(){
         return Inertia::render('dashboard/message/page');
     });
+
+    /* user API */
+    Route::post('/api/user', [UserController::class, 'newUser']);
+    Route::post('/api/user/{id}', [UserController::class, 'updateUser']);
+    Route::delete('/api/user/{id}', [UserController::class, 'deleteUser']);
 
     /* product API */
     Route::get('/api/product/', [ProductController::class, 'all']);

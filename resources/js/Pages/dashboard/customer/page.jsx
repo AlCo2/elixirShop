@@ -5,6 +5,7 @@ import { FaPen, FaTrash } from 'react-icons/fa';
 import { FiAlertTriangle } from 'react-icons/fi';
 import { FaXmark } from 'react-icons/fa6';
 import DashboardLayout from '../DashboardLayout';
+import { router } from '@inertiajs/react';
 
 
 const columns = [
@@ -59,9 +60,9 @@ function ConfirmDeleteUser({row}) {
   };
 
   const handleClose = (choice) => {
-    // if(choice){
-    //   router.post('/api/deleteproduct/'+row.id);
-    // }
+    if(choice){
+      router.delete('/api/user/'+row.id);
+    }
     setOpen(false);
   };
   return (
@@ -99,12 +100,70 @@ function UserModelComponent({user}) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const [values, setValues] = useState({
+    firstname:"",
+    lastname:"",
+    email:"",
+    address:"",
+    phone:"",
+    role:2,
+    password:"",
+  })
+
+  function handleSelectChange(e) {
+    const { name, value } = e.target;
+    setValues(prevValues => ({
+        ...prevValues,
+        [name]: value,
+    }));
+  }
+
+  function handleChange(e) {
+    const key = e.target.id;
+    const value = e.target.value
+    setValues(values => ({
+        ...values,
+        [key]: value,
+    }))
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    router.post('/api/user', values);
+    values.firstname = ""
+    values.lastname = ""
+    values.address = ""
+    values.phone = ""
+    values.password = ""
+    values.email = ""
+    values.role = 2
+    handleClose();
+  }
+
+  function prepareUpdate(user)
+  {
+    values.firstname = user.firstname
+    values.lastname = user.lastname
+    values.address = user.address
+    values.phone = user.phone
+    values.password = ""
+    values.email = user.email
+    values.role = user.role_id
+    handleOpen();
+  }
+
+  function handleUpdate(e) {
+    e.preventDefault();
+    router.post('/api/user/'+user.id, values);
+    handleClose();
+  }
+
   return (
     <div>
       {!user?
       <Button onClick={handleOpen} variant='contained' color='primary' sx={{borderRadius:'0.375rem'}}>Add Customer</Button>
       :
-      <button onClick={handleOpen} className='bg-liliana-background rounded-md border text-black opacity-70 p-2'><FaPen className='text-sm'/></button>
+      <button onClick={()=>prepareUpdate(user)} className='bg-liliana-background rounded-md border text-black opacity-70 p-2'><FaPen className='text-sm'/></button>
       }
       <Modal 
         open={open}
@@ -121,37 +180,37 @@ function UserModelComponent({user}) {
                 <div>
                     <label className='text-sm font-semibold font-Opensans'>First Name</label>
                 </div>
-                {!user?
-                <input type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="" id="" />
-                :
-                <input value={user.firstname} type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="" id="" />
-                }
+                <input onChange={handleChange} value={values.firstname} type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="firstname" id="firstname" />
             </Grid>
             <Grid xs={12} md={5.8} item>
                 <div>
                     <label className='text-sm font-semibold font-Opensans'>Last Name</label>
                 </div>
-                {!user?
-                <input type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="" id="" />
-                :
-                <input value={user.lastname} type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="" id="" />
-                }
+                <input onChange={handleChange} value={values.lastname} type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="lastname" id="lastname" />
             </Grid>
             <Grid xs={12} md={5.8} item>
                 <div>
                     <label className='text-sm font-semibold font-Opensans'>email</label>
                 </div>
-                {!user?
-                <input type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="" id="" />
-                :
-                <input value={user.email} type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="" id="" />
-                }
+                <input onChange={handleChange} value={values.email} type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="email" id="email" />
             </Grid>
             <Grid xs={12} md={5.8} item>
                 <div>
                     <label className='text-sm font-semibold font-Opensans'>password</label>
                 </div>
-                <input type="password" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="" id="" />
+                <input onChange={handleChange} value={values.password} type="password" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="password" id="password" />
+            </Grid>
+            <Grid xs={12} md={5.8} item>
+                <div>
+                    <label className='text-sm font-semibold font-Opensans'>Address</label>
+                </div>
+                <input onChange={handleChange} value={values.address} type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="address" id="address" />
+            </Grid>
+            <Grid xs={12} md={5.8} item>
+                <div>
+                    <label className='text-sm font-semibold font-Opensans'>Phone</label>
+                </div>
+                <input onChange={handleChange} value={values.phone} type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="phone" id="phone" />
             </Grid>
             <Grid xs={12} md={5.8} item>
                 <div>
@@ -159,11 +218,13 @@ function UserModelComponent({user}) {
                 </div>
                 <FormControl fullWidth>
                   <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
+                      labelId="role"
+                      id="role"
+                      name='role'
                       className='h-8 text-black'
                       defaultValue={!user?2:user.role}
-                  >
+                      value={values.role}
+                      onChange={handleSelectChange}                >
                       <MenuItem value={1}>Admin</MenuItem>
                       <MenuItem value={2}>Customer</MenuItem> 
                   </Select>
@@ -171,9 +232,9 @@ function UserModelComponent({user}) {
             </Grid>
             <Grid item sx={{display:'flex', justifyContent:'space-between',flexDirection:'row-reverse'}} xs={12} mt={2}>
               {!user?
-                <Button onClick={handleClose} variant='contained' size='small' color='success' sx={{borderRadius:'0.375rem'}}>Add</Button>
+                <Button onClick={handleSubmit} variant='contained' size='small' color='success' sx={{borderRadius:'0.375rem'}}>Add</Button>
               :
-                <Button onClick={handleClose} variant='contained' size='small' color='primary' sx={{borderRadius:'0.375rem'}}>Update</Button>
+                <Button onClick={handleUpdate} variant='contained' size='small' color='primary' sx={{borderRadius:'0.375rem'}}>Update</Button>
               }
               <Button onClick={handleClose} variant='contained' size='small' color='error' sx={{borderRadius:'0.375rem'}}>Cancle</Button>
             </Grid>
