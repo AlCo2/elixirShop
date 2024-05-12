@@ -8,7 +8,7 @@ const DiscountCard = ({id, title, image, price, discountPrice}) => {
     <Grid item >
       <Card sx={{width:240, ":hover":{boxShadow:5}, cursor:'pointer', position:'relative'}}>
         <Box>
-            <p className='absolute right-1 top-1 text-white font-Poppins bg-liliana-primary text-right px-2 py-1 rounded-lg'>{'-'+parseInt(((price - discountPrice) / (price)) * 100)+'%'}</p>
+            <p className='absolute right-0 top-1 text-white text-xs font-Poppins bg-liliana-primary text-right px-2 py-1 rounded-l-lg'>{'-'+parseInt(((price - discountPrice) / (price)) * 100)+'%'}</p>
         </Box>
         <Link href={'/store/product/'+id}>
           <Box display={'flex'} justifyContent={'center'}>

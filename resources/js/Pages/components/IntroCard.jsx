@@ -48,7 +48,7 @@ const IntroCard = ({id, title, image, price}) => {
         </Box>
         <Box display={'flex'} margin={2} justifyContent={'space-between'} alignItems={'center'}>
           <Typography fontFamily={'Poppins'} variant="body2">{price}DH</Typography>
-          <Button onClick={addToCart} variant="contained" color='liliana_third'>Add to cart</Button>
+          <Button onClick={addToCart} variant="contained" color='liliana_third'><FaShoppingBasket/></Button>
         </Box>
       </Card>
     </Grid>

@@ -87,7 +87,7 @@ const CategoryMenu = ({category_list, categories, handleSelectAllChange, handleC
   )
 }
 
-const FilterMenu = ({category_list, categories, handleSelectAllChange, handleCheckboxChange, price, setPrice, setPriceFilterActive, priceFilterActive}) =>{
+const FilterMenu = ({category_list, categories, handleSelectAllChange, handleCheckboxChange, price, setPrice, setPriceFilterActive, priceFilterActive, maxPrice}) =>{
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -134,7 +134,7 @@ const FilterMenu = ({category_list, categories, handleSelectAllChange, handleChe
               </Grid>
               <Grid item xs={12}>
                 <p className='font-Poppins'>price</p>
-                <FilterPrice price={price} setPrice={setPrice} setPriceFilterActive={setPriceFilterActive} priceFilterActive={priceFilterActive}/>
+                <FilterPrice price={price} setPrice={setPrice} setPriceFilterActive={setPriceFilterActive} priceFilterActive={priceFilterActive} maxPrice={maxPrice}/>
               </Grid>
               <Grid item xs={12}>
                 <p className='font-Poppins'>Categories</p>
@@ -150,7 +150,7 @@ const FilterMenu = ({category_list, categories, handleSelectAllChange, handleChe
   );
 }
 
-const FilterPrice = ({price, setPrice, setPriceFilterActive, priceFilterActive}) =>{
+const FilterPrice = ({price, setPrice, setPriceFilterActive, priceFilterActive, maxPrice}) =>{
   const [value1, setValue1] = useState([price[0], price[1]]);
   function valuetext(value) {
     return `${value}`;
@@ -184,7 +184,7 @@ const FilterPrice = ({price, setPrice, setPriceFilterActive, priceFilterActive})
           getAriaValueText={valuetext}
           disableSwap
           min={10}
-          max={1000}
+          max={maxPrice}
         />
         <div className='flex flex-wrap gap-1'>
           <FormControl fullWidth sx={{width:85}}>
@@ -225,7 +225,7 @@ const FilterPrice = ({price, setPrice, setPriceFilterActive, priceFilterActive})
   )
 }
 
-const store = ({products, category_list, filter, sort, filteredprice}) => {  
+const store = ({products, category_list, filter, sort, filteredprice, maxPrice}) => {  
   const [page, setPage] = useState(products.current_page);
   const [price, setPrice] = useState([filteredprice.min, filteredprice.max]);
   const [priceFilterActive, setPriceFilterActive] = useState(filteredprice.active);
@@ -289,7 +289,7 @@ const store = ({products, category_list, filter, sort, filteredprice}) => {
             <Grid xs={2.5} item sx={{p:"1.25rem", pb:'0.25rem', pt:'1.9rem'}} className='max-lg:hidden '>
               <p className='font-bold font-Opensans text-xl'>Filters</p>
               <p className='font-Opensans font-semibold mt-5'>Price</p>
-              <FilterPrice price={price} setPrice={setPrice} setPriceFilterActive={setPriceFilterActive} priceFilterActive={priceFilterActive}/>
+              <FilterPrice price={price} maxPrice={maxPrice} setPrice={setPrice} setPriceFilterActive={setPriceFilterActive} priceFilterActive={priceFilterActive}/>
               <p className='font-Opensans font-semibold mt-5'>Categories</p>
               {category_list.length > 0 &&
               <FormControlLabel control={<Checkbox color='liliana_third' size='small' onChange={handleSelectAllChange}/>} label="All" />
@@ -309,7 +309,7 @@ const store = ({products, category_list, filter, sort, filteredprice}) => {
                     <Box display={'flex'} alignItems={'center'}>
                       <div className='flex items-center lg:hidden'>
                         <p className='text-sm'>Filters</p>
-                        <FilterMenu category_list={category_list} categories={categories} handleCheckboxChange={handleCheckboxChange} handleSelectAllChange={handleSelectAllChange} price={price} setPrice={setPrice} setPriceFilterActive={setPriceFilterActive} priceFilterActive={priceFilterActive}/>
+                        <FilterMenu category_list={category_list} categories={categories} handleCheckboxChange={handleCheckboxChange} handleSelectAllChange={handleSelectAllChange} price={price} setPrice={setPrice} setPriceFilterActive={setPriceFilterActive} priceFilterActive={priceFilterActive} maxPrice={maxPrice}/>
                       </div>
                       <p className='text-sm'>Sort</p>
                       <SortMenu selectedSort={selectedSort} setselectedSort={setselectedSort}/>

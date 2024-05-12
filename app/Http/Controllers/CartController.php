@@ -43,7 +43,7 @@ class CartController extends Controller
     
     public function deleteAllFromCart()
     {
-        session()->forget('cart');                
+        session()->forget('cart');
     }
 
     private function getCart(): array

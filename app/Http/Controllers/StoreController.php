@@ -26,6 +26,7 @@ class StoreController extends Controller
         $filter = [];
         $sort = null;
         $max_price = Product::max('price');
+        $maxPrice = $max_price;
         $min_price = Product::min('price');
         $active = False;
         if($request->min && $request->max)
@@ -78,7 +79,7 @@ class StoreController extends Controller
                 $products = Product::with('images', 'promotion')->whereBetween('price', [$min_price, $max_price])->paginate(12);
             }
         }
-        return Inertia::render('store/page', compact('products', 'category_list', 'filter', 'sort', 'filteredprice'));
+        return Inertia::render('store/page', compact('products', 'category_list', 'filter', 'sort', 'filteredprice', 'maxPrice'));
     }
 
     public function product($id){
