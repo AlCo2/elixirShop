@@ -1,9 +1,10 @@
-import { Link } from '@inertiajs/react';
+import { Link, router, usePage } from '@inertiajs/react';
 import { Alert, Box, Button, Card, CardContent, CardMedia, Grid, Snackbar, Typography} from '@mui/material';
 import axios from 'axios';
 import { useState } from 'react';
 import { FaShoppingBasket } from 'react-icons/fa';
 const IntroCard = ({id, title, image, price}) => {
+  const { cart } = usePage().props;
   const [open, setOpen] = useState(false);
   function addToCart(e){
     e.preventDefault();
@@ -11,6 +12,7 @@ const IntroCard = ({id, title, image, price}) => {
         product_id:id
     }
     axios.post('/api/cart/add', data, {preserveScroll:true});
+    router.reload({only:['cart']});
     setOpen(true);
   }
   const handleClose = (event, reason) => {

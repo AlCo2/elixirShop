@@ -4,6 +4,7 @@ import Order from "./components/Order";
 import { Box, Button, Container, Divider, Grid, Paper } from "@mui/material";
 import { router } from "@inertiajs/react";
 import Layout from "@/Layout";
+import axios from "axios";
 
 
 const page = ({data}) => {
@@ -13,19 +14,20 @@ const page = ({data}) => {
     tax:0.00,
     total:0.00,
   })
+  const [products, setProducts] = useState(data);
 
   function deleteAll()
   {
-    router.post('/api/cart/deleteall');
+    axios.post('/api/cart/deleteall');
+    setProducts([]);
   }
-
-  useEffect(()=>{
+  useEffect(()=>{    
     let total = 0;
-    data.map((product)=>(
+    products.map((product)=>(
       product.product.promotion && product.product.promotion.active?total += product.product.promotion.promotion_price * product.Q:total += product.product.price * product.Q
     ))
     setOrder_summary({...order_summary, total:total.toFixed(2)})
-  }, [data])
+  }, [products])
   return (
   <>
     <div className="min-h-80 pt-5 bg-liliana-background">
@@ -36,12 +38,12 @@ const page = ({data}) => {
               <div className='mx-8 py-4 flex justify-between'>
                 <p className='font-poppins font-bold text-xl'>Shopping Cart</p>
                 {
-                  data.length>0 && <Button onClick={deleteAll} variant="text" sx={{my:2}} color="liliana_third">All</Button>
+                  products.length>0 && <Button onClick={deleteAll} variant="text" sx={{my:2}} color="error">All</Button>
                 }
               </div>
               <Divider/>
               <div className='ml-8 mt-4'>
-                {data.length>0?
+                {products.length>0?
                 <table className='w-11/12'>
                   <thead className='h-10'>
                     <tr>
@@ -51,8 +53,8 @@ const page = ({data}) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {data.map((product)=>(
-                      <Order key={product.product.id} image={product.product.images[0].url} id={product.product.id} name={product.product.title} price={product.product.promotion && product.product.promotion.active?product.product.promotion.promotion_price * product.Q : product.product.price * product.Q} Q={product.Q}/>
+                    {products.map((product, index)=>(
+                      <Order key={product.product.id} image={product.product.images[0].url} id={index} product_id={product.product.id} name={product.product.title} price={product.product.promotion && product.product.promotion.active?product.product.promotion.promotion_price * product.Q : product.product.price * product.Q} Q={product.Q} products={products} setProducts={setProducts} />
                     ))}
                   </tbody>
                 </table>
@@ -67,7 +69,7 @@ const page = ({data}) => {
           </Grid>
           <Grid item xs={12} md={2.5}>
             <OrderSummary order_summary={order_summary}/>
-            {data.length>0?
+            {products.length>0?
             <Box sx={{display:'flex', justifyContent:'center', mt:2}}>
               <Button variant='contained' href="/checkout/fastcheckout" color="liliana_third">Continue</Button>
             </Box>
