@@ -29,6 +29,10 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $Q = 0;
+        foreach($request->session()->get('cart', []) as $product){
+            $Q += $product['Q'];
+        }
         return [
             ...parent::share($request),
             'auth' => [
@@ -39,7 +43,7 @@ class HandleInertiaRequests extends Middleware
                 'success'=> fn() => $request->session()->get('success')
             ],
             'cart'=> [
-                'total' => count($request->session()->get('cart', []))
+                'total' => $Q
             ],
         ];
     }

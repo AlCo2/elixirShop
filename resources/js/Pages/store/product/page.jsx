@@ -1,10 +1,11 @@
 import { Alert, Box, Button, Chip, Container, Divider, Grid, Paper, Rating, Snackbar, Typography } from '@mui/material';
 import SuggestionCard from '../components/SuggestionCard';
-import { router } from '@inertiajs/react';
-import Layout from '@/Layout';
-import { useState } from 'react';
+import Layout, { CartContext } from '@/Layout';
+import { useContext, useState } from 'react';
+import axios from 'axios';
 
 const product = ({product, products}) => {
+    const { cartTotalProducts, setCartTotalProducts } = useContext(CartContext);
     const [selectedImage, setSelectedImage] = useState(0)
     const [open, setOpen] = useState(false);
     const handleClose = (event, reason) => {
@@ -18,12 +19,22 @@ const product = ({product, products}) => {
         const data = {
             product_id:product.id
         }
-        router.post('/api/cart/add', data, {preserveScroll:true});
+        axios.post('/api/cart/add', data);
+        setCartTotalProducts(cartTotalProducts + 1);
         setOpen(true);
     }
   return (
     <>
         <div>
+        <Snackbar
+            open={open}
+            autoHideDuration={5000}
+            onClose={handleClose}
+            >
+                <Alert onClose={handleClose} severity='success' variant='filled' sx={{width:'100%'}}>
+                {product.title} added to cart
+                </Alert>
+        </Snackbar>
         <Grid container className='min-h-screen'>
             <Grid item xs={12} sm={6} className='bg-liliana-background sm:p-4'>
                 <Box sx={{display:"flex", justifyContent:"center"}}>

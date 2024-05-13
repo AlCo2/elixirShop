@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import OrderSummary from "./components/OrderSummary";
 import Order from "./components/Order";
 import { Box, Button, Container, Divider, Grid, Paper } from "@mui/material";
 import { router } from "@inertiajs/react";
-import Layout from "@/Layout";
+import Layout, { CartContext } from "@/Layout";
 import axios from "axios";
 
 
 const page = ({data}) => {
+  const { cartTotalProducts, setCartTotalProducts } = useContext(CartContext);
   const [order_summary, setOrder_summary] = useState({
     discount:0.00,
     delivary:0.00,
@@ -20,6 +21,7 @@ const page = ({data}) => {
   {
     axios.post('/api/cart/deleteall');
     setProducts([]);
+    setCartTotalProducts(0);
   }
   useEffect(()=>{    
     let total = 0;

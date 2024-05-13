@@ -1,12 +1,14 @@
+import { CartContext } from "@/Layout";
 import product from "@/Pages/store/product/page";
 import { Link, router } from "@inertiajs/react";
 import { Box, Button, ButtonGroup } from "@mui/material";
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { BsTrashFill } from "react-icons/bs";
 
 const QuentityBar = ({id, product_id, products, setProducts, Q}) =>{
     const [q, setQ] = useState(Q);
+    const { cartTotalProducts, setCartTotalProducts } = useContext(CartContext)
     function subFromCart(e){
         e.preventDefault();
         if (q < 2)
@@ -18,6 +20,7 @@ const QuentityBar = ({id, product_id, products, setProducts, Q}) =>{
         const updatedProducts = [...products]
         updatedProducts[id].Q-=1;
         setProducts(updatedProducts);
+        setCartTotalProducts(cartTotalProducts-1)
         setQ(q-1);
     }
     function addToCart(e){
@@ -28,6 +31,7 @@ const QuentityBar = ({id, product_id, products, setProducts, Q}) =>{
         axios.post('/api/cart/add', data);
         const updatedProducts = [...products]
         updatedProducts[id].Q+=1;
+        setCartTotalProducts(cartTotalProducts+1)
         setProducts(updatedProducts);
         setQ(q+1);
     }
@@ -43,6 +47,7 @@ const QuentityBar = ({id, product_id, products, setProducts, Q}) =>{
 }
 
 const Order = ({id, product_id,name, image, price, Q, products, setProducts}) =>{
+    const { cartTotalProducts, setCartTotalProducts } = useContext(CartContext)
     function deleteFromCart(e){
         e.preventDefault();
         const data = {
@@ -51,6 +56,7 @@ const Order = ({id, product_id,name, image, price, Q, products, setProducts}) =>
         axios.post('/api/cart/delete', data);
         const updatedProducts = [...products];
         updatedProducts.splice(id, 1)
+        setCartTotalProducts(cartTotalProducts-Q);
         setProducts(updatedProducts);
     }
 

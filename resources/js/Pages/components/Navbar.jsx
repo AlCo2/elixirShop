@@ -4,13 +4,15 @@ import {BsHouse, BsShop, BsTicket, } from 'react-icons/bs'
 import AccountMenu from './AccountMenu';
 import SideBar from './SideBar';
 import { usePage } from '@inertiajs/react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useEffect } from 'react';
 import { CiSettings } from 'react-icons/ci';
+import { CartContext } from '@/Layout';
 
 const Navbar = () => {
   const [sticky, setSticky] = useState(false);
   const { cart, auth } = usePage().props;
+  const { cartTotalProducts, setCartTotalProducts } = useContext(CartContext);
   const pathname = window.location.pathname
 
   const handleScroll = () => {
@@ -42,7 +44,7 @@ const Navbar = () => {
         <li className='flex items-center'>
           <AccountMenu />
           <IconButton href='/checkout' className={`${pathname==='/checkout'?'text-black':'text-white'}`} aria-label="cart">
-            <Badge badgeContent={cart.total} className={`${pathname==='/checkout'?'text-black':'text-white'}`} color="primary">
+            <Badge badgeContent={cartTotalProducts} className={`${pathname==='/checkout'?'text-black':'text-white'}`} color="primary">
               <BiShoppingBag/>
             </Badge>
           </IconButton>
@@ -69,7 +71,7 @@ const Navbar = () => {
         <div className='flex mr-4 items-center'>
           <AccountMenu />
           <IconButton href='/checkout' className={`${pathname==='/checkout'?'text-black':'text-white'}`} aria-label="cart">
-            <Badge badgeContent={cart.total} className={`${pathname==='/checkout'?'text-black':'text-white'}`} color="primary">
+            <Badge badgeContent={cartTotalProducts} className={`${pathname==='/checkout'?'text-black':'text-white'}`} color="primary">
               <BiShoppingBag/>
             </Badge>
           </IconButton>
@@ -82,7 +84,7 @@ const Navbar = () => {
       </a>
       <div className='flex items-center gap-3'>
         <IconButton href='/checkout' aria-label="cart">
-        <Badge badgeContent={cart.total} className={`${pathname==='/checkout'?'text-black':'text-white'}`} color="primary">
+        <Badge badgeContent={cartTotalProducts} className={`${pathname==='/checkout'?'text-black':'text-white'}`} color="primary">
             <BiShoppingBag className='text-white'/>
           </Badge>
         </IconButton>

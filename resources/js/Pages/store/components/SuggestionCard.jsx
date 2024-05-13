@@ -1,15 +1,19 @@
-import { Link, router } from '@inertiajs/react';
+import { CartContext } from '@/Layout';
+import { Link } from '@inertiajs/react';
 import { Alert, Box, Button, Card, CardContent, CardMedia, Grid, Snackbar, Typography } from '@mui/material';
-import { useState } from 'react';
+import axios from 'axios';
+import { useContext, useState } from 'react';
 
 const SuggestionCard = ({id, title, image, price, promotion}) => {
   const [open, setOpen] = useState(false);
+  const { cartTotalProducts, setCartTotalProducts } = useContext(CartContext);
   function addToCart(e){
     e.preventDefault();
     const data = {
         product_id:id
     }
-    router.post('/api/cart/add', data, {preserveScroll:true});
+    axios.post('/api/cart/add', data);
+    setCartTotalProducts(cartTotalProducts + 1);
     setOpen(true);
   }
   const handleClose = (event, reason) => {
