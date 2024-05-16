@@ -3,8 +3,12 @@ import SuggestionCard from '../components/SuggestionCard';
 import Layout, { CartContext } from '@/Layout';
 import { useContext, useState } from 'react';
 import axios from 'axios';
+import { usePage } from '@inertiajs/react';
+import EditProduct from '../components/EditProduct';
+import FastPromotion from '../components/FastPromotion';
 
-const product = ({product, products}) => {
+const product = ({product, products, categories}) => {
+    const { auth } = usePage().props;
     const { cartTotalProducts, setCartTotalProducts } = useContext(CartContext);
     const [selectedImage, setSelectedImage] = useState(0)
     const [open, setOpen] = useState(false);
@@ -47,6 +51,14 @@ const product = ({product, products}) => {
                 </Box>
             </Grid>
             <Grid item xs={12} sm={6} p={4} bgcolor={"white"} >
+                {auth.user && auth.user.role_id==1?
+                    <div className='flex justify-end gap-2'>
+                        <FastPromotion product={product}/>
+                        <EditProduct product={product} categories={categories}/>
+                    </div>
+                    :
+                    null
+                }
                 <div className='my-5 flex justify-between'>
                     <p className='font-Roboto uppercase opacity-40 font-semibold'>{product.category?product.category.name:''}</p>
                     {product.promotion && product.promotion.active?

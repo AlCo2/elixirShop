@@ -82,13 +82,16 @@ class StoreController extends Controller
         return Inertia::render('store/page', compact('products', 'category_list', 'filter', 'sort', 'filteredprice', 'maxPrice'));
     }
 
-    public function product($id){
+    public function product(Request $request, $id){
         $product = Product::with('category', 'images', 'promotion')->find($id);
         if (!$product)
         {
             return abort(404);
         }
         $products = Product::inRandomOrder()->limit(5)->with('images')->get();
-        return Inertia::render('store/product/page', compact('product', 'products'));
+        $categories = [];
+        if($request->user() && $request->user()->role_id == 1)
+            $categories = Category::all();
+        return Inertia::render('store/product/page', compact('product', 'products', 'categories'));
     }
 }
