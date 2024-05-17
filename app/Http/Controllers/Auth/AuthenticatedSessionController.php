@@ -32,8 +32,15 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-
+    
         return redirect('/');
+    }
+
+    public function store_api(LoginRequest $request)
+    {
+        $request->authenticate();
+        $token = $request->user()->createToken("Token_api")->plainTextToken;
+        return $token;
     }
 
     /**

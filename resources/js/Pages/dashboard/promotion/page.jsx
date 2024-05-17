@@ -6,7 +6,6 @@ import { FiAlertTriangle } from 'react-icons/fi';
 import { FaXmark } from 'react-icons/fa6';
 import DashboardLayout from '../DashboardLayout';
 import { router } from '@inertiajs/react';
-import { useRef } from 'react';
 
 const ActiveStatus = ({active}) =>{
   if (active)
