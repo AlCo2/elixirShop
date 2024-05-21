@@ -12,7 +12,7 @@ class ProductController extends Controller
 {
 
     public function all(){
-        $products = Product::all();
+        $products = Product::with('images', 'category')->inRandomOrder()->get();
         return $products;
     }
     

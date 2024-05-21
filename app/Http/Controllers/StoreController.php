@@ -21,6 +21,19 @@ class StoreController extends Controller
         $latest = Product::inRandomOrder()->limit(4)->with('images')->get();
         return Inertia::render('page', compact('featured', 'bestsellers', 'latest', 'promotions'));
     }
+
+    public function promotion_api()
+    {
+        $promotions = Promotion::inRandomOrder()->limit(4)->with('product', 'product.category', 'product.images')->where('active', true)->get();
+        return $promotions;
+    }
+    
+    public function popular_api()
+    {
+        $popular = Product::inRandomOrder()->limit(4)->with('images', 'category')->get();
+        return $popular;
+    }
+
     public function index(Request $request){
         $category_list = Category::all();
         $filter = [];

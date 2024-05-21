@@ -85,7 +85,7 @@ const product = ({product, products, categories}) => {
                 </div>
                 <div className='flex justify-between'>
                     <p className='text-xs'>Make every gift special 10% off <br /> any two products</p>
-                    <Button onClick={addToCart} sx={{borderRadius:0}} variant="contained" color='liliana_third'>ADD TO CART +</Button>
+                    <Button onClick={addToCart} sx={{borderRadius:0,minWidth:136, maxHeight:37}} variant="contained" color='liliana_third'>ADD TO CART +</Button>
                 </div>
             </Grid>
         </Grid>

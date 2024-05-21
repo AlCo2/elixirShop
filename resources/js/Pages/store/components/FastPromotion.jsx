@@ -49,8 +49,6 @@ function PromotionModelComponent({product}) {
         return;
       values.promotion_price = parseInt(values.promotion_price);
       router.post('/api/promotion', values);
-      values.promotion_price = "";
-      values.active = false;
       handleClose();
     }
   

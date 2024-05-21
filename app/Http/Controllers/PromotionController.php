@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 class PromotionController extends Controller
 {
 
+    public function all()
+    {
+        $promotions = Promotion::inRandomOrder()->with('product', 'product.category', 'product.images')->where('active', true)->get();
+        return $promotions;
+    }
     public function createNewPromotion(Request $request)
     {
         $request->validate([

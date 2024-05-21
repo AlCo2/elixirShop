@@ -113,7 +113,7 @@ export default function SideBar() {
                 :
                 <List disablePadding>
                   <ListItem disablePadding>
-                    <ListItemButton>
+                    <ListItemButton href='/login'>
                       <ListItemIcon>
                         <CiLogin/>
                       </ListItemIcon>
@@ -121,7 +121,7 @@ export default function SideBar() {
                     </ListItemButton>
                   </ListItem>
                   <ListItem disablePadding>
-                    <ListItemButton>
+                    <ListItemButton href='/register'>
                       <ListItemIcon>
                         <RiShieldUserFill/>
                       </ListItemIcon>

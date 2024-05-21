@@ -56,4 +56,10 @@ class AuthenticatedSessionController extends Controller
 
         return redirect('/login');
     }
+    
+    public function destroy_api(Request $request)
+    {
+        $user = $request->user();
+        $user->tokens()->delete();
+    }
 }

@@ -7,6 +7,12 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+
+    public function getAuthUser(Request $request)
+    {
+        return $request->user();
+    }
+
     public function newUser(Request $request)
     {
         $request->validate([
