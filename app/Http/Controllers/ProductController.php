@@ -12,8 +12,28 @@ class ProductController extends Controller
 {
 
     public function all(){
-        $products = Product::with('images', 'category')->inRandomOrder()->get();
+        $products = Product::with('images', 'category', 'promotion')->inRandomOrder()->get();
         return $products;
+    }
+    
+    public function cart_products(Request $request)
+    {
+        $products = [];
+        $total = 0;
+        foreach ($request->data as $key => $value)
+        {
+            $product = Product::with('images', 'category', 'promotion')->find($key);
+            $products[] = $product;
+            if ($product->promotion)
+                $total += $product->promotion['promotion_price'] * $value;
+            else
+                $total += $product->price * $value;
+        }
+        $data = [
+            'total' => $total,
+            'products' => $products,
+        ];
+        return $data;
     }
     
     public function get($id){

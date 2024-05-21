@@ -24,13 +24,13 @@ class StoreController extends Controller
 
     public function promotion_api()
     {
-        $promotions = Promotion::inRandomOrder()->limit(4)->with('product', 'product.category', 'product.images')->where('active', true)->get();
+        $promotions = Product::whereHas('promotion')->inRandomOrder()->limit(4)->with('images', 'category', 'promotion')->get();
         return $promotions;
     }
     
     public function popular_api()
     {
-        $popular = Product::inRandomOrder()->limit(4)->with('images', 'category')->get();
+        $popular = Product::whereDoesntHave('promotion')->inRandomOrder()->limit(4)->with('images', 'category')->get();
         return $popular;
     }
 

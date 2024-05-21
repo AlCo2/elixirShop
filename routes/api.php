@@ -19,6 +19,7 @@ Route::get('/popular',[StoreController::class, 'popular_api']);
 
 Route::get('/categories', [CategoryController::class, 'all']);
 Route::get('/products', [ProductController::class, 'all']);
+Route::post('/cartproducts', [ProductController::class, 'cart_products']);
 Route::get('/promotions',[PromotionController::class, 'all']);
 
 Route::middleware('auth:sanctum')->group(function () {
