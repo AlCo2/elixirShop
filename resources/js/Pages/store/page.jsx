@@ -284,7 +284,7 @@ const store = ({products, category_list, filter, sort, filteredprice, maxPrice})
   
   return (
     <>
-      <div className='min-h-screen pt-5 bg-liliana-background max-sm:px-4'>
+      <div className='min-h-screen pt-5 max-sm:px-4'>
           <Grid container columns={12} justifyContent={'center'}>
             <Grid xs={2.5} item sx={{p:"1.25rem", pb:'0.25rem', pt:'1.9rem'}} className='max-lg:hidden '>
               <p className='font-bold font-Opensans text-xl'>Filters</p>
@@ -318,7 +318,7 @@ const store = ({products, category_list, filter, sort, filteredprice, maxPrice})
                 </Grid>
               <Grid container gap={2} marginY={5} justifyContent={{xs:'center'}} mt={2}>
                 { products.data.length>0?products.data.map((product)=>(
-                  <SuggestionCard key={product.id} id={product.id} title={product.title} image={product.images[0]?product.images[0].url:null} price={product.price} promotion={product.promotion}/>
+                  <SuggestionCard key={product.id} product={product}/>
                 ))
                 :
                 <p>There is no product to Show</p>

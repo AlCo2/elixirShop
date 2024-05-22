@@ -14,15 +14,10 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        $response = Http::get('https://api.escuelajs.co/api/v1/categories');
-        $jsonData = $response->json();
-        $categories = [];
-        foreach ($jsonData as $category){
-            $categories[] = [
-                'id'=>$category['id'],
-                'name'=>$category['name']
-            ];
-        }
+        $categories = [
+            ['name'=>'woman'],
+            ['name'=>'man']
+        ];
         DB::table('categories')->insert($categories);
     }
 }

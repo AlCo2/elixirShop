@@ -145,7 +145,7 @@ export default function Home({promotions, featured, bestsellers, latest}) {
         <Grid container justifyContent={'center'} rowGap={2} columnGap={5} className="my-10">
           {bestsellers.length>0?
             bestsellers.map((product)=>(
-            <IntroCard key={product.id} id={product.id} title={product.title} price={product.price}/>
+              <IntroCard key={product.id} id={product.id} title={product.title} image={product.images[0]?product.images[0].url:null} price={product.price}/>
           ))
           :
           <>There is no products Available</>

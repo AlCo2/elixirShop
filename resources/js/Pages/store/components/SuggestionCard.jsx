@@ -1,21 +1,25 @@
 import { CartContext } from '@/Layout';
 import { Link } from '@inertiajs/react';
-import { Alert, Box, Button, Card, CardContent, CardMedia, Grid, Snackbar, Typography } from '@mui/material';
+import { Alert, Box, Button, Card, CardMedia, Grid, Snackbar, Typography } from '@mui/material';
 import axios from 'axios';
 import { useContext, useState } from 'react';
+import { FaShoppingBasket } from 'react-icons/fa';
 
-const SuggestionCard = ({id, title, image, price, promotion}) => {
+const SuggestionCard = ({product}) => {
   const [open, setOpen] = useState(false);
+  const [hover, setHover] = useState(false);
   const { cartTotalProducts, setCartTotalProducts } = useContext(CartContext);
+  
   function addToCart(e){
     e.preventDefault();
     const data = {
-        product_id:id
+        product_id:product.id
     }
     axios.post('/api/cart/add', data);
     setCartTotalProducts(cartTotalProducts + 1);
     setOpen(true);
   }
+
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -24,44 +28,46 @@ const SuggestionCard = ({id, title, image, price, promotion}) => {
     setOpen(false);
   };
   return (
-    <Grid item >
+    <Grid item>
       <Snackbar
-      open={open}
-      autoHideDuration={5000}
-      onClose={handleClose}
+        open={open}
+        autoHideDuration={5000}
+        onClose={handleClose}
       >
         <Alert onClose={handleClose} severity='success' variant='filled' sx={{width:'100%'}}>
-          {title} added to cart
+          {product.title} added to cart
         </Alert>
       </Snackbar>
-      <Card sx={{width:220, ":hover":{boxShadow:5}, cursor:'pointer'}}>
-        <Link href={'/store/product/'+id}>
-          <Box display={'flex'} justifyContent={'center'}>
+      <Card variant='outlined' onMouseOver={()=>setHover(true)} onMouseOut={()=>setHover(false)} sx={{width:220, ":hover":{boxShadow:2,}, cursor:'pointer'}}>
+        <Link href={'/store/product/'+product.id}>
+          <Box overflow={'hidden'} position={'relative'} display={'flex'} justifyContent={'center'}>
               <CardMedia component={'img'}
-                sx={{height:150, width:'100%'}}
-                image={image}
-                alt={title}
+                sx={{height:220, width:'100%'}}
+                image={hover?product.images[1].url:product.images[0].url}
+                className={'duration-700 ' + (hover?'scale-125':'')}
+                alt={product.title}
               />
+              <Box sx={{display:{xs:'none',sm:'none', md:'flex'}, opacity:0.9, position:'absolute', width:'100%',transitionDuration:'300ms',bottom:(hover?-18:-60)}} margin={2} justifyContent={'space-between'} alignItems={'center'}>
+                <Button onClick={addToCart} sx={{borderRadius:0}} fullWidth variant="contained" color='liliana_third'>ADD TO CART</Button>
+              </Box>
+              <Box sx={{display:{xs:'flex',sm:'flex', md:'none'}, opacity:0.9, position:'absolute', bottom:-10, right:-10}} margin={2} justifyContent={'space-between'} alignItems={'center'}>
+                <Button onClick={addToCart} sx={{borderRadius:0}} fullWidth variant="contained" color='liliana_third'><FaShoppingBasket/></Button>
+              </Box>
           </Box>
         </Link>
-        <Box height={60}>
-          <CardContent>
-            <p className='text-sm font-Roboto font-bold text-left'>{title}</p>
-          </CardContent>
+        <Box height={40} sx={{overflow:'hidden'}}>
+          <p className='text-sm font-Poppins font-semibold text-left px-2 pt-1'>{product.title}</p>
         </Box>
-        {promotion && promotion.active?
-        <Box display={'flex'} justifyContent={'space-between'} margin={2} alignItems={'center'}>
-          <Typography fontFamily={'Poppins'} variant="body2">{promotion.promotion_price}.00DH</Typography>
-          <p className='text-xs opacity-70 line-through'>{price}.00DH</p>
+        {product.promotion && product.promotion.active?
+        <Box height={20} margin={1} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+          <Typography fontFamily={'Poppins'} variant="body2" sx={{fontWeight:500}}>{product.promotion.promotion_price}.00DH</Typography>
+          <p className='text-xs opacity-70 line-through'>{product.price}.00DH</p>
         </Box>
         :
         <Box display={'flex'} margin={2} justifyContent={'space-between'} alignItems={'center'}>
-          <Typography fontFamily={'Poppins'} variant="body2">{price}.00DH</Typography>
+          <Typography fontFamily={'Poppins'} variant="body2" sx={{fontWeight:'bold'}}>{product.price}.00DH</Typography>
         </Box>
         }
-        <Box display={'flex'} margin={2} justifyContent={'space-between'} alignItems={'center'}>
-          <Button onClick={addToCart} sx={{borderRadius:0}} fullWidth variant="contained" color='liliana_third'>ADD TO CART</Button>
-        </Box>
       </Card>
     </Grid>
   )

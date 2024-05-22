@@ -45,9 +45,13 @@ const product = ({product, products, categories}) => {
                     <img src={product.images[selectedImage]?product.images[selectedImage].url:null} className='sm:w-1/2 max-sm:w-full rounded-md' alt={product.title} />
                 </Box>
                 <Box sx={{display:'flex', gap:1, justifyContent:'center', my:2}}>
-                    <img src={product.images[0]?product.images[0].url:null} onClick={()=>setSelectedImage(0)} className={'max-w-20 cursor-pointer hover:scale-105 duration-300 hover:border-liliana-primary hover:rounded-md '+ (selectedImage===0?'border-2 border-liliana-primary rounded-md':'')} alt={product.title}/>
-                    <img src={product.images[1]?product.images[1].url:null} onClick={()=>setSelectedImage(1)} className={'max-w-20 cursor-pointer hover:scale-105 duration-300 hover:border-liliana-primary hover:rounded-md '+ (selectedImage===1?'border-2 border-liliana-primary rounded-md':'')} alt={product.title}/>
-                    <img src={product.images[2]?product.images[2].url:null} onClick={()=>setSelectedImage(2)} className={'max-w-20 cursor-pointer hover:scale-105 duration-300 hover:border-liliana-primary hover:rounded-md '+ (selectedImage===2?'border-2 border-liliana-primary rounded-md':'')} alt={product.title}/>
+                    {product.images.length>0?
+                        product.images.map((image, index)=>(
+                            <img src={image.url} onClick={()=>setSelectedImage(index)} className={'max-w-20 cursor-pointer hover:scale-105 duration-300 hover:border-liliana-primary hover:rounded-md '+ (selectedImage===index?'border-2 border-liliana-primary rounded-md':'')} alt={product.title}/>
+                    ))
+                    :
+                    null
+                    }
                 </Box>
             </Grid>
             <Grid item xs={12} sm={6} p={4} bgcolor={"white"} >
