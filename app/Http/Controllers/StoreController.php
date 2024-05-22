@@ -38,9 +38,9 @@ class StoreController extends Controller
         $category_list = Category::all();
         $filter = [];
         $sort = null;
-        $max_price = Product::max('price');
+        $max_price = Promotion::max('promotion_price');
         $maxPrice = $max_price;
-        $min_price = Product::min('price');
+        $min_price = Promotion::min('promotion_price');
         $active = False;
         if($request->min && $request->max)
         {
@@ -53,45 +53,33 @@ class StoreController extends Controller
             'max'=>$max_price,
             'active'=>$active,
         ];
+
+        $query = Product::with('images', 'promotion')
+        ->join('promotions', 'promotions.product_id', '=', 'products.id')
+        ->whereBetween('promotions.promotion_price', [$min_price, $max_price]);
+
+        if ($request->has('filter'))
+        {
+            $filter = $request->input('filter');
+            $query->whereIn('category_id', $filter);
+        }
+
         if($request->has('sort'))
         {
-            $word = "";
-            $sort = $request->sort;
-            if ($sort == 3)
-            {
-                if($request->has('filter')){
-                    $filter = $request->input('filter');
-                    $products = Product::with('images', 'promotion')->whereIn('category_id', $filter)->whereBetween('price', [$min_price, $max_price])->orderByDesc('created_at')->paginate(20);
-                }else{
-                    $products = Product::with('images', 'promotion')->whereBetween('price', [$min_price, $max_price])->orderByDesc('created_at')->paginate(20);
-                }
-            }
-            else{
-                switch($sort){
-                    case 1:
-                        $word = "asc";
-                        break;
-                    case 2:
-                        $word = "desc";
-                        break;
-                }
-                if($request->has('filter')){
-                    $filter = $request->input('filter');
-                    $products = Product::with('images', 'promotion')->whereIn('category_id', $filter)->whereBetween('price', [$min_price, $max_price])->orderBy('price', $word)->paginate(20);
-                }else{
-                    $products = Product::with('images', 'promotion')->whereBetween('price', [$min_price, $max_price])->orderBy('price', $word)->paginate(20);
-                }
+            $sort = $request->input('sort');
+            switch ($sort) {
+                case 1:
+                    $query->orderBy('promotions.promotion_price', 'asc');
+                    break;
+                case 2:
+                    $query->orderBy('promotions.promotion_price', 'desc');
+                    break;
+                case 3:
+                    $query->orderBy('products.created_at', 'desc');
+                    break;
             }
         }
-        else
-        {
-            if($request->has('filter')){
-                $filter = $request->input('filter');
-                $products = Product::with('images', 'promotion')->whereIn('category_id', $filter)->whereBetween('price', [$min_price, $max_price])->paginate(20);
-            }else{
-                $products = Product::with('images', 'promotion')->whereBetween('price', [$min_price, $max_price])->paginate(20);
-            }
-        }
+        $products = $query->paginate(20);
         return Inertia::render('store/page', compact('products', 'category_list', 'filter', 'sort', 'filteredprice', 'maxPrice'));
     }
 
