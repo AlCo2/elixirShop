@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Promotion;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class PromotionController extends Controller
@@ -12,6 +13,13 @@ class PromotionController extends Controller
         $promotions = Promotion::inRandomOrder()->with('product', 'product.category', 'product.images')->where('active', true)->get();
         return $promotions;
     }
+
+    public function allProducts()
+    {
+        $promotions = Product::whereHas('promotion')->inRandomOrder()->with('images', 'category', 'promotion')->get();
+        return $promotions;
+    }
+
     public function createNewPromotion(Request $request)
     {
         $request->validate([
