@@ -14,5 +14,13 @@ export const theme = createTheme({
           main:'#faaea6',
           contrastText: 'white',
       },
+      liliana_white:{
+        main:'#FFFFFF',
+        contrastText:'black'
+      },
+      liliana_dark:{
+        main:'#000000',
+        contrastText:'white'
+      }
     },
   });

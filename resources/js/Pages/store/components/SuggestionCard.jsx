@@ -55,9 +55,11 @@ const SuggestionCard = ({product}) => {
               </Box>
           </Box>
         </Link>
-        <Box height={40} sx={{overflow:'hidden'}}>
-          <p className='text-sm font-Poppins font-semibold text-left px-2 pt-1'>{product.title}</p>
-        </Box>
+        <Link href={'/store/product/'+product.id}>
+          <Box height={40} sx={{overflow:'hidden'}}>
+            <p className='text-sm font-Poppins font-semibold text-left px-2 pt-1'>{product.title}</p>
+          </Box>
+        </Link>
         {product.promotion && product.promotion.active?
         <Box height={20} margin={1} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
           <Typography fontFamily={'Poppins'} variant="body2" sx={{fontWeight:500}}>{product.promotion.promotion_price}.00DH</Typography>

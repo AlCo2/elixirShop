@@ -14,8 +14,9 @@ import { BiUser } from 'react-icons/bi';
 import { List } from '@mui/material';
 import { Fragment, useState } from 'react';
 import { FaUserCheck } from 'react-icons/fa';
+import { FiUser } from 'react-icons/fi';
 
-export default function AccountMenu() {
+export default function AccountMenu({down}) {
   const { auth } = usePage().props;
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -36,7 +37,7 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <AiOutlineUser className={auth.user?'text-black':'text-white'}/>
+            <FiUser className={down?'text-white':'text-black'}/>
           </IconButton>
         </Tooltip>
       </Box>

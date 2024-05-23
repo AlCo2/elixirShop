@@ -30,39 +30,39 @@ const Navbar = () => {
 
   return (
     <>
-    <nav className={'max-sm:hidden flex justify-center bg-liliana-primary text-white items-center duration-700 z-10 fixed w-screen h-12 top-0 '+ (sticky?'translate-y-0':'-translate-y-full')}>
+    <nav className={'max-sm:hidden flex justify-center bg-black text-white items-center duration-700 z-10 fixed w-screen h-12 top-0 '+ (sticky?'translate-y-0':'-translate-y-full')}>
       <ul className='flex gap-5 md:gap-10 items-center font-Poppins'>
-        <li><a className={`duration-300 font-semibold hover:text-black flex items-center gap-1 ${pathname==='/'?'text-black':''}`} href="/"><BsHouse/>Home</a></li>
-        <li><a className={`duration-300 font-semibold hover:text-black flex items-center gap-1 ${pathname==='/store'?'text-black':''}`}  href="/store"><BsShop/>Store</a></li>
-        <li><a className={`duration-300 font-semibold hover:text-black flex items-center gap-1 ${pathname==='/promotions'?'text-black':''}`} href="/promotions"><BsTicket/>Promotions</a></li>
+        <li><a className={`duration-300 font-semibold hover:opacity-100 flex items-center gap-1 ${pathname==='/'?'opacity-100':'opacity-60'}`} href="/">Home</a></li>
+        <li><a className={`duration-300 font-semibold hover:opacity-100 flex items-center gap-1 ${pathname==='/store'?'opacity-100':'opacity-60'}`}  href="/store">Store</a></li>
+        <li><a className={`duration-300 font-bold hover:opacity-100 flex items-center gap-1 ${pathname==='/promotions'?'opacity-100':'opacity-60'}`} href="/woman">Woman</a></li>
+        <li><a className={`duration-300 font-bold hover:opacity-100 flex items-center gap-1 ${pathname==='/promotions'?'opacity-100':'opacity-60'}`} href="/man">Man</a></li>
         {auth.user && auth.user.role_id==1?
-        <li><a className={`duration-300 font-semibold hover:text-black flex items-center gap-1 ${pathname==='/promotions'?'text-black':''}`} href="/dashboard"><CiSettings/>Dashboard</a></li>
+        <li><a className={`duration-300 font-semibold hover:text-black flex items-center gap-1 ${pathname==='/promotions'?'opacity-100':'opacity-60'}`} href="/dashboard">Dashboard</a></li>
         :
         <></>
         }
-        <li className='flex items-center'><BiPhoneCall/><p className='font-Poppins'>+212 614 903 001</p></li>
         <li className='flex items-center'>
-          <AccountMenu />
-          <IconButton href='/checkout' className={`${pathname==='/checkout'?'text-black':'text-white'}`} aria-label="cart">
-            <Badge badgeContent={cartTotalProducts} className={`${pathname==='/checkout'?'text-black':'text-white'}`} color="primary">
+          <AccountMenu down={true}/>
+          <IconButton href='/checkout' aria-label="cart">
+            <Badge badgeContent={cartTotalProducts} className='text-white' color="primary">
               <BiShoppingBag/>
             </Badge>
           </IconButton>
         </li>
       </ul>
     </nav>
-    <nav className='max-sm:hidden flex justify-between bg-liliana-primary text-white items-center h-20'>
+    <nav className='max-sm:hidden flex justify-between text-black items-center h-20'>
         <a href='/' className='flex items-center ml-2'>
-          <img className='rounded-lg' src="/assets/lilianacolorfullogo.jpg" width={50} alt="logo" />
-          <p className="text-xl font-bold font-Poppins ml-2 duration-300">Liliana</p>
+          <p className="text-xl font-black font-Poppins ml-10 duration-300">Liliana</p>
         </a>
         <div className=''>
             <ul className='flex gap-5 md:gap-10 font-Poppins'>
-                <li><a className={`duration-300 font-semibold hover:text-black flex items-center gap-1 ${pathname==='/'?'text-black':''}`} href="/"><BsHouse/>Home</a></li>
-                <li><a className={`duration-300 font-semibold hover:text-black flex items-center gap-1 ${pathname==='/store'?'text-black':''}`}  href="/store"><BsShop/>Store</a></li>
-                <li><a className={`duration-300 font-semibold hover:text-black flex items-center gap-1 ${pathname==='/promotions'?'text-black':''}`} href="/promotions"><BsTicket/>Promotions</a></li>
+                <li><a className={`duration-300 font-bold hover:opacity-100 flex items-center gap-1 ${pathname==='/'?'opacity-100':'opacity-60'}`} href="/">Home</a></li>
+                <li><a className={`duration-300 font-bold hover:opacity-100 flex items-center gap-1 ${pathname==='/store'?'opacity-100':'opacity-60'}`}  href="/store">Parfumes</a></li>
+                <li><a className={`duration-300 font-bold hover:opacity-100 flex items-center gap-1 ${pathname==='/promotions'?'opacity-100':'opacity-60'}`} href="/promotions">Woman</a></li>
+                <li><a className={`duration-300 font-bold hover:opacity-100 flex items-center gap-1 ${pathname==='/promotions'?'opacity-100':'opacity-60'}`} href="/promotions">Man</a></li>
                 {auth.user && auth.user.role_id==1?
-                <li><a className={`duration-300 font-semibold hover:text-black flex items-center gap-1 ${pathname==='/promotions'?'text-black':''}`} href="/dashboard"><CiSettings/> Dashboard</a></li>
+                <li><a className={`duration-300 font-semibold hover:text-black flex items-center gap-1 ${pathname==='/promotions'?'opacity-100':'opacity-60'}`} href="/dashboard">Dashboard</a></li>
                 :
                 null
                 }
@@ -71,21 +71,20 @@ const Navbar = () => {
         <div className='flex mr-4 items-center'>
           <AccountMenu />
           <IconButton href='/checkout' className={`${pathname==='/checkout'?'text-black':'text-white'}`} aria-label="cart">
-            <Badge badgeContent={cartTotalProducts} className={`${pathname==='/checkout'?'text-black':'text-white'}`} color="primary">
+            <Badge badgeContent={cartTotalProducts} className='text-black' color="primary">
               <BiShoppingBag/>
             </Badge>
           </IconButton>
         </div>
     </nav>
-    <nav className='sm:hidden bg-liliana-primary flex justify-between items-center h-20'>
+    <nav className='sm:hidden flex justify-between items-center h-20'>
       <a href='/' className='flex items-center ml-2'>
-        <img className='rounded-lg' src="/assets/lilianacolorfullogo.jpg" width={50} alt="logo" />
-        <p className="text-xl font-bold font-Poppins ml-2 duration-300 text-white">Liliana</p>
+        <p className="text-xl font-black font-Poppins ml-10 duration-300">Liliana</p>
       </a>
       <div className='flex items-center gap-3'>
         <IconButton href='/checkout' aria-label="cart">
-        <Badge badgeContent={cartTotalProducts} className={`${pathname==='/checkout'?'text-black':'text-white'}`} color="primary">
-            <BiShoppingBag className='text-white'/>
+        <Badge badgeContent={cartTotalProducts} className='text-black' color="primary">
+            <BiShoppingBag className='text-black'/>
           </Badge>
         </IconButton>
         <SideBar/>

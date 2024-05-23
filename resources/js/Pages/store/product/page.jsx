@@ -47,7 +47,7 @@ const product = ({product, products, categories}) => {
                 <Box sx={{display:'flex', gap:1, justifyContent:'center', my:2}}>
                     {product.images.length>0?
                         product.images.map((image, index)=>(
-                            <img src={image.url} onClick={()=>setSelectedImage(index)} className={'max-w-20 cursor-pointer hover:scale-105 duration-300 hover:border-liliana-primary hover:rounded-md '+ (selectedImage===index?'border-2 border-liliana-primary rounded-md':'')} alt={product.title}/>
+                            <img key={index} src={image.url} onClick={()=>setSelectedImage(index)} className={'max-w-20 cursor-pointer hover:scale-105 duration-300 hover:border-liliana-primary hover:rounded-md '+ (selectedImage===index?'border-2 border-liliana-primary rounded-md':'')} alt={product.title}/>
                     ))
                     :
                     null

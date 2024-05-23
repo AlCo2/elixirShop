@@ -31,7 +31,8 @@ export default {
             fontFamily: {
               Poppins:'Poppins',
               Opensans: 'Open Sans',
-              Roboto: 'Roboto'
+              Roboto: 'Roboto',
+              Italiana: 'Italiana',
             }
           },
         },

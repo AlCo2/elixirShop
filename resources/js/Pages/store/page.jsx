@@ -151,7 +151,7 @@ const FilterMenu = ({category_list, categories, handleSelectAllChange, handleChe
 }
 
 const FilterPrice = ({price, setPrice, setPriceFilterActive, priceFilterActive, maxPrice}) =>{
-  const [value1, setValue1] = useState([price[0], price[1]]);
+  const [value1, setValue1] = useState([parseInt(price[0]), parseInt(price[1])]);
   function valuetext(value) {
     return `${value}`;
   }
@@ -173,6 +173,18 @@ const FilterPrice = ({price, setPrice, setPriceFilterActive, priceFilterActive, 
     setPrice([value1[0], value1[1]]);
     setPriceFilterActive(true);
   }
+  function handleInputChange(e)
+  {
+    switch(e.target.id)
+    {
+      case 'min':
+        setValue1([e.target.value!=''?parseInt(e.target.value):0, value1[1]])
+        break;
+      case 'max':
+        setValue1([value1[0], e.target.value!=''?parseInt(e.target.value):0])
+        break;
+    }
+  }
   return (
     <>
         <Slider
@@ -184,34 +196,26 @@ const FilterPrice = ({price, setPrice, setPriceFilterActive, priceFilterActive, 
           getAriaValueText={valuetext}
           disableSwap
           min={10}
-          max={maxPrice}
+          max={maxPrice+200}
         />
         <div className='flex flex-wrap gap-1'>
-          <FormControl fullWidth sx={{width:85}}>
-            <TextField
+          <input
               id="min"
-              sx={{bgcolor:'white'}}
-              InputProps={{
-                startAdornment: <InputAdornment position="start">DH</InputAdornment>,
-                style:{fontSize:'12px'}
-              }}
               size='small'
+              type='number'
+              className='h-8 text-sm w-20'
               value={value1[0]}
+              onChange={handleInputChange}
             />
-          </FormControl>
           -
-          <FormControl fullWidth sx={{width:85}}>
-            <TextField
+            <input
               id="max"
-              sx={{bgcolor:'white'}}
-              InputProps={{
-                startAdornment: <InputAdornment position="start">DH</InputAdornment>,
-                style:{fontSize:'12px'}
-              }}
               size='small'
+              type='number'
+              className='h-8 text-sm w-20'
               value={value1[1]}
+              onChange={handleInputChange}
             />
-          </FormControl>
           <IconButton onClick={handleSubmite} size='small'>
             <FaCheckCircle className='text-green-600'/>
           </IconButton>

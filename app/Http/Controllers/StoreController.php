@@ -15,10 +15,10 @@ use Illuminate\Support\Facades\Http;
 class StoreController extends Controller
 {
     public function home(){
-        $promotions = Promotion::inRandomOrder()->limit(4)->with('product', 'product.images')->where('active', true)->get();
-        $featured = Product::inRandomOrder()->limit(4)->with('images')->get();
-        $bestsellers = Product::inRandomOrder()->limit(4)->with('images')->get();
-        $latest = Product::inRandomOrder()->limit(4)->with('images')->get();
+        $promotions = Product::inRandomOrder()->limit(12)->with('promotion', 'images')->get();
+        $featured = Product::inRandomOrder()->limit(4)->with('images', 'promotion')->get();
+        $bestsellers = Product::inRandomOrder()->limit(4)->with('images', 'promotion')->get();
+        $latest = Product::inRandomOrder()->limit(4)->with('images', 'promotion')->get();
         return Inertia::render('page', compact('featured', 'bestsellers', 'latest', 'promotions'));
     }
 
@@ -89,7 +89,7 @@ class StoreController extends Controller
         {
             return abort(404);
         }
-        $products = Product::inRandomOrder()->limit(5)->with('images')->get();
+        $products = Product::inRandomOrder()->limit(5)->with('images', 'promotion')->get();
         $categories = [];
         if($request->user() && $request->user()->role_id == 1)
             $categories = Category::all();
