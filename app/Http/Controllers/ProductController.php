@@ -136,4 +136,17 @@ class ProductController extends Controller
         }
         $product->delete();
     }
+
+    public function promotion_api()
+    {
+        $promotions = Product::whereHas('promotion')->inRandomOrder()->limit(4)->with('images', 'category', 'promotion')->get();
+        return $promotions;
+    }
+    
+    public function popular_api()
+    {
+        $popular = Product::whereDoesntHave('promotion')->inRandomOrder()->limit(4)->with('images', 'category')->get();
+        return $popular;
+    }
+
 }

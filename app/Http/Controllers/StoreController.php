@@ -22,16 +22,94 @@ class StoreController extends Controller
         return Inertia::render('page', compact('featured', 'bestsellers', 'latest', 'promotions'));
     }
 
-    public function promotion_api()
+    public function manPage(Request $request)
     {
-        $promotions = Product::whereHas('promotion')->inRandomOrder()->limit(4)->with('images', 'category', 'promotion')->get();
-        return $promotions;
+        $type = 'man';
+        $category_list = Category::all();
+        $filter = [];
+        $sort = null;
+        $max_price = Promotion::max('promotion_price');
+        $maxPrice = $max_price;
+        $min_price = Promotion::min('promotion_price');
+        $active = False;
+        if($request->min && $request->max)
+        {
+            $min_price = $request->min;
+            $max_price = $request->max;
+            $active = True;
+        }
+        $filteredprice = [
+            'min'=>$min_price, 
+            'max'=>$max_price,
+            'active'=>$active,
+        ];
+
+        $query = Product::with('images', 'promotion')
+        ->join('promotions', 'promotions.product_id', '=', 'products.id')
+        ->whereBetween('promotions.promotion_price', [$min_price, $max_price])->where('category_id', 2);
+
+        if($request->has('sort'))
+        {
+            $sort = $request->input('sort');
+            switch ($sort) {
+                case 1:
+                    $query->orderBy('promotions.promotion_price', 'asc');
+                    break;
+                case 2:
+                    $query->orderBy('promotions.promotion_price', 'desc');
+                    break;
+                case 3:
+                    $query->orderBy('products.created_at', 'desc');
+                    break;
+            }
+        }
+        $products = $query->paginate(20);
+        return Inertia::render('store/page', compact('products', 'category_list', 'filter', 'sort', 'filteredprice', 'maxPrice', 'type'));
     }
-    
-    public function popular_api()
+
+    public function womanPage(Request $request)
     {
-        $popular = Product::whereDoesntHave('promotion')->inRandomOrder()->limit(4)->with('images', 'category')->get();
-        return $popular;
+        $type = 'woman';
+        $category_list = Category::all();
+        $filter = [];
+        $sort = null;
+        $max_price = Promotion::max('promotion_price');
+        $maxPrice = $max_price;
+        $min_price = Promotion::min('promotion_price');
+        $active = False;
+        if($request->min && $request->max)
+        {
+            $min_price = $request->min;
+            $max_price = $request->max;
+            $active = True;
+        }
+        $filteredprice = [
+            'min'=>$min_price, 
+            'max'=>$max_price,
+            'active'=>$active,
+        ];
+
+        $query = Product::with('images', 'promotion')
+        ->join('promotions', 'promotions.product_id', '=', 'products.id')
+        ->whereBetween('promotions.promotion_price', [$min_price, $max_price])->where('category_id', 1);
+
+        if($request->has('sort'))
+        {
+            $sort = $request->input('sort');
+            switch ($sort) {
+                case 1:
+                    $query->orderBy('promotions.promotion_price', 'asc');
+                    break;
+                case 2:
+                    $query->orderBy('promotions.promotion_price', 'desc');
+                    break;
+                case 3:
+                    $query->orderBy('products.created_at', 'desc');
+                    break;
+            }
+        }
+        $products = $query->paginate(20);
+        return Inertia::render('store/page', compact('products', 'category_list', 'filter', 'sort', 'filteredprice', 'maxPrice', 'type'));
     }
 
     public function index(Request $request){
@@ -57,7 +135,6 @@ class StoreController extends Controller
         $query = Product::with('images', 'promotion')
         ->join('promotions', 'promotions.product_id', '=', 'products.id')
         ->whereBetween('promotions.promotion_price', [$min_price, $max_price]);
-
         if ($request->has('filter'))
         {
             $filter = $request->input('filter');

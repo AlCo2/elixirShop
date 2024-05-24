@@ -21,7 +21,7 @@ import InputError from '@/Components/InputError';
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const { data, setData, post, processing, errors, reset } = useForm({
+  const { data, setData, post, errors, reset } = useForm({
     firstname: '', 
     lastname: '',
     address: '',
@@ -59,7 +59,7 @@ const submit = (e) => {
                   alignItems: 'center',
                 }}
               >
-                <Avatar sx={{ m: 1, bgcolor:'#fa3b7e' }}>
+                <Avatar sx={{ m: 1, bgcolor:'#000000' }}>
                   <BiLock/>
                 </Avatar>
                 <Typography component="h1" variant="h5">
@@ -173,7 +173,7 @@ const submit = (e) => {
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
-                    color='liliana_primary'
+                    color='liliana_dark'
                     onSubmit={submit}
                   >
                     Sign Up

@@ -58,7 +58,7 @@ export default function SignInSide({ status, canResetPassword }) {
                 alignItems: 'center',
               }}
             >
-              <Avatar sx={{ m: 1, bgcolor:'#fa3b7e' }}>
+              <Avatar sx={{ m: 1, bgcolor:'#000000' }}>
                 <BiLock/>
               </Avatar>
               <Typography component="h1" variant="h5">
@@ -103,7 +103,7 @@ export default function SignInSide({ status, canResetPassword }) {
                     type="submit"
                     fullWidth
                     variant="contained"
-                    color='liliana_primary'
+                    color='liliana_dark'
                     sx={{ mt: 3, mb: 2 }}
                     className='font-Poppins font-semibold'
                     disabled={processing}

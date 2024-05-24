@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import OrderSummary from "./components/OrderSummary";
 import Order from "./components/Order";
 import { Box, Button, Container, Divider, Grid, Paper } from "@mui/material";
-import { router } from "@inertiajs/react";
 import Layout, { CartContext } from "@/Layout";
 import axios from "axios";
 

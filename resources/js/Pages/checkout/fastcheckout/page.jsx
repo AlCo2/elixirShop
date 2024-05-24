@@ -174,8 +174,8 @@ const page = ({ order }) => {
                                 </Grid>
                                 <Grid xs={12} item mt={3}>
                                     <Box sx={{display:'flex', justifyContent:'space-between'}}>
-                                        <Button href='/checkout' variant='outlined' size='small' color='liliana_primary' sx={{fontFamily:'Roboto'}} className='font-Poppins'>Back</Button>
-                                        <Button onClick={handleSubmite} variant='contained' size='small' color='liliana_primary' sx={{fontFamily:'Roboto'}}>Continue</Button>
+                                        <Button href='/checkout' variant='outlined' size='small' color='liliana_dark' sx={{fontFamily:'Roboto'}} className='font-Poppins'>Back</Button>
+                                        <Button onClick={handleSubmite} variant='contained' size='small' color='liliana_dark' sx={{fontFamily:'Roboto'}}>Continue</Button>
                                     </Box>
                                 </Grid>
                             </Grid>

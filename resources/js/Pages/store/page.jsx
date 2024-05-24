@@ -8,228 +8,12 @@ import Layout from '@/Layout';
 import { Link, router } from '@inertiajs/react';
 import { FaCheckCircle } from 'react-icons/fa';
 import { FaXmark } from 'react-icons/fa6';
+import FilterPrice from './components/FilterPrice';
+import SortMenu from './components/SortMenu';
+import FilterMenu from './components/FilterMenu';
 
-const SortMenu = ({selectedSort, setselectedSort}) =>{
-  const [anchorEl, setAnchorEl] = useState(null);
-  const options = [
-    'Best Match',
-    'Price Low - High',
-    'Price High - Low',
-    'Newest',
-  ];
-  const open = Boolean(anchorEl);
-  const handleClickListItem = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
-  const handleMenuItemClick = (event, index) => {
-    setselectedSort(index);
-    setAnchorEl(null);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  return (
-    <div>
-      <List
-        component="nav"
-        aria-label="Device settings"
-      >
-        <IconButton
-          id="lock-button"
-          aria-haspopup="listbox"
-          aria-controls="lock-menu"
-          aria-label="when device is locked"
-          aria-expanded={open ? 'true' : undefined}
-          onClick={handleClickListItem}
-        >
-          <RiArrowUpDownFill className='text-sm'/>
-        </IconButton>
-      </List>
-      <Menu
-        id="lock-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'lock-button',
-          role: 'listbox',
-        }}
-      >
-        {options.map((option, index) => (
-          <MenuItem
-            key={option}
-            selected={index === selectedSort}
-            onClick={(event) => handleMenuItemClick(event, index)}
-          >
-            {option}
-          </MenuItem>
-        ))}
-      </Menu>
-    </div>
-  );
-}
-
-const CategoryMenu = ({category_list, categories, handleSelectAllChange, handleCheckboxChange}) =>{
-  return (
-        <List
-          id="basic-menu"
-        >
-          <FormControlLabel className='pl-2' control={<Checkbox onChange={handleSelectAllChange}/>} label="All" />
-          <FormGroup className='pl-5'>
-                {category_list.map(category=>(
-                    <FormControlLabel key={category.id} control={<Checkbox checked={categories.includes(category.id)} size='small' onChange={handleCheckboxChange(category.id)} />} label={category.name} />  
-                ))}
-          </FormGroup>
-        </List>
-  )
-}
-
-const FilterMenu = ({category_list, categories, handleSelectAllChange, handleCheckboxChange, price, setPrice, setPriceFilterActive, priceFilterActive, maxPrice}) =>{
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  return (
-    <div>
-      <IconButton
-      id="demo-positioned-button"
-      aria-controls={open ? 'demo-positioned-menu' : undefined}
-      aria-haspopup="true"
-      aria-expanded={open ? 'true' : undefined}
-      onClick={handleClick}
-      >
-        <CgSortAz className='text-xl'/>
-      </IconButton>
-      <Menu
-        id="demo-positioned-menu"
-        aria-labelledby="demo-positioned-button"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'lock-button',
-          role: 'listbox',
-        }}
-      >
-        <div className='w-52'>
-          <Container>
-            <Grid container>
-              <Grid item xs={12} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-                <p className='font-Poppins'>Filters</p>
-                <Button variant='text' size='small' className='text-xs text-liliana-secondary'>Clear ALL</Button>
-              </Grid>
-              <Grid item xs={12} my={1}>
-                <label className='relative'>
-                  <BiSearch className='absolute top-0 right-2'/>
-                  <input type="text" placeholder='Search' className='border h-8 focus:outline-blue-400 p-1 text-sm w-full' name="" id="" />
-                </label>
-              </Grid>
-              <Grid item xs={12}>
-                <p className='font-Poppins'>price</p>
-                <FilterPrice price={price} setPrice={setPrice} setPriceFilterActive={setPriceFilterActive} priceFilterActive={priceFilterActive} maxPrice={maxPrice}/>
-              </Grid>
-              <Grid item xs={12}>
-                <p className='font-Poppins'>Categories</p>
-              </Grid>
-              <Grid item xs={12}>
-                <CategoryMenu category_list={category_list} categories={categories} handleSelectAllChange={handleSelectAllChange} handleCheckboxChange={handleCheckboxChange}/>
-              </Grid>
-            </Grid>
-          </Container>
-        </div>
-      </Menu>
-    </div>
-  );
-}
-
-const FilterPrice = ({price, setPrice, setPriceFilterActive, priceFilterActive, maxPrice}) =>{
-  const [value1, setValue1] = useState([parseInt(price[0]), parseInt(price[1])]);
-  function valuetext(value) {
-    return `${value}`;
-  }
-  const minDistance = 50;
-
-  const handleChange1 = (event, newValue, activeThumb) => {
-    if (!Array.isArray(newValue)) {
-      return;
-    }
-
-    if (activeThumb === 0) {
-      setValue1([Math.min(newValue[0], value1[1] - minDistance), value1[1]]);
-    } else {
-      setValue1([value1[0], Math.max(newValue[1], value1[0] + minDistance)]);
-    }
-  };
-  function handleSubmite(e)
-  {
-    setPrice([value1[0], value1[1]]);
-    setPriceFilterActive(true);
-  }
-  function handleInputChange(e)
-  {
-    switch(e.target.id)
-    {
-      case 'min':
-        setValue1([e.target.value!=''?parseInt(e.target.value):0, value1[1]])
-        break;
-      case 'max':
-        setValue1([value1[0], e.target.value!=''?parseInt(e.target.value):0])
-        break;
-    }
-  }
-  return (
-    <>
-        <Slider
-          getAriaLabel={() => 'Minimum distance'}
-          color='liliana_black'
-          value={value1}
-          onChange={handleChange1}
-          valueLabelDisplay="auto"
-          getAriaValueText={valuetext}
-          disableSwap
-          min={10}
-          max={maxPrice+200}
-        />
-        <div className='flex flex-wrap gap-1'>
-          <input
-              id="min"
-              size='small'
-              type='number'
-              className='h-8 text-sm w-20'
-              value={value1[0]}
-              onChange={handleInputChange}
-            />
-          -
-            <input
-              id="max"
-              size='small'
-              type='number'
-              className='h-8 text-sm w-20'
-              value={value1[1]}
-              onChange={handleInputChange}
-            />
-          <IconButton onClick={handleSubmite} color='success' size='small'>
-            <FaCheckCircle/>
-          </IconButton>
-          {priceFilterActive &&
-          <IconButton onClick={()=>setPriceFilterActive(false)} size='small'>
-            <FaXmark className='text-red-600'/>
-          </IconButton>
-          }
-        </div>
-      </>
-  )
-}
-
-const store = ({products, category_list, filter, sort, filteredprice, maxPrice}) => {  
+const store = ({products, category_list, filter, sort, filteredprice, maxPrice, type}) => {  
   const [page, setPage] = useState(products.current_page);
   const [price, setPrice] = useState([filteredprice.min, filteredprice.max]);
   const [priceFilterActive, setPriceFilterActive] = useState(filteredprice.active);
@@ -289,20 +73,32 @@ const store = ({products, category_list, filter, sort, filteredprice, maxPrice})
   return (
     <>
       <div className='min-h-screen max-sm:px-4'>
-        <div className='h-52 bg-center bg-cover flex justify-center items-center' style={{backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://img.freepik.com/premium-photo/unlabeled-luxury-perfume-bottle-mock-up-cozy-setting-dark-background_552988-6581.jpg')"}}>
+        {type?
+          type=='man'?
+          <div className='h-52 bg-center bg-cover flex justify-center items-center' style={{backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/assets/imad.png')", backgroundPosition:'0px 520px'}}>
+            <p className='text-white font-Italiana text-6xl'>Man Perfume</p>
+          </div>
+          :
+          <div className='h-52 bg-center bg-cover flex justify-center items-center' style={{backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://a1.eestatic.com/cronicaglobal/2015/01/18/culemania/cule-bron/cule-bron_4260386_2174029_1706x960.jpg')", backgroundPosition:'0px 550px'}}>
+            <p className='text-white font-Italiana text-6xl'>Woman Perfume</p>
+          </div>
+        :
+        <div className='h-52 bg-center bg-cover flex justify-center items-center' style={{backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://www.jeanpaulgaultier.com/fr/sites/fr/files/styles/scale_1920/public/2024-03/header-plp-parfums-pour-hommes.jpg?itok=0FzBo0aU')"}}>
           <p className='text-white font-Italiana text-6xl'>Morocco Perfume Boutique</p>
         </div>
+        }
           <Grid container columns={12} justifyContent={'center'}>
             <Grid xs={2.5} item sx={{p:"1.25rem", pb:'0.25rem', pt:'1.9rem'}} className='max-lg:hidden '>
               <p className='font-bold font-Opensans text-xl'>Filters</p>
               <p className='font-Opensans font-semibold mt-5'>Price</p>
               <FilterPrice price={price} maxPrice={maxPrice} setPrice={setPrice} setPriceFilterActive={setPriceFilterActive} priceFilterActive={priceFilterActive}/>
-              <p className='font-Opensans font-semibold mt-5'>Categories</p>
-              {category_list.length > 0 &&
+
+              {!type && <p className='font-Opensans font-semibold mt-5'>Categories</p>}
+              {!type && category_list.length > 0 &&
               <FormControlLabel control={<Checkbox color='liliana_third' size='small' onChange={handleSelectAllChange}/>} label="All" />
               }
               <FormGroup className='pl-2 font-Opensans'>
-                {category_list.map(category=>(
+                {!type && category_list.map(category=>(
                     <FormControlLabel key={category.id} control={<Checkbox color='liliana_third' checked={categories.includes(category.id)} size='small' onChange={handleCheckboxChange(category.id)} />} label={category.name} />  
                   ))}
               </FormGroup>

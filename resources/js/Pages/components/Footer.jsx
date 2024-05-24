@@ -8,7 +8,7 @@ const Footer = () => {
         <div>
         <p className='font-bold text-4xl ml-4 mb-5'>Liliana</p>
         </div>
-        <Grid container columns={13} paddingX={2} justifyContent={'center'} gap={3}>
+        <Grid container columns={13} paddingX={10} justifyContent={'center'} gap={3}>
           <Grid xs md={3} item>
             <p className='font-semibold text-lg mb-2'>Landing</p>
             <ul className='text-sm'>

@@ -7,6 +7,11 @@ use Inertia\Inertia;
 use App\models\Product;
 class CheckoutController extends Controller
 {
+    public function getCurrentCartData(Request $request)
+    {
+        $data = $this->prepareData();
+        return $data;
+    }
     public function index(Request $request){
         $data = $this->prepareData();
         return Inertia::render('checkout/page', compact('data'));

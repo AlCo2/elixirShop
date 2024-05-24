@@ -18,6 +18,8 @@ use Inertia\Inertia;
 /* main Pages */
 Route::get('/',[StoreController::class, 'home']);
 Route::get('/store',[StoreController::class, 'index']);
+Route::get('/store/man',[StoreController::class, 'manPage']);
+Route::get('/store/woman',[StoreController::class, 'womanPage']);
 Route::get('/store/product/{id}',[StoreController::class, 'product']);
 Route::get('/checkout',[CheckoutController::class, 'index']);
 Route::get('/checkout/fastcheckout',[CheckoutController::class, 'checkout']);
@@ -26,18 +28,15 @@ Route::get('/orders', [OrderController::class, 'listUserOrders']);
 Route::get('/showorder', [OrderController::class, 'showOrder']);
 
 
+
 /*         Post request          */
+Route::post('api/cart/', [CheckoutController::class, 'getCurrentCartData']);
 Route::post('/api/cart/add', [CartController::class, 'addToCart']);
 Route::post('/api/cart/sub', [CartController::class, 'subFromCart']);
 Route::post('/api/cart/delete', [CartController::class, 'deleteFromCart']);
 Route::post('/api/cart/deleteall', [CartController::class, 'deleteAllfromCart']);
+
 Route::post('/api/order/create', [OrderController::class, 'createOrder']);
-
-/*        Temp router:            */
-Route::get('/promotions', function(){
-    return Inertia::render('Promotions');
-});
-
 
 
 Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])->group(function () {

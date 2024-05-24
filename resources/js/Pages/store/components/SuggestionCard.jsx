@@ -34,7 +34,7 @@ const SuggestionCard = ({product}) => {
         autoHideDuration={5000}
         onClose={handleClose}
       >
-        <Alert onClose={handleClose} severity='success' variant='filled' sx={{width:'100%'}}>
+        <Alert onClose={handleClose} severity='success' variant='standard' sx={{width:'100%'}}>
           {product.title} added to cart
         </Alert>
       </Snackbar>

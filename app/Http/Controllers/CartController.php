@@ -7,7 +7,6 @@ use App\Models\Product;
 
 class CartController extends Controller
 {
-
     public function addToCart(Request $request): void
     {
         $product_id = $request->product_id;

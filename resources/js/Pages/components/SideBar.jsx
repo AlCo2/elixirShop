@@ -156,7 +156,7 @@ export default function SideBar() {
   );
   return (
     <div>
-      <FaBars onClick={toggleDrawer(true)} className='text-white mr-2 cursor-pointer hover:text-black text-2xl duration-300'/>
+      <FaBars onClick={toggleDrawer(true)} className='text-black mr-2 cursor-pointer hover:opacity-70 text-2xl duration-300'/>
       <Drawer open={open} onClose={toggleDrawer(false)} anchor='right'>
         {DrawerList}
       </Drawer>
