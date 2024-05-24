@@ -38,9 +38,9 @@ const QuentityBar = ({id, product_id, products, setProducts, Q}) =>{
     return(
         <>
         <ButtonGroup variant="outlined" aria-label="Basic button group">
-            <Button onClick={subFromCart} color="liliana_primary" className="rounded-xl">-</Button>
-            <Button disableRipple color="liliana_primary" sx={{color:'black', cursor:'default'}}>{q}</Button>
-            <Button onClick={addToCart} color="liliana_primary" className="rounded-xl">+</Button>
+            <Button onClick={subFromCart} color="liliana_dark" className="rounded-xl">-</Button>
+            <Button disableRipple color="liliana_dark" sx={{color:'black', cursor:'default'}}>{q}</Button>
+            <Button onClick={addToCart} color="liliana_dark" className="rounded-xl">+</Button>
         </ButtonGroup>
         </>
     )

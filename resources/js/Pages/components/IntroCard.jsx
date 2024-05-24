@@ -39,22 +39,27 @@ const IntroCard = ({product}) => {
           {product.title} added to cart
         </Alert>
       </Snackbar>
-      <Card variant='outlined' sx={{width:290, ":hover":{boxShadow:1}, cursor:'pointer', position:'relative'}} onMouseOver={()=>setHover(true)} onMouseOut={()=>setHover(false)}>
+      <Box sx={{width:290, cursor:'pointer', position:'relative'}} onMouseOver={()=>setHover(true)} onMouseOut={()=>setHover(false)}>
         <Box sx={{position:'absolute', right:0, top:10, zIndex:1}}>
             <p className='text-white text-xs font-Poppins font-bold bg-black text-right p-2 rounded-l-lg'>{'-'+parseInt(((product.price - product.promotion.promotion_price) / (product.price)) * 100)+'%'}</p>
         </Box>
         <Link href={'/store/product/'+product.id}>
           <Box overflow={'hidden'} position={'relative'} display={'flex'} justifyContent={'center'}>
               <CardMedia component={'img'}
-                sx={{height:300, width:'100%'}}
-                image={hover?product.images[1].url:product.images[0].url}
-                className={'duration-700 ' + (hover?'scale-125':'')}
+                sx={{height:300, width:'100%', zIndex:(hover?1:0), transitionDuration:(hover?'1000ms':'')}}
+                image={product.images[1].url}
+                className={'absolute ' + (hover?'scale-125 opacity-100':'opacity-0')}
                 alt={product.title}
               />
-              <Box sx={{display:{xs:'none',sm:'none', md:'flex'}, opacity:0.9, position:'absolute', width:'100%',transitionDuration:'300ms',bottom:(hover?-18:-60)}} margin={2} justifyContent={'space-between'} alignItems={'center'}>
+              <CardMedia component={'img'}
+                sx={{height:300, width:'100%'}}
+                image={product.images[0].url}
+                alt={product.title}
+              />
+              <Box sx={{display:{xs:'none',sm:'none', md:'flex'}, opacity:0.9, position:'absolute', width:'100%',transitionDuration:'500ms',bottom:(hover?-16:-60), zIndex:3}} margin={2} justifyContent={'space-between'} alignItems={'center'}>
                 <Button onClick={addToCart} sx={{borderRadius:0}} fullWidth variant="contained" color='success'>ADD TO CART</Button>
               </Box>
-              <Box sx={{display:{xs:'flex',sm:'flex', md:'none'}, opacity:0.9, position:'absolute', bottom:-10, right:-10}} margin={2} justifyContent={'space-between'} alignItems={'center'}>
+              <Box sx={{display:{xs:'flex',sm:'flex', md:'none'}, opacity:0.9, position:'absolute', bottom:-10, right:-10, zIndex:3}} margin={2} justifyContent={'space-between'} alignItems={'center'}>
                 <Button onClick={addToCart} sx={{borderRadius:1}} fullWidth variant="contained" color='success'><FaShoppingBasket/></Button>
               </Box>
           </Box>
@@ -74,7 +79,7 @@ const IntroCard = ({product}) => {
           <Typography fontFamily={'Poppins'} variant="body2">{product.price}DH</Typography>
         </Box>
         }
-      </Card>
+      </Box>
     </Grid>
   )
 }

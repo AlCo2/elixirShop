@@ -189,7 +189,7 @@ const FilterPrice = ({price, setPrice, setPriceFilterActive, priceFilterActive, 
     <>
         <Slider
           getAriaLabel={() => 'Minimum distance'}
-          color='liliana_third'
+          color='liliana_black'
           value={value1}
           onChange={handleChange1}
           valueLabelDisplay="auto"
@@ -216,8 +216,8 @@ const FilterPrice = ({price, setPrice, setPriceFilterActive, priceFilterActive, 
               value={value1[1]}
               onChange={handleInputChange}
             />
-          <IconButton onClick={handleSubmite} size='small'>
-            <FaCheckCircle className='text-green-600'/>
+          <IconButton onClick={handleSubmite} color='success' size='small'>
+            <FaCheckCircle/>
           </IconButton>
           {priceFilterActive &&
           <IconButton onClick={()=>setPriceFilterActive(false)} size='small'>
@@ -288,7 +288,10 @@ const store = ({products, category_list, filter, sort, filteredprice, maxPrice})
   
   return (
     <>
-      <div className='min-h-screen pt-5 max-sm:px-4'>
+      <div className='min-h-screen max-sm:px-4'>
+        <div className='h-52 bg-center bg-cover flex justify-center items-center' style={{backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://img.freepik.com/premium-photo/unlabeled-luxury-perfume-bottle-mock-up-cozy-setting-dark-background_552988-6581.jpg')"}}>
+          <p className='text-white font-Italiana text-6xl'>Morocco Perfume Boutique</p>
+        </div>
           <Grid container columns={12} justifyContent={'center'}>
             <Grid xs={2.5} item sx={{p:"1.25rem", pb:'0.25rem', pt:'1.9rem'}} className='max-lg:hidden '>
               <p className='font-bold font-Opensans text-xl'>Filters</p>
@@ -320,7 +323,7 @@ const store = ({products, category_list, filter, sort, filteredprice, maxPrice})
                     </Box>
                   </Grid>
                 </Grid>
-              <Grid container gap={2} marginY={5} justifyContent={{xs:'center'}} mt={2}>
+              <Grid container gap={1} marginY={5} justifyContent={{xs:'center'}} mt={2}>
                 { products.data.length>0?products.data.map((product)=>(
                   <SuggestionCard key={product.id} product={product}/>
                 ))

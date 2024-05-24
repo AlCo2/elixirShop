@@ -5,7 +5,7 @@ import Layout from '@/Layout';
 import InputError from '@/Components/InputError';
 import { useEffect } from 'react';
 
-const page = ({order}) => {
+const page = ({ order }) => {
     const [countries, setCountries] = useState([]);
     const [cities, setCities] = useState([]);
     const { auth, errors } = usePage().props;
@@ -36,17 +36,19 @@ const page = ({order}) => {
             [name]: value,
         }));
     }
-      function handleChange(e) {
-        const { id, value, type } = e.target;
-        setValues(prevValues => ({
-          ...prevValues,
-          [id]: type === 'file' ? e.target.files[0] : value, // If it's a file input, get the file, otherwise get the value
-        }));
-      }
-      function handleSubmite(e)
-      {
+    function handleChange(e) {
+    const { id, value, type } = e.target;
+    setValues(prevValues => ({
+        ...prevValues,
+        [id]: type === 'file' ? e.target.files[0] : value, // If it's a file input, get the file, otherwise get the value
+    }));
+    }
+
+    function handleSubmite(e)
+    {
         router.post('/api/order/create', values);
-      }
+    }
+
     const fetchdata = async () =>{
         const response = await fetch('https://countriesnow.space/api/v0.1/countries').then((res)=>res.json());
         setCountries(response.data);

@@ -73,7 +73,7 @@ const page = ({data}) => {
             <OrderSummary order_summary={order_summary}/>
             {products.length>0?
             <Box sx={{display:'flex', justifyContent:'center', mt:2}}>
-              <Button variant='contained' href="/checkout/fastcheckout" color="liliana_third">Continue</Button>
+              <Button variant='contained' href="/checkout/fastcheckout" color="liliana_dark">Continue</Button>
             </Box>
             :
             <></>
@@ -81,7 +81,7 @@ const page = ({data}) => {
           </Grid>
         </Grid>
         <Box py={4}>
-          <Button href='/' variant='outlined' color="liliana_third" className='font-Roboto'>Back</Button>
+          <Button href='/' variant='outlined' color="liliana_dark" className='font-Roboto'>Back</Button>
         </Box>
       </Container>
     </div>

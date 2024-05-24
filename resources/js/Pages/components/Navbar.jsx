@@ -17,7 +17,7 @@ const Navbar = () => {
 
   const handleScroll = () => {
     const currentScrollPos = window.scrollY
-    if(currentScrollPos < 80){
+    if(currentScrollPos < 50){
         setSticky(false)
     }else{
         setSticky(true)
@@ -33,7 +33,7 @@ const Navbar = () => {
     <nav className={'max-sm:hidden flex justify-center bg-black text-white items-center duration-700 z-10 fixed w-screen h-12 top-0 '+ (sticky?'translate-y-0':'-translate-y-full')}>
       <ul className='flex gap-5 md:gap-10 items-center font-Poppins'>
         <li><a className={`duration-300 font-semibold hover:opacity-100 flex items-center gap-1 ${pathname==='/'?'opacity-100':'opacity-60'}`} href="/">Home</a></li>
-        <li><a className={`duration-300 font-semibold hover:opacity-100 flex items-center gap-1 ${pathname==='/store'?'opacity-100':'opacity-60'}`}  href="/store">Store</a></li>
+        <li><a className={`duration-300 font-semibold hover:opacity-100 flex items-center gap-1 ${pathname==='/store'?'opacity-100':'opacity-60'}`}  href="/store">Parfumes</a></li>
         <li><a className={`duration-300 font-bold hover:opacity-100 flex items-center gap-1 ${pathname==='/promotions'?'opacity-100':'opacity-60'}`} href="/woman">Woman</a></li>
         <li><a className={`duration-300 font-bold hover:opacity-100 flex items-center gap-1 ${pathname==='/promotions'?'opacity-100':'opacity-60'}`} href="/man">Man</a></li>
         {auth.user && auth.user.role_id==1?

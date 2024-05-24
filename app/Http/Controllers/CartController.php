@@ -77,6 +77,9 @@ class CartController extends Controller
     {
         $cart = $this->getCart();
         $cart[$id]['Q'] += 1;
+        $total = session('total');
+        $total += $cart[$id]['product']['promotion']->promotion_price;
+        session(['total'=>$total]);
         $this->updateCart($cart);
     }
 
@@ -84,7 +87,12 @@ class CartController extends Controller
     {
         $cart = $this->getCart();
         if ($cart[$id]['Q'] > 1)
+        {
             $cart[$id]['Q'] -= 1;
+            $total = session('total');
+            $total -= $cart[$id]['product']['promotion']->promotion_price;
+            session(['total'=>$total]);
+        }
         $this->updateCart($cart);
     }
 

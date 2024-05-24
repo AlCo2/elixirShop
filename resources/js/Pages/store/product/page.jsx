@@ -40,9 +40,9 @@ const product = ({product, products, categories}) => {
                 </Alert>
         </Snackbar>
         <Grid container className='min-h-screen'>
-            <Grid item xs={12} sm={6} className='bg-liliana-background sm:p-4'>
-                <Box sx={{display:"flex", justifyContent:"center"}}>
-                    <img src={product.images[selectedImage]?product.images[selectedImage].url:null} className='sm:w-1/2 max-sm:w-full rounded-md' alt={product.title} />
+            <Grid item xs={12} sm={6} className=''>
+                <Box sx={{display:"flex", justifyContent:"center", maxHeight:400}}>
+                    <img src={product.images[selectedImage]?product.images[selectedImage].url:null} className='md:w-10/12 max-sm:w-full rounded-md' alt={product.title} />
                 </Box>
                 <Box sx={{display:'flex', gap:1, justifyContent:'center', my:2}}>
                     {product.images.length>0?
@@ -65,20 +65,20 @@ const product = ({product, products, categories}) => {
                 }
                 <div className='my-5 flex justify-between'>
                     <p className='font-Roboto uppercase opacity-40 font-semibold'>{product.category?product.category.name:''}</p>
-                    {product.promotion && product.promotion.active?
+                    {/* {product.promotion && product.promotion.active?
                         <Chip sx={{borderRadius:1}} size='small' label="PROMO" variant='outlined' color="error"/>
                         :
                         null
-                    }
+                    } */}
                 </div>
                 <div className='flex justify-between flex-wrap'>
                     <div className='w-4/6 max-sm:w-full'>
                         <p className='font-Roboto font-semibold uppercase text-2xl'>{product.title}</p>
                     </div>
                     <div>
-                    <p className={'font-Poppins '+(product.promotion && product.promotion.active?'line-through text-sm text-right text-liliana-primary':'text-xl')}>{product.price}.00DH</p>
+                    <p className={'font-Poppins font-medium '+(product.promotion && product.promotion.active?'line-through text-sm text-right opacity-60 text-black':'text-xl')}>{product.price}.00DH</p>
                     {product.promotion && product.promotion.active?
-                        <p className='font-Poppins text-xl'>{product.promotion.promotion_price}.00DH</p>
+                        <p className='font-Poppins font-medium text-xl'>{product.promotion.promotion_price}.00DH</p>
                         :
                         null
                     }
@@ -87,9 +87,11 @@ const product = ({product, products, categories}) => {
                 <div className='my-5'>
                     <p className='font-Roboto text-sm'>{product.description}</p>
                 </div>
-                <div className='flex justify-between'>
+                <div className='my-5'>
                     <p className='text-xs'>Make every gift special 10% off <br /> any two products</p>
-                    <Button onClick={addToCart} sx={{borderRadius:0,minWidth:136, maxHeight:37}} variant="contained" color='liliana_third'>ADD TO CART +</Button>
+                </div>
+                <div className='flex justify-end'>
+                    <Button onClick={addToCart} sx={{borderRadius:0,minWidth:136, height:50,maxHeight:50}} variant="contained" color='liliana_dark'>ADD TO CART</Button>
                 </div>
             </Grid>
         </Grid>

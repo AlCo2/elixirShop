@@ -36,7 +36,6 @@ export default function SideBar() {
           </ListItem>
           <ListItem>
             <a href='/' className='flex items-center ml-2'>
-              <img className='rounded-lg' src="/assets/lilianacolorfullogo.jpg" width={50} alt="logo" />
               <p className="text-xl font-bold font-Poppins ml-2 duration-300">Liliana</p>
             </a>
           </ListItem>
