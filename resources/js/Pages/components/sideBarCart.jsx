@@ -4,7 +4,7 @@ import Drawer from '@mui/material/Drawer';
 import { IoClose } from "react-icons/io5";
 import { BiShoppingBag } from 'react-icons/bi';
 import { Badge, Button, CircularProgress, Divider, IconButton } from '@mui/material';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { CartContext } from '@/Layout';
 import axios from 'axios';
 
@@ -26,11 +26,11 @@ const CartItem = ({id, products, setProducts, product, Q}) =>{
         <div className='flex justify-between'>
             <div className='flex gap-5'>
                 <div className='bg-white'>
-                    <img className='w-24 h-24 scale-75' src={product.images[0].url} alt="pic" />
+                    <img className='w-24 h-24 scale-75 rounded-sm' src={product.images[0].url} alt="pic" />
                 </div>
                 <div className='flex flex-col gap-2 py-2 h-full w-48'>
                     <p className='font-Poppins text-sm font-semibold'>{product.title}</p>
-                    <p className='font-Roboto text-sm'><span className='opacity-60'>{Q}x</span>{product.price}.00DH</p>
+                    <p className='font-Roboto text-sm'><span className='opacity-60'>{Q}x</span>{product.promotion.promotion_price}.00DH</p>
                 </div>
             </div>
             <div className='p-4'>
@@ -46,7 +46,7 @@ export default function SideBarCart({down}) {
   const [open, setOpen] = useState(false);
   const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { cartTotalProducts, setCartTotalProducts } = useContext(CartContext);
+  const { cartTotalProducts } = useContext(CartContext);
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
     if (newOpen)
@@ -85,9 +85,9 @@ export default function SideBarCart({down}) {
         </div>
         }
         {cart && cart.length>0?
-            <div className='flex flex-col gap-4 items-center mt-5'>
-                <Button sx={{width:200}} href='/checkout/fastcheckout' variant='contained' color='liliana_dark'>Pay Now</Button>
-                <Button sx={{width:200}} href='/checkout' variant='contained' color='liliana_dark'>Checkout Page</Button>
+            <div className='flex flex-col gap-4 items-center my-5'>
+                <Button sx={{width:200}} href='/checkout/fastcheckout' variant='contained' color='liliana_dark'>Checkout</Button>
+                <Button sx={{width:200}} href='/checkout' variant='outlined' color='liliana_dark'>View Cart</Button>
             </div>
         :
         null
