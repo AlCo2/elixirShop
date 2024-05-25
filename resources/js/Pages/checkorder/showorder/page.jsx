@@ -18,6 +18,7 @@ const Product = ({title, total, image}) =>{
 
 const page = ({order, products}) => {
   const [date, setDate] = useState(new Date(order?order.created_at:''))
+  console.log(products);
   return (
     <Container className='min-h-80'>
       {order?

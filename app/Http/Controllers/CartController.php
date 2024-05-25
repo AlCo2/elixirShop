@@ -36,6 +36,9 @@ class CartController extends Controller
     {
         $product_id = $request->input('product_id');
         $cart = $this->getCart();
+        $total = session('total');
+        $total -= $cart[$product_id]['product']['promotion']->promotion_price * $cart[$product_id]['Q'];
+        session(['total'=>$total]);
         unset($cart[$product_id]);
         $this->updateCart($cart);
     }

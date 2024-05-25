@@ -56,6 +56,7 @@ export default function SideBarCart({down}) {
   };
 
   const fetchProduct = async () =>{
+    console.log(cart);
     setLoading(true);
     const response = await axios.post('/api/cart').catch((error)=>console.log(error));
     setCart(response.data);

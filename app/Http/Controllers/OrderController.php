@@ -58,7 +58,7 @@ class OrderController extends Controller
         $products = [];
         foreach($items as $item)
         {
-            $product = Product::with('images')->find($item['product_id']);
+            $product = Product::with('images', 'promotion')->find($item['product_id']);
             $products[] = [
                 'product'=> $product,
                 'total' => $item['total'],
@@ -99,7 +99,7 @@ class OrderController extends Controller
             $order_product->order_id = $order_id;
             $order_product->product_id = $product['product']['id'];
             $order_product->Qty = $product['Q'];
-            $order_product->total = $product['product']['price'] * $product['Q'];
+            $order_product->total = $product['product']['promotion']['promotion_price'] * $product['Q'];
             $order_product->save();
         }
     }
