@@ -26,6 +26,7 @@ const FilterPrice = ({price, setPrice, setPriceFilterActive, priceFilterActive, 
       setPrice([value1[0], value1[1]]);
       setPriceFilterActive(true);
     }
+    
     function handleInputChange(e)
     {
       switch(e.target.id)

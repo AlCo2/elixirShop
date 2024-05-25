@@ -25,122 +25,53 @@ class StoreController extends Controller
     public function manPage(Request $request)
     {
         $type = 'man';
+        $maxPrice = Promotion::max('promotion_price');
         $category_list = Category::all();
-        $filter = [];
-        $sort = null;
-        $max_price = Promotion::max('promotion_price');
-        $maxPrice = $max_price;
-        $min_price = Promotion::min('promotion_price');
-        $active = False;
-        if($request->min && $request->max)
-        {
-            $min_price = $request->min;
-            $max_price = $request->max;
-            $active = True;
-        }
-        $filteredprice = [
-            'min'=>$min_price, 
-            'max'=>$max_price,
-            'active'=>$active,
-        ];
-
-        $query = Product::with('images', 'promotion')
-        ->join('promotions', 'promotions.product_id', '=', 'products.id')
-        ->whereBetween('promotions.promotion_price', [$min_price, $max_price])->where('category_id', 2);
-
-        if($request->has('sort'))
-        {
-            $sort = $request->input('sort');
-            switch ($sort) {
-                case 1:
-                    $query->orderBy('promotions.promotion_price', 'asc');
-                    break;
-                case 2:
-                    $query->orderBy('promotions.promotion_price', 'desc');
-                    break;
-                case 3:
-                    $query->orderBy('products.created_at', 'desc');
-                    break;
-            }
-        }
+        $query = $this->createQuery($request, $type);
         $products = $query->paginate(20);
-        return Inertia::render('store/page', compact('products', 'category_list', 'filter', 'sort', 'filteredprice', 'maxPrice', 'type'));
+        return Inertia::render('store/page', compact('products', 'category_list', 'maxPrice', 'type'));
     }
 
     public function womanPage(Request $request)
     {
         $type = 'woman';
         $category_list = Category::all();
-        $filter = [];
-        $sort = null;
-        $max_price = Promotion::max('promotion_price');
-        $maxPrice = $max_price;
-        $min_price = Promotion::min('promotion_price');
-        $active = False;
-        if($request->min && $request->max)
-        {
-            $min_price = $request->min;
-            $max_price = $request->max;
-            $active = True;
-        }
-        $filteredprice = [
-            'min'=>$min_price, 
-            'max'=>$max_price,
-            'active'=>$active,
-        ];
-
-        $query = Product::with('images', 'promotion')
-        ->join('promotions', 'promotions.product_id', '=', 'products.id')
-        ->whereBetween('promotions.promotion_price', [$min_price, $max_price])->where('category_id', 1);
-
-        if($request->has('sort'))
-        {
-            $sort = $request->input('sort');
-            switch ($sort) {
-                case 1:
-                    $query->orderBy('promotions.promotion_price', 'asc');
-                    break;
-                case 2:
-                    $query->orderBy('promotions.promotion_price', 'desc');
-                    break;
-                case 3:
-                    $query->orderBy('products.created_at', 'desc');
-                    break;
-            }
-        }
+        $query = $this->createQuery($request, $type);
         $products = $query->paginate(20);
-        return Inertia::render('store/page', compact('products', 'category_list', 'filter', 'sort', 'filteredprice', 'maxPrice', 'type'));
+        return Inertia::render('store/page', compact('products', 'category_list', 'type'));
     }
 
     public function index(Request $request){
         $category_list = Category::all();
-        $filter = [];
-        $sort = null;
-        $max_price = Promotion::max('promotion_price');
-        $maxPrice = $max_price;
-        $min_price = Promotion::min('promotion_price');
-        $active = False;
+        $maxPrice = Promotion::max('promotion_price');
+        $query = $this->createQuery($request, null);
+        $products = $query->paginate(20);
+        return Inertia::render('store/page', compact('products', 'maxPrice', 'category_list'));
+    }
+
+    private function createQuery($request, $type)
+    {
+        $query = Product::with('images', 'promotion')
+        ->join('promotions', 'promotions.product_id', '=', 'products.id');
+
+        if (isset($type))
+        {
+            if ($type =='woman')
+                $query->where('category_id', 1);
+            else
+                $query->where('category_id', 2);
+        }
         if($request->min && $request->max)
         {
-            $min_price = $request->min;
-            $max_price = $request->max;
-            $active = True;
+            $query->whereBetween('promotions.promotion_price', [$request->min, $request->max]);
         }
-        $filteredprice = [
-            'min'=>$min_price, 
-            'max'=>$max_price,
-            'active'=>$active,
-        ];
 
-        $query = Product::with('images', 'promotion')
-        ->join('promotions', 'promotions.product_id', '=', 'products.id')
-        ->whereBetween('promotions.promotion_price', [$min_price, $max_price]);
-        if ($request->has('filter'))
+        if ($request->has('title'))
         {
-            $filter = $request->input('filter');
-            $query->whereIn('category_id', $filter);
+            $title = $request->input('title');
+            $query->where('title', 'like', $title.'%');
         }
-
+ 
         if($request->has('sort'))
         {
             $sort = $request->input('sort');
@@ -156,10 +87,8 @@ class StoreController extends Controller
                     break;
             }
         }
-        $products = $query->paginate(20);
-        return Inertia::render('store/page', compact('products', 'category_list', 'filter', 'sort', 'filteredprice', 'maxPrice'));
+        return $query;
     }
-
     public function product(Request $request, $id){
         $product = Product::with('category', 'images', 'promotion')->find($id);
         if (!$product)

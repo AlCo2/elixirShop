@@ -2,20 +2,26 @@ import { Button, Container, Grid, IconButton, Menu } from "@mui/material";
 import { useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import FilterPrice from "./FilterPrice";
-import CategoryMenu from "./CategoryMenu";
 import { CgSortAz } from "react-icons/cg";
 
 
-const FilterMenu = ({category_list, categories, handleSelectAllChange, handleCheckboxChange, price, setPrice, setPriceFilterActive, priceFilterActive, maxPrice}) =>{
+const FilterMenu = ({price, setPrice, setPriceFilterActive, priceFilterActive, maxPrice}) =>{
     const [anchorEl, setAnchorEl] = useState(null);
+    const [title, setTitle] = useState('');
     const open = Boolean(anchorEl);
+    
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
+
     const handleClose = () => {
       setAnchorEl(null);
     };
-  
+
+    const handleChange = (e) =>{
+      setTitle(e.target.value);
+    };
+
     return (
       <div>
         <IconButton
@@ -48,18 +54,13 @@ const FilterMenu = ({category_list, categories, handleSelectAllChange, handleChe
                 <Grid item xs={12} my={1}>
                   <label className='relative'>
                     <BiSearch className='absolute top-0 right-2'/>
-                    <input type="text" placeholder='Search' className='border h-8 focus:outline-blue-400 p-1 text-sm w-full' name="" id="" />
+                    <input value={title} onChange={handleChange} type="text" placeholder='Search...' className='h-8 p-1 text-sm w-full' name="title" id="title" />
                   </label>
+                  <Button variant="contained">Search</Button>
                 </Grid>
                 <Grid item xs={12}>
                   <p className='font-Poppins'>price</p>
                   <FilterPrice price={price} setPrice={setPrice} setPriceFilterActive={setPriceFilterActive} priceFilterActive={priceFilterActive} maxPrice={maxPrice}/>
-                </Grid>
-                <Grid item xs={12}>
-                  <p className='font-Poppins'>Categories</p>
-                </Grid>
-                <Grid item xs={12}>
-                  <CategoryMenu category_list={category_list} categories={categories} handleSelectAllChange={handleSelectAllChange} handleCheckboxChange={handleCheckboxChange}/>
                 </Grid>
               </Grid>
             </Container>
