@@ -30,7 +30,7 @@ const CartItem = ({id, products, setProducts, product, Q}) =>{
                 </div>
                 <div className='flex flex-col gap-2 py-2 h-full w-48'>
                     <p className='font-Poppins text-sm font-semibold'>{product.title}</p>
-                    <p className='font-Roboto text-sm'><span className='opacity-60'>{Q}x</span>{product.promotion.promotion_price}.00DH</p>
+                    <p className='font-Roboto text-sm'><span className='opacity-60'>{Q}x</span>{product.promotion&&product.promotion.active?product.promotion.promotion_price:product.price}.00DH</p>
                 </div>
             </div>
             <div className='p-4'>
@@ -56,7 +56,6 @@ export default function SideBarCart({down}) {
   };
 
   const fetchProduct = async () =>{
-    console.log(cart);
     setLoading(true);
     const response = await axios.post('/api/cart').catch((error)=>console.log(error));
     setCart(response.data);

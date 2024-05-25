@@ -9,8 +9,7 @@ class CartController extends Controller
 {
     public function addToCart(Request $request): void
     {
-        $product_id = $request->product_id;
-        
+        $product_id = $request->product_id;    
         // create cart if not exist
         if (!$this->isCartExist()){
             $this->createCart();
@@ -36,9 +35,12 @@ class CartController extends Controller
     {
         $product_id = $request->input('product_id');
         $cart = $this->getCart();
-        $total = session('total');
-        $total -= $cart[$product_id]['product']['promotion']->promotion_price * $cart[$product_id]['Q'];
-        session(['total'=>$total]);
+        $price = 0;
+        if ($this->isPromotionActive($cart[$product_id]['product']))
+            $price = $cart[$product_id]['product']['promotion']->promotion_price * $cart[$product_id]['Q'];
+        else
+            $price = $cart[$product_id]['product']->price * $cart[$product_id]['Q'];
+        $this->decrementTotal($price);
         unset($cart[$product_id]);
         $this->updateCart($cart);
     }
@@ -79,9 +81,12 @@ class CartController extends Controller
     {
         $cart = $this->getCart();
         $cart[$id]['Q'] += 1;
-        $total = session('total');
-        $total += $cart[$id]['product']['promotion']->promotion_price;
-        session(['total'=>$total]);
+        $price = 0;
+        if ($this->isPromotionActive($cart[$id]['product']))
+            $price = $cart[$id]['product']['promotion']->promotion_price;
+        else
+            $price = $cart[$id]['product']->price;
+        $this->incrementTotal($price);
         $this->updateCart($cart);
     }
 
@@ -91,11 +96,33 @@ class CartController extends Controller
         if ($cart[$id]['Q'] > 1)
         {
             $cart[$id]['Q'] -= 1;
-            $total = session('total');
-            $total -= $cart[$id]['product']['promotion']->promotion_price;
-            session(['total'=>$total]);
+            $price = 0;
+            if ($this->isPromotionActive($cart[$id]['product']))
+                $price = $cart[$id]['product']['promotion']->promotion_price;
+            else
+                $price = $cart[$id]['product']->price;
+            $this->decrementTotal($price);
         }
         $this->updateCart($cart);
+    }
+
+    private function incrementTotal($price)
+    {
+        $total = session('total');
+        $total += $price;
+        session(['total'=>$total]);
+    }
+
+    private function decrementTotal($price)
+    {
+        $total = session('total');
+        $total -= $price;
+        session(['total'=>$total]);
+    }
+
+    private function isPromotionActive($product)
+    {
+        return isset($product['promotion']) && $product['promotion']->active;
     }
 
     private function isCartExist(): bool

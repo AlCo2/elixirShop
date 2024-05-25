@@ -23,7 +23,6 @@ const SortMenu = ({selectedSort, setselectedSort}) =>{
     const handleClose = () => {
       setAnchorEl(null);
     };
-  
     return (
       <div>
         <List
@@ -54,7 +53,7 @@ const SortMenu = ({selectedSort, setselectedSort}) =>{
           {options.map((option, index) => (
             <MenuItem
               key={option}
-              selected={index === selectedSort}
+              selected={index == selectedSort}
               onClick={(event) => handleMenuItemClick(event, index)}
             >
               {option}

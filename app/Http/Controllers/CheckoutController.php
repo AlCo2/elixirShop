@@ -44,7 +44,7 @@ class CheckoutController extends Controller
                 'product' => $product['product'],
                 'Q' => $product['Q'],
             ];
-            if ($product['product']->promotion)
+            if ($product['product']->promotion && $product['product']->promotion['active'])
                 $total += $product['product']->promotion['promotion_price'] * $product['Q'];
             else
                 $total += $product['product']->price * $product['Q'];

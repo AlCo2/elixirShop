@@ -10,6 +10,7 @@ import FilterMenu from './components/FilterMenu';
 
 const store = ({products, category_list, maxPrice,type}) => {  
   const [page, setPage] = useState(products.current_page);
+  const path = window.location.pathname;
   const windowUrl = window.location.search;
   const params = new URLSearchParams(windowUrl);
   const min = params.get('min') || 50;
@@ -41,7 +42,7 @@ const store = ({products, category_list, maxPrice,type}) => {
     }
     if(selectedSort>0)
       queryParams.sort = selectedSort; 
-    router.get('/store', queryParams);
+    router.get(path, queryParams);
   }, [selectedSort, price, priceFilterActive])
   
   return (
@@ -100,7 +101,7 @@ const store = ({products, category_list, maxPrice,type}) => {
               renderItem={(item) =>(
               <PaginationItem
                 component={Link}
-                href={'/store?page='+item.page +(selectedSort>0?'&sort='+selectedSort:'')+(priceFilterActive?'&min='+price[0]+'&max='+price[1]:''+(title.length>0?'&title='+title:''))}
+                href={`${path}?page=`+item.page +(selectedSort>0?'&sort='+selectedSort:'')+(priceFilterActive?'&min='+price[0]+'&max='+price[1]:''+(title.length>0?'&title='+title:''))}
                 {...item}
               />
             )} 

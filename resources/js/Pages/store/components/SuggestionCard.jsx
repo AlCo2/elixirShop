@@ -39,9 +39,13 @@ const SuggestionCard = ({product}) => {
         </Alert>
       </Snackbar>
       <Box onMouseOver={()=>setHover(true)} onMouseOut={()=>setHover(false)} sx={{width:220, cursor:'pointer', position:'relative'}}>
+        {product.promotion && product.promotion.active?
         <Box sx={{position:'absolute', right:0, top:10, zIndex:1}}>
             <p className='text-white text-xs font-Poppins font-bold bg-black text-right p-1 rounded-l-lg'>{'-'+parseInt(((product.price - product.promotion.promotion_price) / (product.price)) * 100)+'%'}</p>
         </Box>
+        :
+        null
+        }
         <Link href={'/store/product/'+product.id}>
           <Box overflow={'hidden'} position={'relative'} display={'flex'} justifyContent={'center'}>
               <CardMedia component={'img'}

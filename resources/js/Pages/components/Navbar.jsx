@@ -36,7 +36,7 @@ const Navbar = () => {
         <li><a className={`duration-300 font-bold hover:opacity-100 flex items-center gap-1 ${pathname==='/store/woman'?'opacity-100':'opacity-60'}`} href="/store/woman">Woman</a></li>
         <li><a className={`duration-300 font-bold hover:opacity-100 flex items-center gap-1 ${pathname==='/store/man'?'opacity-100':'opacity-60'}`} href="/store/man">Man</a></li>
         {auth.user && auth.user.role_id==1?
-        <li><a className={`duration-300 font-semibold hover:text-black flex items-center gap-1 ${pathname==='/promotions'?'opacity-100':'opacity-60'}`} href="/dashboard">Dashboard</a></li>
+        <li><a className={`duration-300 font-bold hover:opacity-100 flex items-center gap-1 ${pathname==='/promotions'?'opacity-100':'opacity-60'}`} href="/dashboard">Dashboard</a></li>
         :
         <></>
         }
@@ -57,7 +57,7 @@ const Navbar = () => {
                 <li><a className={`duration-300 font-bold hover:opacity-100 flex items-center gap-1 ${pathname==='/store/woman'?'opacity-100':'opacity-60'}`} href="/store/woman">Woman</a></li>
                 <li><a className={`duration-300 font-bold hover:opacity-100 flex items-center gap-1 ${pathname==='/store/man'?'opacity-100':'opacity-60'}`} href="/store/man">Man</a></li>
                 {auth.user && auth.user.role_id==1?
-                <li><a className={`duration-300 font-semibold hover:text-black flex items-center gap-1 ${pathname==='/promotions'?'opacity-100':'opacity-60'}`} href="/dashboard">Dashboard</a></li>
+                <li><a className={`duration-300 font-bold hover:opacity-100 flex items-center gap-1 ${pathname==='/promotions'?'opacity-100':'opacity-60'}`} href="/dashboard">Dashboard</a></li>
                 :
                 null
                 }

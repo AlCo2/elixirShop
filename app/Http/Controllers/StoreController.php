@@ -36,9 +36,10 @@ class StoreController extends Controller
     {
         $type = 'woman';
         $category_list = Category::all();
+        $maxPrice = Promotion::max('promotion_price');
         $query = $this->createQuery($request, $type);
         $products = $query->paginate(20);
-        return Inertia::render('store/page', compact('products', 'category_list', 'type'));
+        return Inertia::render('store/page', compact('products', 'category_list', 'maxPrice','type'));
     }
 
     public function index(Request $request){
