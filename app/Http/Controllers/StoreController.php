@@ -57,10 +57,7 @@ class StoreController extends Controller
 
         if (isset($type))
         {
-            if ($type =='woman')
-                $query->where('category_id', 1);
-            else
-                $query->where('category_id', 2);
+            $this->sortByType($type, $query);
         }
         if($request->min && $request->max)
         {
@@ -75,27 +72,48 @@ class StoreController extends Controller
  
         if($request->has('sort'))
         {
-            $sort = $request->input('sort');
-            switch ($sort) {
-                case 1:
-                    $query->orderBy('promotions.promotion_price', 'asc');
-                    break;
-                case 2:
-                    $query->orderBy('promotions.promotion_price', 'desc');
-                    break;
-                case 3:
-                    $query->orderBy('products.created_at', 'desc');
-                    break;
-            }
+            $this->sortProducts($request->input('sort'), $query);
         }
         return $query;
     }
+
+    private function sortByType($type, $query)
+    {
+        if ($type =='woman')
+            $query->where('category_id', 1);
+        else
+            $query->where('category_id', 2);
+    }
+
+    private function sortProducts($sort, $query)
+    {
+        switch ($sort) {
+            case 1:
+                $query->orderByRaw('
+                    CASE 
+                        WHEN promotions.active = 1 THEN promotions.promotion_price 
+                        ELSE products.price
+                    END ASC
+                ');
+                break;
+            case 2:
+                $query->orderByRaw('
+                    CASE 
+                        WHEN promotions.active = 1 THEN promotions.promotion_price 
+                        ELSE products.price
+                    END DESC
+                ');
+                break;
+            case 3:
+                $query->orderBy('products.created_at', 'desc');
+                break;
+        }
+    }
+
     public function product(Request $request, $id){
         $product = Product::with('category', 'images', 'promotion')->find($id);
         if (!$product)
-        {
             return abort(404);
-        }
         $products = Product::inRandomOrder()->limit(5)->with('images', 'promotion')->get();
         $categories = [];
         if($request->user() && $request->user()->role_id == 1)

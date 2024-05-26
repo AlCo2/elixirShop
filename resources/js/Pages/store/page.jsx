@@ -18,7 +18,7 @@ const store = ({products, category_list, maxPrice,type}) => {
   const [price, setPrice] = useState([min, max]);
   const [priceFilterActive, setPriceFilterActive] = useState(params.get('min') && params.get('max'));
   const [title, setTitle] = useState(params.get('title') || '');
-  const [selectedSort, setselectedSort] = useState(params.get('sort'));
+  const [selectedSort, setselectedSort] = useState(params.get('sort') || 0);
   const isFirstRender = useRef(true);
   const handleChange = (e) =>{
     setTitle(e.target.value);
