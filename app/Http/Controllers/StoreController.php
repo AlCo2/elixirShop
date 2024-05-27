@@ -69,8 +69,8 @@ class StoreController extends Controller
     private function createQuery($request, $type)
     {
         $query = Product::with('images', 'promotion')
-        ->join('promotions', 'promotions.product_id', '=', 'products.id');
-
+        ->leftJoin('promotions', 'promotions.product_id', '=', 'products.id');
+        
         if (isset($type))
         {
             $this->sortByType($type, $query);
