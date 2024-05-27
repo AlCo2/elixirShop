@@ -20,7 +20,7 @@ const SectionBanner = ({title, text}) =>{
   )
 }
 
-export default function Home({promotions, featured, bestsellers, latest}) { 
+export default function Home({promotions, featured, bestsellers, latest, favourites}) { 
   const { flash } = usePage().props;
   return (
     <>
@@ -76,7 +76,7 @@ export default function Home({promotions, featured, bestsellers, latest}) {
         <Grid container justifyContent={'center'} rowGap={2} columnGap={1} className="my-10">
           {promotions.length>0?
             promotions.map((product)=>(
-            <IntroCard key={product.id} product={product}/>
+            <IntroCard key={product.id} product={product} favourites={favourites}/>
           ))
           :
           <>There is no products Available</>

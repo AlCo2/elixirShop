@@ -57,7 +57,15 @@ export default function FavouriteBar({down}) {
 
   const fetchProduct = async () =>{
     setLoading(true);
-    const response = await axios.post('/favourites/products').catch((error)=>console.log(error));
+    const response = await axios.post('/favourites/products').catch((error)=>{
+        if(error.response.status === 401)
+        {
+            setProducts([]);
+            setLoading(false);
+        }
+        else
+            console.log(error)
+    });
     setProducts(response.data);
     setLoading(false);
   }

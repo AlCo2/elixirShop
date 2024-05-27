@@ -1,18 +1,16 @@
 import { CartContext } from '@/Layout';
-import { Link, router, usePage } from '@inertiajs/react';
-import { Alert, Box, Button, Card, CardMedia, Grid, IconButton, Snackbar, Typography } from '@mui/material';
+import { Link } from '@inertiajs/react';
+import { Alert, Box, Button, CardMedia, Grid, IconButton, Snackbar, Typography } from '@mui/material';
 import axios from 'axios';
 import { useContext, useState } from 'react';
-import { BiHeart } from 'react-icons/bi';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { FaShoppingBasket } from 'react-icons/fa';
 
 const SuggestionCard = ({product, favourites}) => {
   const [open, setOpen] = useState(false);
-  const [hover, setHover] = useState(false);
   const [isFavourite, setIsFavourite] = useState(favourites.some(p => p.id === product.id));
   const { cartTotalProducts, setCartTotalProducts } = useContext(CartContext);
-  
+
   function addToCart(e){
     e.preventDefault();
     const data = {
@@ -22,17 +20,18 @@ const SuggestionCard = ({product, favourites}) => {
     setCartTotalProducts(cartTotalProducts + 1);
     setOpen(true);
   }
-
   function addToFavourit(e)
   {
     e.preventDefault();
     const data = {
       product_id:product.id
     }
-    axios.post('/favourite', data);
+    axios.post('/favourite', data).catch(error=>{
+      if (error.response.status===401)
+        window.location = '/login';
+    });
     setIsFavourite(!isFavourite);
   }
-
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -50,7 +49,7 @@ const SuggestionCard = ({product, favourites}) => {
           {product.title} added to cart
         </Alert>
       </Snackbar>
-      <Box onMouseOver={()=>setHover(true)} onMouseOut={()=>setHover(false)} sx={{width:220, cursor:'pointer', position:'relative'}}>
+      <Box sx={{width:220, cursor:'pointer', position:'relative', '&:hover':{'& .ProductImage':{scale:'125%', opacity:1, zIndex:1, transitionDuration:'1000ms'}, '& .FavouritIcon':{top:-10}, '& .AddToCart':{bottom:-18}}}}>
         {product.promotion && product.promotion.active?
         <Box sx={{position:'absolute', right:0, top:10, zIndex:1}}>
             <p className='text-white text-xs font-Poppins font-bold bg-black text-right p-1 rounded-l-lg'>{'-'+parseInt(((product.price - product.promotion.promotion_price) / (product.price)) * 100)+'%'}</p>
@@ -60,7 +59,7 @@ const SuggestionCard = ({product, favourites}) => {
         }
         <Link href={'/store/product/' + product.id} >
           <Box overflow={'hidden'} position={'relative'} display={'flex'} justifyContent={'center'}>
-            <Box sx={{display:{xs:'none',sm:'none', md:'flex'}, opacity:0.9, position:'absolute', width:'100%',transitionDuration:'600ms', top:(hover?-10:-60), zIndex:3}} margin={2} justifyContent={'space-between'} alignItems={'center'}>
+            <Box className='FavouritIcon' sx={{display:{xs:'none',sm:'none', md:'flex'}, opacity:0.9, position:'absolute', width:'100%',transitionDuration:'600ms', top:-60, zIndex:3}} margin={2} justifyContent={'space-between'} alignItems={'center'}>
               <IconButton color='error' onClick={addToFavourit}>
                 {isFavourite?
                   <BsHeartFill/>
@@ -70,9 +69,9 @@ const SuggestionCard = ({product, favourites}) => {
               </IconButton>
             </Box>
             <CardMedia component={'img'}
-              sx={{height:220, width:'100%', zIndex:(hover?1:0), transitionDuration:(hover?'1000ms':'')}}
+              sx={{height:220, width:'100%'}}
               image={product.images[1].url}
-              className={'absolute ' + (hover?'scale-125 opacity-100':'opacity-0')}
+              className={'ProductImage absolute opacity-0'}
               alt={product.title}
             />
             <CardMedia component={'img'}
@@ -80,7 +79,7 @@ const SuggestionCard = ({product, favourites}) => {
               image={product.images[0].url}
               alt={product.title}
             />
-            <Box sx={{display:{xs:'none',sm:'none', md:'flex'}, opacity:0.9, position:'absolute', width:'100%',transitionDuration:'600ms',bottom:(hover?-18:-60), zIndex:3}} margin={2} justifyContent={'space-between'} alignItems={'center'}>
+            <Box className="AddToCart" sx={{display:{xs:'none',sm:'none', md:'flex'}, opacity:0.9, position:'absolute', width:'100%',transitionDuration:'600ms',bottom:-60, zIndex:3}} margin={2} justifyContent={'space-between'} alignItems={'center'}>
               <Button onClick={addToCart} sx={{borderRadius:0}} fullWidth variant="contained" color='success'>ADD TO CART</Button>
             </Box>
             <Box sx={{display:{xs:'flex',sm:'flex', md:'none'}, opacity:0.9, position:'absolute', bottom:-10, right:-10, zIndex:3}} margin={2} justifyContent={'space-between'} alignItems={'center'}>

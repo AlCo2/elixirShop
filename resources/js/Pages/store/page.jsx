@@ -12,6 +12,7 @@ const store = ({products, category_list, maxPrice,type, favourites}) => {
   const [page, setPage] = useState(products.current_page);
   const path = window.location.pathname;
   const windowUrl = window.location.search;
+  console.log("main");
   const params = new URLSearchParams(windowUrl);
   const min = params.get('min') || 50;
   const max = params.get('max') || maxPrice;

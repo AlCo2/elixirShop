@@ -14,12 +14,16 @@ use Illuminate\Support\Facades\Http;
 
 class StoreController extends Controller
 {
-    public function home(){
+    public function home(Request $request){
+        $user = $request->user();
+        $favourites = [];
+        if ($user)
+            $favourites = $user->products;
         $promotions = Product::inRandomOrder()->limit(12)->with('promotion', 'images')->get();
         $featured = Product::inRandomOrder()->limit(4)->with('images', 'promotion')->get();
         $bestsellers = Product::inRandomOrder()->limit(4)->with('images', 'promotion')->get();
         $latest = Product::inRandomOrder()->limit(4)->with('images', 'promotion')->get();
-        return Inertia::render('page', compact('featured', 'bestsellers', 'latest', 'promotions'));
+        return Inertia::render('page', compact('featured', 'bestsellers', 'latest', 'promotions', 'favourites'));
     }
 
     public function manPage(Request $request)
