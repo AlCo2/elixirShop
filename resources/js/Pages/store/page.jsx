@@ -1,4 +1,4 @@
-import { Box, Button, Grid, IconButton, Menu, MenuItem, Paper, Pagination, PaginationItem, Slider, FormControl, TextField, InputAdornment } from '@mui/material';
+import { Box, Grid, Pagination, PaginationItem } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import SuggestionCard from './components/SuggestionCard';
 import Layout from '@/Layout';
@@ -12,7 +12,6 @@ const store = ({products, category_list, maxPrice,type, favourites}) => {
   const [page, setPage] = useState(products.current_page);
   const path = window.location.pathname;
   const windowUrl = window.location.search;
-  console.log("main");
   const params = new URLSearchParams(windowUrl);
   const min = params.get('min') || 50;
   const max = params.get('max') || maxPrice;
@@ -24,7 +23,19 @@ const store = ({products, category_list, maxPrice,type, favourites}) => {
   const handleChange = (e) =>{
     setTitle(e.target.value);
   };
-
+  const handleSearch = (e) =>{
+    let queryParams = {};
+    if (title.length>0)
+      queryParams.title = title;
+    if (priceFilterActive)
+    {
+      queryParams.min = price[0];
+      queryParams.max = price[1];
+    }
+    if(selectedSort>0)
+      queryParams.sort = selectedSort; 
+    router.get(path, queryParams);
+  };
   const handlePageChange = (e, value) =>{
     setPage(value);
   }
@@ -51,15 +62,15 @@ const store = ({products, category_list, maxPrice,type, favourites}) => {
       <div className='min-h-screen max-sm:px-4'>
         {type?
           type=='man'?
-          <div className='h-52 bg-center bg-cover flex justify-center items-center' style={{backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/assets/imad.png')", backgroundPosition:'0px 520px'}}>
+          <div className='h-52 bg-center bg-cover flex justify-center items-center' style={{backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/assets/imad.webp')", backgroundPosition:'0px 520px'}}>
             <p className='text-white font-Italiana text-6xl'>Man Perfume</p>
           </div>
           :
-          <div className='h-52 bg-center bg-cover flex justify-center items-center' style={{backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://a1.eestatic.com/cronicaglobal/2015/01/18/culemania/cule-bron/cule-bron_4260386_2174029_1706x960.jpg')", backgroundPosition:'0px 550px'}}>
+          <div className='h-52 bg-center bg-cover flex justify-center items-center' style={{backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/assets/carla.webp')", backgroundPosition:'0px 550px'}}>
             <p className='text-white font-Italiana text-6xl'>Woman Perfume</p>
           </div>
         :
-        <div className='h-52 bg-center bg-cover flex justify-center items-center' style={{backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://www.jeanpaulgaultier.com/fr/sites/fr/files/styles/scale_1920/public/2024-03/header-plp-parfums-pour-hommes.jpg?itok=0FzBo0aU')"}}>
+        <div className='h-52 bg-center bg-cover flex justify-center items-center' style={{backgroundImage: "linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/assets/parfum.webp')"}}>
           <p className='text-white font-Italiana text-6xl'>Morocco Perfume Boutique</p>
         </div>
         }
@@ -67,6 +78,7 @@ const store = ({products, category_list, maxPrice,type, favourites}) => {
             <Grid xs={2.5} item sx={{p:"1.25rem", pb:'0.25rem', pt:'1.9rem'}} className='max-lg:hidden '>
               <p className='font-bold font-Opensans text-xl'>Filters</p>
               <input value={title} onChange={handleChange} type="text" placeholder='Search...' className='h-8 p-1 text-sm w-full' name="title" id="title" />
+              <button onClick={handleSearch}>Search</button>
               <p className='font-Opensans font-semibold mt-5'>Price</p>
               <FilterPrice price={price} maxPrice={maxPrice} setPrice={setPrice} setPriceFilterActive={setPriceFilterActive} priceFilterActive={priceFilterActive}/>
             </Grid>

@@ -5,7 +5,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import { AiOutlineUser } from 'react-icons/ai'
 import { CiLogin } from "react-icons/ci";
 import { CiCircleCheck } from "react-icons/ci";
 import { RiShieldUserFill } from "react-icons/ri";

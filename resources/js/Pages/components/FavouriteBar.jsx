@@ -4,7 +4,7 @@ import { IoClose } from "react-icons/io5";
 import { CircularProgress, Divider, IconButton } from '@mui/material';
 import { useState } from 'react';
 import axios from 'axios';
-import { BsHeart, BsHeartFill } from 'react-icons/bs';
+import { BsHeartFill } from 'react-icons/bs';
 import { Link } from '@inertiajs/react';
 import { BiHeart } from 'react-icons/bi';
 

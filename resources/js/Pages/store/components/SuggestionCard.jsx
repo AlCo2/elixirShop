@@ -2,13 +2,13 @@ import { CartContext } from '@/Layout';
 import { Link } from '@inertiajs/react';
 import { Alert, Box, Button, CardMedia, Grid, IconButton, Snackbar, Typography } from '@mui/material';
 import axios from 'axios';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { FaShoppingBasket } from 'react-icons/fa';
 
 const SuggestionCard = ({product, favourites}) => {
   const [open, setOpen] = useState(false);
-  const [isFavourite, setIsFavourite] = useState(favourites.some(p => p.id === product.id));
+  const [isFavourite, setIsFavourite] = useState(false);
   const { cartTotalProducts, setCartTotalProducts } = useContext(CartContext);
 
   function addToCart(e){
@@ -38,7 +38,9 @@ const SuggestionCard = ({product, favourites}) => {
     }
     setOpen(false);
   };
-
+  useEffect(()=>{
+    setIsFavourite(favourites.some(p => p.id === product.id))
+  }, [])
   return (
     <Grid item>
       <Snackbar

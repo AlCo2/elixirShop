@@ -1,15 +1,15 @@
 import { CartContext } from '@/Layout';
 import { Link } from '@inertiajs/react';
-import { Alert, Box, Button, Card, CardContent, CardMedia, Grid, IconButton, Snackbar, Typography} from '@mui/material';
+import { Alert, Box, Button, CardMedia, Grid, IconButton, Snackbar, Typography} from '@mui/material';
 import axios from 'axios';
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { FaShoppingBasket } from 'react-icons/fa';
 
 const IntroCard = ({product, favourites}) => {
   const [open, setOpen] = useState(false);
   const { cartTotalProducts, setCartTotalProducts } = useContext(CartContext);
-  const [isFavourite, setIsFavourite] = useState(favourites.some(p => p.id === product.id));
+  const [isFavourite, setIsFavourite] = useState(false);
   function addToCart(e){
     e.preventDefault();
     const data = {
@@ -40,7 +40,9 @@ const IntroCard = ({product, favourites}) => {
 
     setOpen(false);
   };
-  console.log('here');
+  useEffect(()=>{
+    setIsFavourite(favourites.some(p => p.id === product.id))
+  }, [])
   return (
     <Grid item >
       <Snackbar
@@ -52,7 +54,7 @@ const IntroCard = ({product, favourites}) => {
           {product.title} added to cart
         </Alert>
       </Snackbar>
-      <Box sx={{width:290, cursor:'pointer', '&:hover':{'& .ProductImage':{scale:'125%', opacity:1, zIndex:1, transitionDuration:'1000ms'}, '& .FavouritIcon':{top:-10}, '& .AddToCart':{bottom:-18}}}}>
+      <Box sx={{width:290, cursor:'pointer', position:'relative','&:hover':{'& .ProductImage':{scale:'125%', opacity:1, zIndex:1, transitionDuration:'1000ms'}, '& .FavouritIcon':{top:-10}, '& .AddToCart':{bottom:-18}}}}>
         <Box sx={{position:'absolute', right:0, top:10, zIndex:1}}>
             <p className='text-white text-xs font-Poppins font-bold bg-black text-right p-2 rounded-l-lg'>{'-'+parseInt(((product.price - product.promotion.promotion_price) / (product.price)) * 100)+'%'}</p>
         </Box>

@@ -1,7 +1,4 @@
-import { Box, Button, Container, Grid } from '@mui/material';
-import { CiMail } from 'react-icons/ci';
-import { FaAngleRight, FaFacebook, FaInstagram, FaMap, FaTiktok, FaWhatsapp } from 'react-icons/fa';
-import { FaPhoneFlip } from 'react-icons/fa6';
+import { Grid } from '@mui/material';
 const Footer = () => {
   return (
     <div className='bg-black text-white py-10 font-Poppins min-h-80'>

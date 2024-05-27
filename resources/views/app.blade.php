@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <meta name="description" content="Best parfume online store. buy any parfume you want fast and with a low price.">
         <title inertia>{{ config('app.name', 'Liliana') }}</title>
 
         <!-- Fonts -->

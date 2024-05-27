@@ -1,5 +1,4 @@
-import { Alert, Box, Button, Chip, Container, Divider, Grid, Paper, Rating, Snackbar, Typography } from '@mui/material';
-import SuggestionCard from '../components/SuggestionCard';
+import { Alert, Box, Button, Container, Divider, Grid, Snackbar} from '@mui/material';
 import Layout, { CartContext } from '@/Layout';
 import { useContext, useState } from 'react';
 import axios from 'axios';

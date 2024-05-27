@@ -1,6 +1,4 @@
 import { Alert, Box, Button, Container, Divider, Grid } from "@mui/material";
-import { IoIosTime } from "react-icons/io";
-import { LiaMoneyBillSolid, LiaShippingFastSolid } from "react-icons/lia";
 import IntroCard from "./components/IntroCard";
 import ServiceIntro from "./components/home/ServiceIntro";
 import { usePage } from "@inertiajs/react";
@@ -20,7 +18,7 @@ const SectionBanner = ({title, text}) =>{
   )
 }
 
-export default function Home({promotions, featured, bestsellers, latest, favourites}) { 
+export default function Home({promotions, favourites}) { 
   const { flash } = usePage().props;
   return (
     <>
@@ -55,7 +53,7 @@ export default function Home({promotions, featured, bestsellers, latest, favouri
           </Grid>
           <Grid item xs={12} md={6}>
             <Box display={'flex'} justifyContent={'center'}>
-              <img src="/assets/intro.png" width={450} alt="" />
+              <img src="/assets/intro.webp" width={450} alt="" />
             </Box>
           </Grid>
         </Grid>
@@ -86,28 +84,28 @@ export default function Home({promotions, featured, bestsellers, latest, favouri
         <div className="flex items-center justify-center my-5">
           <div className="flex flex-wrap w-96 gap-5 justify-center items-center">
             <div>
-              <img src="/brands/chanel.png" width={80} alt="chanel" />
+              <img src="/brands/chanel.png" width={80} height={80} alt="chanel" />
             </div>
             <div>
-              <img src="/brands/creed.png" width={80} alt="chanel" />
+              <img src="/brands/creed.png" width={80} height={80} alt="creed" />
             </div>
             <div>
-              <img src="/brands/Dolce-Gabbana-Logo.png" width={80} alt="chanel" />
+              <img src="/brands/Dolce-Gabbana-Logo.png" width={80} height={80} alt="dolce-gabbana" />
             </div>
             <div>
-              <img src="/brands/guess.webp" width={80} alt="chanel" />
+              <img src="/brands/guess.webp" width={80} height={80} alt="guess" />
             </div>
             <div>
-              <img src="/brands/ysl.png" width={80} alt="chanel" />
+              <img src="/brands/ysl.png" width={80} height={80} alt="ysl" />
             </div>
             <div>
-              <img src="/brands/versace.png" width={50} alt="chanel" />
+              <img src="/brands/versace.png" width={80} height={80} alt="versace" />
             </div>
             <div>
-              <img src="/brands/dior-logo.png" width={50} alt="chanel" />
+              <img src="/brands/dior-logo.png" width={80} height={80} alt="dior" />
             </div>
             <div>
-              <img src="/brands/bosss.webp" width={50} alt="chanel" />
+              <img src="/brands/bosss.webp" width={80} height={80} alt="boss" />
             </div>
           </div>
         </div>

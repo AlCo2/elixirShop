@@ -1,5 +1,3 @@
-import { Badge, IconButton } from '@mui/material';
-import { BiShoppingBag } from 'react-icons/bi'
 import AccountMenu from './AccountMenu';
 import SideBar from './SideBar';
 import { usePage } from '@inertiajs/react';
