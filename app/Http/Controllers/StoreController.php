@@ -25,29 +25,41 @@ class StoreController extends Controller
     public function manPage(Request $request)
     {
         $type = 'man';
+        $user = $request->user();
+        $favourites = [];
+        if ($user)
+            $favourites = $user->products;
         $maxPrice = Promotion::max('promotion_price');
         $category_list = Category::all();
         $query = $this->createQuery($request, $type);
         $products = $query->paginate(20);
-        return Inertia::render('store/page', compact('products', 'category_list', 'maxPrice', 'type'));
+        return Inertia::render('store/page', compact('products', 'category_list', 'maxPrice', 'type', 'favourites'));
     }
 
     public function womanPage(Request $request)
     {
         $type = 'woman';
+        $user = $request->user();
+        $favourites = [];
+        if ($user)
+            $favourites = $user->products;
         $category_list = Category::all();
         $maxPrice = Promotion::max('promotion_price');
         $query = $this->createQuery($request, $type);
         $products = $query->paginate(20);
-        return Inertia::render('store/page', compact('products', 'category_list', 'maxPrice','type'));
+        return Inertia::render('store/page', compact('products', 'category_list', 'maxPrice','type', 'favourites'));
     }
 
     public function index(Request $request){
+        $user = $request->user();
+        $favourites = [];
+        if ($user)
+            $favourites = $user->products;
         $category_list = Category::all();
         $maxPrice = Promotion::max('promotion_price');
         $query = $this->createQuery($request, null);
         $products = $query->paginate(20);
-        return Inertia::render('store/page', compact('products', 'maxPrice', 'category_list'));
+        return Inertia::render('store/page', compact('products', 'maxPrice', 'category_list', 'favourites'));
     }
 
     private function createQuery($request, $type)
@@ -67,7 +79,7 @@ class StoreController extends Controller
         if ($request->has('title'))
         {
             $title = $request->input('title');
-            $query->where('title', 'like', $title.'%');
+            $query->where('title', 'like', '%'.$title.'%');
         }
  
         if($request->has('sort'))

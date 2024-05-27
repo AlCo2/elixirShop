@@ -39,6 +39,10 @@ Route::post('/api/cart/deleteall', [CartController::class, 'deleteAllfromCart'])
 Route::post('/api/order/create', [OrderController::class, 'createOrder']);
 
 
+/* auth routes */
+Route::post('/favourite', [ProductController::class, 'favourite'])->middleware('auth');
+Route::post('/favourites/products', [ProductController::class, 'getFavouritesProducts'])->middleware('auth');
+
 Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])->group(function () {
     route::get('/dashboard', [DashboardController::class, 'overview']);
     route::get('/dashboard/customer', [DashboardController::class, 'customer']);

@@ -57,4 +57,5 @@ class UserController extends Controller
         if($user->id !== $auth->id)
             $user->delete();
     }
+
 }

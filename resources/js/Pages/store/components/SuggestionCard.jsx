@@ -1,13 +1,16 @@
 import { CartContext } from '@/Layout';
-import { Link } from '@inertiajs/react';
-import { Alert, Box, Button, Card, CardMedia, Grid, Snackbar, Typography } from '@mui/material';
+import { Link, router, usePage } from '@inertiajs/react';
+import { Alert, Box, Button, Card, CardMedia, Grid, IconButton, Snackbar, Typography } from '@mui/material';
 import axios from 'axios';
 import { useContext, useState } from 'react';
+import { BiHeart } from 'react-icons/bi';
+import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { FaShoppingBasket } from 'react-icons/fa';
 
-const SuggestionCard = ({product}) => {
+const SuggestionCard = ({product, favourites}) => {
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState(false);
+  const [isFavourite, setIsFavourite] = useState(favourites.some(p => p.id === product.id));
   const { cartTotalProducts, setCartTotalProducts } = useContext(CartContext);
   
   function addToCart(e){
@@ -20,20 +23,29 @@ const SuggestionCard = ({product}) => {
     setOpen(true);
   }
 
+  function addToFavourit(e)
+  {
+    e.preventDefault();
+    const data = {
+      product_id:product.id
+    }
+    axios.post('/favourite', data);
+    setIsFavourite(!isFavourite);
+  }
+
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
-
     setOpen(false);
   };
+
   return (
     <Grid item>
       <Snackbar
         open={open}
         autoHideDuration={5000}
-        onClose={handleClose}
-      >
+        onClose={handleClose}>
         <Alert onClose={handleClose} severity='success' variant='standard' sx={{width:'100%'}}>
           {product.title} added to cart
         </Alert>
@@ -46,25 +58,34 @@ const SuggestionCard = ({product}) => {
         :
         null
         }
-        <Link href={'/store/product/'+product.id}>
+        <Link href={'/store/product/' + product.id} >
           <Box overflow={'hidden'} position={'relative'} display={'flex'} justifyContent={'center'}>
-              <CardMedia component={'img'}
-                sx={{height:220, width:'100%', zIndex:(hover?1:0), transitionDuration:(hover?'1000ms':'')}}
-                image={product.images[1].url}
-                className={'absolute ' + (hover?'scale-125 opacity-100':'opacity-0')}
-                alt={product.title}
-              />
-              <CardMedia component={'img'}
-                sx={{height:220, width:'100%'}}
-                image={product.images[0].url}
-                alt={product.title}
-              />
-              <Box sx={{display:{xs:'none',sm:'none', md:'flex'}, opacity:0.9, position:'absolute', width:'100%',transitionDuration:'600ms',bottom:(hover?-18:-60), zIndex:3}} margin={2} justifyContent={'space-between'} alignItems={'center'}>
-                <Button onClick={addToCart} sx={{borderRadius:0}} fullWidth variant="contained" color='success'>ADD TO CART</Button>
-              </Box>
-              <Box sx={{display:{xs:'flex',sm:'flex', md:'none'}, opacity:0.9, position:'absolute', bottom:-10, right:-10, zIndex:3}} margin={2} justifyContent={'space-between'} alignItems={'center'}>
-                <Button onClick={addToCart} sx={{borderRadius:0}} fullWidth variant="contained" color='success'><FaShoppingBasket/></Button>
-              </Box>
+            <Box sx={{display:{xs:'none',sm:'none', md:'flex'}, opacity:0.9, position:'absolute', width:'100%',transitionDuration:'600ms', top:(hover?-10:-60), zIndex:3}} margin={2} justifyContent={'space-between'} alignItems={'center'}>
+              <IconButton color='error' onClick={addToFavourit}>
+                {isFavourite?
+                  <BsHeartFill/>
+                :
+                  <BsHeart/>
+                }
+              </IconButton>
+            </Box>
+            <CardMedia component={'img'}
+              sx={{height:220, width:'100%', zIndex:(hover?1:0), transitionDuration:(hover?'1000ms':'')}}
+              image={product.images[1].url}
+              className={'absolute ' + (hover?'scale-125 opacity-100':'opacity-0')}
+              alt={product.title}
+            />
+            <CardMedia component={'img'}
+              sx={{height:220, width:'100%'}}
+              image={product.images[0].url}
+              alt={product.title}
+            />
+            <Box sx={{display:{xs:'none',sm:'none', md:'flex'}, opacity:0.9, position:'absolute', width:'100%',transitionDuration:'600ms',bottom:(hover?-18:-60), zIndex:3}} margin={2} justifyContent={'space-between'} alignItems={'center'}>
+              <Button onClick={addToCart} sx={{borderRadius:0}} fullWidth variant="contained" color='success'>ADD TO CART</Button>
+            </Box>
+            <Box sx={{display:{xs:'flex',sm:'flex', md:'none'}, opacity:0.9, position:'absolute', bottom:-10, right:-10, zIndex:3}} margin={2} justifyContent={'space-between'} alignItems={'center'}>
+              <Button onClick={addToCart} sx={{borderRadius:0}} fullWidth variant="contained" color='success'><FaShoppingBasket/></Button>
+            </Box>
           </Box>
         </Link>
         <Link href={'/store/product/'+product.id}>

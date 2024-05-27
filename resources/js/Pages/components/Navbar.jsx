@@ -7,6 +7,7 @@ import { useContext, useState } from 'react';
 import { useEffect } from 'react';
 import { CartContext } from '@/Layout';
 import SideBarCart from './sideBarCart';
+import FavouriteBar from './FavouriteBar';
 
 const Navbar = () => {
   const [sticky, setSticky] = useState(false);
@@ -42,6 +43,7 @@ const Navbar = () => {
         }
         <li className='flex items-center'>
           <AccountMenu down={true}/>
+          <FavouriteBar down={true}/>
           <SideBarCart down={true}/>
         </li>
       </ul>
@@ -65,6 +67,7 @@ const Navbar = () => {
         </div>
         <div className='flex mr-4 items-center'>
           <AccountMenu />
+          <FavouriteBar/>
           <SideBarCart/>
         </div>
     </nav>
@@ -74,6 +77,7 @@ const Navbar = () => {
       </a>
       <div className='flex items-center gap-3'>
         <SideBarCart/>
+        <FavouriteBar/>
         <SideBar/>
       </div>
     </nav>

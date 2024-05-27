@@ -8,7 +8,7 @@ import SortMenu from './components/SortMenu';
 import FilterMenu from './components/FilterMenu';
 
 
-const store = ({products, category_list, maxPrice,type}) => {  
+const store = ({products, category_list, maxPrice,type, favourites}) => {  
   const [page, setPage] = useState(products.current_page);
   const path = window.location.pathname;
   const windowUrl = window.location.search;
@@ -87,7 +87,7 @@ const store = ({products, category_list, maxPrice,type}) => {
                 </Grid>
               <Grid container gap={1} marginY={5} justifyContent={{xs:'center'}} mt={2}>
                 { products.data.length>0?products.data.map((product)=>(
-                  <SuggestionCard key={product.id} product={product}/>
+                  <SuggestionCard key={product.id} product={product} favourites={favourites}/>
                 ))
                 :
                 <p>There is no product to Show</p>

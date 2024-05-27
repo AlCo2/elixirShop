@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Image;
+use App\Models\User;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 
@@ -52,6 +53,21 @@ class ProductController extends Controller
         $name = "/images/" . $imageName;
         DB::table('images')->updateOrInsert(['url'=>$name]);
         $product->images()->attach($name);
+    }
+
+    public function favourite(Request $request)
+    {
+        $user = $request->user();
+        $product_id = $request->product_id;
+        $user->products()->toggle([$product_id]);
+    }
+    
+    public function getFavouritesProducts(Request $request)
+    {
+        $user = $request->user();
+        $user->load('products.images', 'products.promotion');
+        $products = $user->products;
+        return $products;
     }
 
     public function add(Request $request){
