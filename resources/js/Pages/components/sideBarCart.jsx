@@ -26,7 +26,7 @@ const CartItem = ({id, products, setProducts, product, Q}) =>{
         <div className='flex justify-between'>
             <div className='flex gap-5'>
                 <div className='bg-white'>
-                    <img className='w-24 h-24 scale-75 rounded-sm' src={product.images[0].url} alt="pic" />
+                    <img className='w-24 h-24 scale-75 rounded-sm' src={product.images[0]?product.images[0].url:null} alt="" />
                 </div>
                 <div className='flex flex-col gap-2 py-2 h-full w-48'>
                     <p className='font-Poppins text-sm font-semibold'>{product.title}</p>

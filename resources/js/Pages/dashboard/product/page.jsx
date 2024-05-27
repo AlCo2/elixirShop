@@ -68,7 +68,11 @@ function ProductModelComponent({product, categories}) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  const [selectedImage, setSelectedImage] = useState({
+    image:null,
+    image2:null,
+    image3:null,
+  });
   const [values, setValues] = useState({
     title:"",
     description:"",
@@ -93,6 +97,12 @@ function ProductModelComponent({product, categories}) {
       ...prevValues,
       [id]: type === 'file' ? e.target.files[0] : value, // If it's a file input, get the file, otherwise get the value
     }));
+    if (e.target.files && e.target.files[0]) {
+      setSelectedImage(v =>({
+        ...v,
+        [id]: URL.createObjectURL(e.target.files[0])
+      }));
+    }
   }
 
   function handleSubmit(e) {
@@ -215,18 +225,33 @@ function ProductModelComponent({product, categories}) {
                     <label className='text-sm font-semibold font-Opensans'>image</label>
                 </div>
                 <input type="file" onChange={handleChange} name="image" id="image" />
+                {product?
+                <img width={50} height={50} src={selectedImage.image?selectedImage.image:product.images[0]?product.images[0].url:null} alt="image" />
+                :
+                <img width={50} height={50} src={selectedImage.image} alt="image" />
+                }
             </Grid>
             <Grid xs={12} item>
                 <div>
                     <label className='text-sm font-semibold font-Opensans'>image 2</label>
                 </div>
                 <input type="file" onChange={handleChange} name="image2" id="image2" />
+                {product?
+                <img width={50} height={50} src={selectedImage.image?selectedImage.image:product.images[1]?product.images[1].url:null} alt="image" />
+                :
+                <img width={50} height={50} src={selectedImage.image} alt="image" />
+                }
             </Grid>
             <Grid xs={12} item>
                 <div>
                     <label className='text-sm font-semibold font-Opensans'>image 3</label>
                 </div>
                 <input type="file" onChange={handleChange} name="image3" id="image3" />
+                {product?
+                <img width={50} height={50} src={selectedImage.image?selectedImage.image:product.images[2]?product.images[2].url:null} alt="image" />
+                :
+                <img width={50} height={50} src={selectedImage.image} alt="image" />
+                }
             </Grid>
             <Grid item sx={{display:'flex', justifyContent:'space-between',flexDirection:'row-reverse'}} xs={12} mt={2}>
               {!product?

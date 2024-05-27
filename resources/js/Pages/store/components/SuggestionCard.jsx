@@ -10,7 +10,6 @@ const SuggestionCard = ({product, favourites}) => {
   const [open, setOpen] = useState(false);
   const [isFavourite, setIsFavourite] = useState(false);
   const { cartTotalProducts, setCartTotalProducts } = useContext(CartContext);
-  console.log(product);
   function addToCart(e){
     e.preventDefault();
     const data = {
