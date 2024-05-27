@@ -52,9 +52,9 @@ const SuggestionCard = ({product, favourites}) => {
         </Alert>
       </Snackbar>
       <Box sx={{width:220, cursor:'pointer', position:'relative', '&:hover':{'& .ProductImage':{scale:'125%', opacity:1, zIndex:1, transitionDuration:'1000ms'}, '& .FavouritIcon':{top:-10}, '& .AddToCart':{bottom:-18}}}}>
-        {product.promotion && product.promotion.active?
+        {product.active?
         <Box sx={{position:'absolute', right:0, top:10, zIndex:1}}>
-            <p className='text-white text-xs font-Poppins font-bold bg-black text-right p-1 rounded-l-lg'>{'-'+parseInt(((product.price - product.promotion.promotion_price) / (product.price)) * 100)+'%'}</p>
+            <p className='text-white text-xs font-Poppins font-bold bg-black text-right p-1 rounded-l-lg'>{'-'+parseInt(((product.price - product.promotion_price) / (product.price)) * 100)+'%'}</p>
         </Box>
         :
         null

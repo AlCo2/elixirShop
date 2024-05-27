@@ -38,7 +38,7 @@ class DashboardController extends Controller
     }
 
     public function product(){
-        $products = Product::with('category')->get();
+        $products = Product::with('category', 'images')->get();
         $categories = Category::all();
         return Inertia::render('dashboard/product/page', compact('products', 'categories'));
     }
