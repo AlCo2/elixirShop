@@ -93,9 +93,9 @@ const SuggestionCard = ({product, favourites}) => {
             <p className='text-sm font-Poppins font-medium text-center px-2 pt-1 duration-300 hover:opacity-70'>{product.title}</p>
           </Box>
         </Link>
-        {product.promotion && product.promotion.active?
+        {product.active?
         <Box height={20} margin={1} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-          <Typography fontFamily={'Roboto'} variant="body2" sx={{fontWeight:600}}>{product.promotion.promotion_price}.00DH</Typography>
+          <Typography fontFamily={'Roboto'} variant="body2" sx={{fontWeight:600}}>{product.promotion_price}.00DH</Typography>
           <p className='text-xs opacity-70 line-through'>{product.price}.00DH</p>
         </Box>
         :

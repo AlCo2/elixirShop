@@ -9,8 +9,7 @@ use App\Models\Promotion;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
-/* temp */
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\DB;
 
 class StoreController extends Controller
 {
@@ -77,7 +76,10 @@ class StoreController extends Controller
         }
         if($request->min && $request->max)
         {
-            $query->whereBetween('promotions.promotion_price', [$request->min, $request->max]);
+            $query->whereBetween(
+                DB::raw('CASE WHEN promotions.active = 1 THEN promotions.promotion_price ELSE products.price END'),
+                [$request->min, $request->max]
+            );
         }
 
         if ($request->has('title'))
@@ -111,7 +113,7 @@ class StoreController extends Controller
                         ELSE products.price
                     END ASC
                 ');
-                break;
+                break; 
             case 2:
                 $query->orderByRaw('
                     CASE 

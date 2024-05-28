@@ -121,7 +121,7 @@ class ProductController extends Controller
 
     private function updateProductImage($id, $product, $req_image)
     {
-        $imageName = time().$req_image->getClientOriginalName();
+        $imageName = time().$id.$req_image->getClientOriginalName();
         $req_image->move(public_path('images'), $imageName);
         $name = "/images/" . $imageName;
         if (isset($product->images[$id]))

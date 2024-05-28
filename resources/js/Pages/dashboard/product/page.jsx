@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import {Container, Grid, Button, Modal, Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, FormControl, Select, MenuItem} from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid';
-import { FaPen, FaTrash } from 'react-icons/fa';
+import { FaEye, FaPen, FaTrash } from 'react-icons/fa';
 import { FiAlertTriangle } from 'react-icons/fi';
 import { FaXmark } from 'react-icons/fa6';
-import { router } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import DashboardLayout from '../DashboardLayout';
 
 
@@ -122,6 +122,9 @@ function ProductModelComponent({product, categories}) {
     values.image = null;
     values.image2 = null; 
     values.image3 = null;
+    selectedImage.image = null
+    selectedImage.image2 = null
+    selectedImage.image3 = null
     handleClose();
   }
   const prepereUpdate = (product) =>{
@@ -133,6 +136,9 @@ function ProductModelComponent({product, categories}) {
     values.image = null;
     values.image2 = null; 
     values.image3 = null;
+    selectedImage.image = null
+    selectedImage.image2 = null
+    selectedImage.image3 = null
   }
 
   function handleUpdate(e) {
@@ -237,9 +243,9 @@ function ProductModelComponent({product, categories}) {
                 </div>
                 <input type="file" onChange={handleChange} name="image2" id="image2" />
                 {product?
-                <img width={50} height={50} src={selectedImage.image?selectedImage.image:product.images[1]?product.images[1].url:null} alt="image" />
+                <img width={50} height={50} src={selectedImage.image2?selectedImage.image2:product.images[1]?product.images[1].url:null} alt="image" />
                 :
-                <img width={50} height={50} src={selectedImage.image} alt="image" />
+                <img width={50} height={50} src={selectedImage.image2} alt="image" />
                 }
             </Grid>
             <Grid xs={12} item>
@@ -248,9 +254,9 @@ function ProductModelComponent({product, categories}) {
                 </div>
                 <input type="file" onChange={handleChange} name="image3" id="image3" />
                 {product?
-                <img width={50} height={50} src={selectedImage.image?selectedImage.image:product.images[2]?product.images[2].url:null} alt="image" />
+                <img width={50} height={50} src={selectedImage.image3?selectedImage.image3:product.images[2]?product.images[2].url:null} alt="image" />
                 :
-                <img width={50} height={50} src={selectedImage.image} alt="image" />
+                <img width={50} height={50} src={selectedImage.image3} alt="image" />
                 }
             </Grid>
             <Grid item sx={{display:'flex', justifyContent:'space-between',flexDirection:'row-reverse'}} xs={12} mt={2}>
@@ -284,7 +290,7 @@ const page = ({products, categories}) => {
     {
       field: 'action',
       headerName: '',
-      width: 100,
+      width: 150,
       sortable:false,
       filterable: false,
       disableColumnMenu: true,
@@ -292,6 +298,9 @@ const page = ({products, categories}) => {
         <div className='h-full flex gap-2 items-center justify-center'>
           <ProductModelComponent product={row} categories={categories}/>
           <ConfirmDeleteProduct row={row}/>
+          <div>
+            <Link href={`/store/product/${row.id}`}><button className='bg-black rounded-md border text-white opacity-70 p-2'><FaEye className='text-sm'/></button></Link>
+          </div>
         </div>
       ),
     }
