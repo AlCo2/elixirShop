@@ -55,9 +55,11 @@ const IntroCard = ({product, favourites}) => {
         </Alert>
       </Snackbar>
       <Box sx={{width:290, cursor:'pointer', position:'relative','&:hover':{'& .ProductImage':{scale:'125%', opacity:1, zIndex:1, transitionDuration:'1000ms'}, '& .FavouritIcon':{top:-10}, '& .AddToCart':{bottom:-18}}}}>
+        {product.promotion &&
         <Box sx={{position:'absolute', right:0, top:10, zIndex:1}}>
             <p className='text-white text-xs font-Poppins font-bold bg-black text-right p-2 rounded-l-lg'>{'-'+parseInt(((product.price - product.promotion.promotion_price) / (product.price)) * 100)+'%'}</p>
         </Box>
+        }
         <Link href={'/store/product/'+product.id}>
           <Box overflow={'hidden'} position={'relative'} display={'flex'} justifyContent={'center'}>
             <Box className='FavouritIcon' sx={{display:{xs:'none',sm:'none', md:'flex'}, opacity:0.9, position:'absolute', width:'100%',transitionDuration:'600ms', top:-60, zIndex:3}} margin={2} justifyContent={'space-between'} alignItems={'center'}>
@@ -73,12 +75,10 @@ const IntroCard = ({product, favourites}) => {
               sx={{height:300, width:'100%'}}
               image={product.images[1].url}
               className={'ProductImage absolute opacity-0'}
-              alt={product.title}
             />
             <CardMedia component={'img'}
               sx={{height:300, width:'100%'}}
               image={product.images[0].url}
-              alt={product.title}
             />
             <Box className="AddToCart" sx={{display:{xs:'none',sm:'none', md:'flex'}, opacity:0.9, position:'absolute', width:'100%',transitionDuration:'500ms',bottom:-60, zIndex:3}} margin={2} justifyContent={'space-between'} alignItems={'center'}>
               <Button onClick={addToCart} sx={{borderRadius:0}} fullWidth variant="contained" color='success'>ADD TO CART</Button>
