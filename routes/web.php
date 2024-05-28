@@ -65,6 +65,7 @@ Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])->group(functio
     Route::post('/api/product/', [ProductController::class, 'add']);
     Route::post('/api/product/{id}', [ProductController::class, 'update']);
     Route::delete('/api/product/{id}', [ProductController::class, 'delete']);
+    Route::post('/api/image/delete/', [ProductController::class, 'deleteProductImage']);
 
     /* category API */
     Route::get('/api/category/', [CategoryController::class, 'all']);

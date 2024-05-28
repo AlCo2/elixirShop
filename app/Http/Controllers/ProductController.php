@@ -140,6 +140,14 @@ class ProductController extends Controller
         $product->images()->attach($name);
     }
 
+    public function deleteProductImage(Request $request)
+    {
+        $url = $request->url;
+        $image = Image::find($url);
+        File::delete(public_path($url));
+        $image->delete();
+    }
+
     public function delete($id)
     {
         $product = Product::with('images')->find($id);
