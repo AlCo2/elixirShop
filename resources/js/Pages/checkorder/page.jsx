@@ -41,8 +41,8 @@ return (
                             </Box>
                         </Box>
                         <Box sx={{display:'flex', justifyContent:'space-between', gap:1}} mt={2}>
-                            <Button href='/' variant='outlined' size='small' color='liliana_third' className='font-Roboto'>Back</Button>
-                            <Button variant='contained' size='small' color='liliana_third' onClick={handleSubmit} className='font-Roboto'>Continue</Button>
+                            <Button href='/' variant='outlined' size='small' color='liliana_dark' className='font-Roboto'>Back</Button>
+                            <Button variant='contained' size='small' color='liliana_dark' onClick={handleSubmit} className='font-Roboto'>Continue</Button>
                         </Box>
                     </div>
                 </div>

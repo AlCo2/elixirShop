@@ -23,6 +23,7 @@ const store = ({products, category_list, maxPrice,type, favourites}) => {
   const handleChange = (e) =>{
     setTitle(e.target.value);
   };
+
   const handleSearch = (e) =>{
     let queryParams = {};
     if (title.length>0)
@@ -78,7 +79,9 @@ const store = ({products, category_list, maxPrice,type, favourites}) => {
             <Grid xs={2.5} item sx={{p:"1.25rem", pb:'0.25rem', pt:'1.9rem'}} className='max-lg:hidden '>
               <p className='font-bold font-Opensans text-xl'>Filters</p>
               <input value={title} onChange={handleChange} type="text" placeholder='Search...' className='h-8 p-1 text-sm w-full' name="title" id="title" />
-              <button onClick={handleSearch}>Search</button>
+              <div className='flex justify-end'>
+                <button className='bg-black text-white p-1 px-3 rounded-md font-Roboto my-2' onClick={handleSearch}>Search</button>
+              </div>
               <p className='font-Opensans font-semibold mt-5'>Price</p>
               <FilterPrice price={price} maxPrice={maxPrice} setPrice={setPrice} setPriceFilterActive={setPriceFilterActive} priceFilterActive={priceFilterActive}/>
             </Grid>
@@ -91,7 +94,7 @@ const store = ({products, category_list, maxPrice,type, favourites}) => {
                     <Box display={'flex'} alignItems={'center'}>
                       <div className='flex items-center lg:hidden'>
                         <p className='text-sm'>Filters</p>
-                        <FilterMenu category_list={category_list} price={price} setPrice={setPrice} setPriceFilterActive={setPriceFilterActive} priceFilterActive={priceFilterActive} maxPrice={maxPrice}/>
+                        <FilterMenu category_list={category_list} price={price} setPrice={setPrice} setPriceFilterActive={setPriceFilterActive} priceFilterActive={priceFilterActive} maxPrice={maxPrice} handleSearch={handleSearch} title={title} setTitle={setTitle}/>
                       </div>
                       <p className='text-sm'>Sort</p>
                       <SortMenu selectedSort={selectedSort} setselectedSort={setselectedSort}/>

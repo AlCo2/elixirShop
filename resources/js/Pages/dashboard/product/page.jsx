@@ -1,5 +1,5 @@
 import {Container, Grid} from '@mui/material'
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar, GridToolbarContainer, GridToolbarExport, GridToolbarQuickFilter } from '@mui/x-data-grid';
 import { FaEye } from 'react-icons/fa';
 import { Link } from '@inertiajs/react';
 import DashboardLayout from '../DashboardLayout';
@@ -7,6 +7,20 @@ import ProductModelComponent from './components/ProductModelComponent';
 import ConfirmDeleteProduct from './components/ConfirmDeleteProduct';
 
 
+
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer>
+      <GridToolbarExport
+      
+      csvOptions={{
+        utf8WithBom: true,
+      }}
+  />
+      <GridToolbarQuickFilter/>
+    </GridToolbarContainer>
+  );
+}
 
 const page = ({products, categories}) => {
   const columns = [
@@ -24,6 +38,7 @@ const page = ({products, categories}) => {
     {
       field: 'action',
       headerName: '',
+      disableExport: true,
       width: 150,
       sortable:false,
       filterable: false,
@@ -46,22 +61,27 @@ const page = ({products, categories}) => {
         <Grid item sx={{display:'flex', justifyContent:'right'}} mb={2} xs={12}>
           <ProductModelComponent categories={categories} />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sm={11} my={2} >
           <DataGrid
-            sx={{background:'white', minHeight:200}}
+            sx={{background:'white'}}
             rows={products}
             columns={columns}
+            autoHeight={true}
+            slots={{
+              toolbar:CustomToolbar
+            }}
             initialState={{
               pagination: {
                 paginationModel: { page: 0, pageSize: 5 },
               },
             }}
-            pageSizeOptions={[5]}
+            pageSizeOptions={[5, 25, 50, 100]}
           />
         </Grid>
       </Grid>
     </Container>
   )
 }
+
 page.layout = page => <DashboardLayout children={page} tite="product" />
 export default page;

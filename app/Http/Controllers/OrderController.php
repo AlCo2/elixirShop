@@ -53,6 +53,16 @@ class OrderController extends Controller
         return Inertia::render('checkorder/showorder/page', compact('order', 'products'));
     }
 
+    public function getOrderPage($id)
+    {
+        $order = Order::with('order_detail', 'Order_item')->find($id);
+        $products = [];
+        if (!$order)
+            return Inertia::render('dashboard/order/orderdetails/page', compact('order', 'products'));
+        $products = $this->prepereProducts($order->order_item);
+        return Inertia::render('dashboard/order/orderdetails/page', compact('order', 'products'));
+    }
+
     private function prepereProducts($items): array
     {
         $products = [];

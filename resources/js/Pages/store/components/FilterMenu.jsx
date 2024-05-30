@@ -5,21 +5,24 @@ import FilterPrice from "./FilterPrice";
 import { CgSortAz } from "react-icons/cg";
 
 
-const FilterMenu = ({price, setPrice, setPriceFilterActive, priceFilterActive, maxPrice}) =>{
+const FilterMenu = ({price, setPrice, setPriceFilterActive, priceFilterActive, maxPrice, handleSearch, title, setTitle}) =>{
     const [anchorEl, setAnchorEl] = useState(null);
-    const [title, setTitle] = useState('');
     const open = Boolean(anchorEl);
     
+    const handleChange = (e) =>{
+      setTitle(e.target.value);
+    };
+
+    const clearAll = () =>{
+      setTitle('');
+      setPriceFilterActive(false);
+    }
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
 
     const handleClose = () => {
       setAnchorEl(null);
-    };
-
-    const handleChange = (e) =>{
-      setTitle(e.target.value);
     };
 
     return (
@@ -49,14 +52,13 @@ const FilterMenu = ({price, setPrice, setPriceFilterActive, priceFilterActive, m
               <Grid container>
                 <Grid item xs={12} display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
                   <p className='font-Poppins'>Filters</p>
-                  <Button variant='text' size='small' className='text-xs text-liliana-secondary'>Clear ALL</Button>
+                  <Button onClick={clearAll} variant='text' size='small' className='text-xs text-liliana-secondary'>Clear ALL</Button>
                 </Grid>
                 <Grid item xs={12} my={1}>
-                  <label className='relative'>
-                    <BiSearch className='absolute top-0 right-2'/>
-                    <input value={title} onChange={handleChange} type="text" placeholder='Search...' className='h-8 p-1 text-sm w-full' name="title" id="title" />
-                  </label>
-                  <Button variant="contained">Search</Button>
+                  <input value={title} onChange={handleChange} type="text" placeholder='Search...' className='h-8 p-1 text-sm w-full' name="title" id="title" />
+                  <div className='flex justify-end'>
+                    <button className='bg-black text-white p-1 px-3 rounded-md font-Roboto my-2' onClick={handleSearch}>Search</button>
+                  </div>
                 </Grid>
                 <Grid item xs={12}>
                   <p className='font-Poppins'>price</p>

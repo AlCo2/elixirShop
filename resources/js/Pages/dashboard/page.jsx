@@ -22,7 +22,7 @@ const TableCellDate = ({date}) =>{
     </TableCell>
   )
 }
-const page = ({products, total_products,total_sales}) => {
+const page = ({products, total_products, total_sales, total_orders}) => {
 
   return (
     <Container>
@@ -68,7 +68,7 @@ const page = ({products, total_products,total_sales}) => {
                       <p className="text-xs opacity-70">Newest product list of the month</p>
                     </Box>
                     <Box>
-                      <Button variant="outlined" size="small" sx={{borderRadius:4, color:'black', borderColor:'black'}}>See More</Button>
+                      <Button href="/dashboard/product" variant="outlined" size="small" sx={{borderRadius:4, color:'black', borderColor:'black'}}>See More</Button>
                     </Box>
                   </Box>
                   <Box sx={{overflowX:'auto'}}>
@@ -111,16 +111,16 @@ const page = ({products, total_products,total_sales}) => {
             <Box sx={{bgcolor:'white', height:280, borderWidth:1, mb:1, borderRadius:4}}>
               <Box sx={{p:2, display:'flex', alignItems:'center', justifyContent:'space-between'}} >
                 <Box>
-                  <p className="font-Roboto font-semibold text-xl">Balance</p>
-                  <p className="text-xs opacity-70">amount of income and results</p>
+                  <p className="font-Roboto font-semibold text-xl">Orders</p>
+                  <p className="text-xs opacity-70">amount of orders and results</p>
                 </Box>
                 <Box>
-                  <Button variant="outlined" sx={{borderRadius:4, color:'black', borderColor:'black'}} size="small">See detail</Button>
+                  <Button href="/dashboard/order" variant="outlined" sx={{borderRadius:4, color:'black', borderColor:'black'}} size="small">See detail</Button>
                 </Box>
               </Box>
               <Box sx={{px:2, display:'flex', flexDirection:'column', overflowX:'auto'}}>
                 <Box sx={{ display:'flex', flexDirection:'column', justifyContent:'space-between', height:70}}>
-                  <Typography sx={{color:'#7c62ff', fontSize:'1.875rem', lineHeight:'2.25rem', fontWeight:700, fontFamily:'Poppins'}}>6171DH</Typography>
+                  <Typography sx={{color:'#7c62ff', fontSize:'1.875rem', lineHeight:'2.25rem', fontWeight:700, fontFamily:'Poppins'}}>{total_orders}</Typography>
                   <p className="text-sm font-Poppins"><span className="text-green-500">7K+</span> <span className="text-xs opacity-70">Increase</span></p>
                 </Box>
                 <BarChart width={300} height={130} data={data}>

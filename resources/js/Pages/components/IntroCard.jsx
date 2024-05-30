@@ -73,12 +73,12 @@ const IntroCard = ({product, favourites}) => {
             </Box>
             <CardMedia component={'img'}
               sx={{height:300, width:'100%'}}
-              image={product.images[1].url}
+              image={product.images[1]?product.images[1].url:null}
               className={'ProductImage absolute opacity-0'}
             />
             <CardMedia component={'img'}
               sx={{height:300, width:'100%'}}
-              image={product.images[0].url}
+              image={product.images[0]?product.images[0].url:null}
             />
             <Box className="AddToCart" sx={{display:{xs:'none',sm:'none', md:'flex'}, opacity:0.9, position:'absolute', width:'100%',transitionDuration:'500ms',bottom:-60, zIndex:3}} margin={2} justifyContent={'space-between'} alignItems={'center'}>
               <Button onClick={addToCart} sx={{borderRadius:0}} fullWidth variant="contained" color='success'>ADD TO CART</Button>

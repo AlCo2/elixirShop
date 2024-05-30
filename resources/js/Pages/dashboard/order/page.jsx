@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import {Container, Grid, Button, Modal, Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Chip, IconButton, Select, FormControl, MenuItem} from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid';
-import { FaPen, FaTrash } from 'react-icons/fa';
+import { FaEye, FaPen, FaTrash } from 'react-icons/fa';
 import { FiAlertTriangle } from 'react-icons/fi';
 import { FaXmark } from 'react-icons/fa6';
 import DashboardLayout from '../DashboardLayout';
-import { router } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
+import ConfirmDeleteOrder from './components/ConfirmDeleteOrder';
 
 const StatusComponent = ({status}) =>{
   switch (status)
@@ -88,7 +89,7 @@ const columns = [
   {
     field: 'action',
     headerName: '',
-    width: 100,
+    width: 140,
     sortable:false,
     filterable: false,
     disableColumnMenu: true,
@@ -96,6 +97,9 @@ const columns = [
       <div className='h-full flex gap-2 items-center justify-center'>
         <OrderModelComponent order={row}/>
         <ConfirmDeleteOrder row={row}/>
+        <div>
+          <Link href={`/dashboard/order/${row.id}`}><button className='bg-black rounded-md border text-white opacity-70 p-2'><FaEye className='text-sm'/></button></Link>
+        </div>
       </div>
     ),
   }
@@ -112,51 +116,6 @@ const style = {  position: 'absolute',
   borderRadius:2,
   p: 4,
 };
-
-
-
-function ConfirmDeleteOrder({row}) {
-  const [open, setOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (choice) => {
-    // if(choice){
-    //   router.post('/api/deleteproduct/'+row.id);
-    // }
-    setOpen(false);
-  };
-  return (
-    <div>
-      <button onClick={handleClickOpen} className='bg-red-600 rounded-md border text-white opacity-70 p-2'><FaTrash className='text-sm'/></button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          <FiAlertTriangle/>
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Are You sure You want to delete order {row.id}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={()=>handleClose(false)}>cancle</Button>
-          <Button onClick={()=>handleClose(true)} autoFocus>
-            Confirm
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
-}
-
-
 
 function OrderModelComponent({order}) {
   const [open, setOpen] = useState(false);
@@ -179,7 +138,7 @@ function OrderModelComponent({order}) {
     handleClose();
   }
   return (
-    <div>
+    <div> 
       <button onClick={handleOpen} className='bg-liliana-background rounded-md border text-black opacity-70 p-2'><FaPen className='text-sm'/></button>
       <Modal 
         open={open}
@@ -251,7 +210,6 @@ const page = ({order}) => {
               },
             }}
             pageSizeOptions={[5]}
-            // slots={{toolbar:GridToolbar}}
           />
         </Grid>
       </Grid>
