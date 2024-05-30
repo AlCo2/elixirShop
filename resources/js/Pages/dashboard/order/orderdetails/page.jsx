@@ -4,7 +4,7 @@ import DashboardLayout from '../../DashboardLayout';
 import ConfirmDeleteOrder from '../components/ConfirmDeleteOrder';
 import OrderModelComponent from '../components/OrderModelComponent';
 
-const Product = ({title, total, image}) =>{
+const Product = ({title, total, image, Q}) =>{
   return(
     <Box sx={{my:2, display:'flex', alignItems:'center', justifyContent:'space-between',gap:5}}>
       <Box sx={{display:'flex', alignItems:'center', gap:5}}>
@@ -13,7 +13,7 @@ const Product = ({title, total, image}) =>{
         </Box>
         <p className='opacity-70 text-sm font-Poppins'>{title}</p>
       </Box>
-      <p className='font-Poppins text-sm font-bold'>{total}DH</p>
+      <p className='font-Poppins text-sm font-bold opacity-70'>{Q}x{total}DH</p>
     </Box>
   )
 }
@@ -89,7 +89,7 @@ const page = ({order, products}) => {
           </Grid>
         </Grid>
         {products.map((product)=>(
-          <Product key={product.product.id} title={product.product.title} total={product.total} image={product.product.images[0].url}/>
+          <Product key={product.product.id} title={product.product.title} total={product.total} image={product.product.images[0].url} Q={product.Q}/>
         ))}
         <Divider/>
         <Box sx={{display:'flex', justifyContent:'right', mt:1}}>
@@ -110,7 +110,7 @@ const page = ({order, products}) => {
             <p className='font-Poppins text-sm font-bold'>{order.total}DH</p>
           </Box>
         </Box>
-        <div className='flex justify-end mt-5'>
+        <div className='flex justify-end my-5'>
           <StatusComponent status={order.status_id}/>
         </div>
       </>

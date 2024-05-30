@@ -53,7 +53,7 @@ class OrderController extends Controller
         return Inertia::render('checkorder/showorder/page', compact('order', 'products'));
     }
 
-    public function getOrderPage($id)
+    public function getDashboardOrderPage($id)
     {
         $order = Order::with('order_detail', 'Order_item')->find($id);
         $products = [];
@@ -71,6 +71,7 @@ class OrderController extends Controller
             $product = Product::with('images', 'promotion')->find($item['product_id']);
             $products[] = [
                 'product'=> $product,
+                'Q'=>$item['Qty'],
                 'total' => $item['total'],
             ];
         }

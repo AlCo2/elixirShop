@@ -48,7 +48,7 @@ Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])->group(functio
     route::get('/dashboard/customer', [DashboardController::class, 'customer']);
     route::get('/dashboard/product', [DashboardController::class, 'product']);
     route::get('/dashboard/order', [DashboardController::class, 'order']);
-    route::get('/dashboard/order/{id}', [OrderController::class, 'getOrderPage']);
+    route::get('/dashboard/order/{id}', [OrderController::class, 'getDashboardOrderPage']);
     route::get('/dashboard/category', [DashboardController::class, 'category']);
     route::get('/dashboard/promotion', [DashboardController::class, 'promotion']);
     route::get('/dashboard/message', function(){

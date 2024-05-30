@@ -161,16 +161,39 @@ class ProductController extends Controller
         $product->delete();
     }
 
-    public function promotion_api()
+    public function featured_api()
     {
-        $promotions = Product::whereHas('promotion')->inRandomOrder()->limit(4)->with('images', 'category', 'promotion')->get();
+        $promotions = Product::inRandomOrder()->limit(4)->with('images', 'category', 'promotion')->get();
         return $promotions;
     }
     
-    public function popular_api()
+    public function man_api()
     {
-        $popular = Product::whereDoesntHave('promotion')->inRandomOrder()->limit(4)->with('images', 'category')->get();
-        return $popular;
+        $man = Product::where('category_id', 2)->inRandomOrder()->limit(4)->with('images', 'category', 'promotion')->get();
+        return $man;
     }
 
+    public function woman_api()
+    {
+        $woman = Product::where('category_id', 1)->inRandomOrder()->limit(4)->with('images', 'category', 'promotion')->get();
+        return $woman;
+    }
+
+    public function featured_api_all()
+    {
+        $promotions = Product::inRandomOrder()->with('images', 'category', 'promotion')->get();
+        return $promotions;
+    }
+    
+    public function man_api_all()
+    {
+        $man = Product::where('category_id', 2)->inRandomOrder()->with('images', 'category', 'promotion')->get();
+        return $man;
+    }
+    
+    public function woman_api_all()
+    {
+        $woman = Product::where('category_id', 1)->inRandomOrder()->with('images', 'category', 'promotion')->get();
+        return $woman;
+    }
 }
