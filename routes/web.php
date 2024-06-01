@@ -10,6 +10,7 @@ Use App\Http\Controllers\CheckoutController;
 Use App\Http\Controllers\UserController;
 Use App\Http\Controllers\OrderController;
 Use App\Http\Controllers\CartController;
+Use App\Http\Controllers\SupportController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -26,8 +27,7 @@ Route::get('/checkout/fastcheckout',[CheckoutController::class, 'checkout']);
 Route::get('/checkorder', [OrderController::class, 'checkOrder']);
 Route::get('/orders', [OrderController::class, 'listUserOrders']);
 Route::get('/showorder', [OrderController::class, 'showOrder']);
-
-
+Route::get('/support', [SupportController::class, 'index']);
 
 /*         Post request          */
 Route::post('api/cart/', [CheckoutController::class, 'getCurrentCartData']);
@@ -35,7 +35,7 @@ Route::post('/api/cart/add', [CartController::class, 'addToCart']);
 Route::post('/api/cart/sub', [CartController::class, 'subFromCart']);
 Route::post('/api/cart/delete', [CartController::class, 'deleteFromCart']);
 Route::post('/api/cart/deleteall', [CartController::class, 'deleteAllfromCart']);
-
+Route::post('/message/create', [SupportController::class, 'createMessage']);
 Route::post('/api/order/create', [OrderController::class, 'createOrder']);
 
 

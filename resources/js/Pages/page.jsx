@@ -34,7 +34,7 @@ export default function Home({promotions, favourites}) {
           <Grid item alignContent={'center'} xs={12} md={6}>
             <Container sx={{ml:{md:10}}}>
               <Box sx={{display:'flex', alignItems:'center', justifyContent:{sm:'center',md:'left'}, my:4}}>
-                <h1 className="my-3 font-Italiana font-bold text-5xl max-xs:text-xl text-black">Welcome to the Liliana Shop online store</h1>
+                <h1 className="my-3 font-Italiana font-bold text-5xl max-xs:text-xl text-black">Welcome to Elixir Shop online store</h1>
               </Box>
               <Box sx={{display:'flex',gap:5, alignItems:'center', justifyContent:{sm:'center',md:'left'}, my:4}}>
                 <Box>

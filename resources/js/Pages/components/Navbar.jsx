@@ -48,7 +48,7 @@ const Navbar = () => {
     </nav>
     <nav className='max-sm:hidden flex justify-between text-black items-center h-20'>
         <a href='/' className='flex items-center ml-2'>
-          <p className="text-xl font-black font-Poppins ml-10 duration-300">Liliana</p>
+          <p className="text-xl font-black font-Poppins ml-10 duration-300">Elixir</p>
         </a>
         <div className=''>
             <ul className='flex gap-5 md:gap-10 font-Poppins'>
@@ -71,7 +71,7 @@ const Navbar = () => {
     </nav>
     <nav className='sm:hidden flex justify-between items-center h-20'>
       <a href='/' className='flex items-center ml-2'>
-        <p className="text-xl font-black font-Poppins ml-10 duration-300">Liliana</p>
+        <p className="text-xl font-black font-Poppins ml-10 duration-300">Elixir</p>
       </a>
       <div className='flex items-center gap-3'>
         <SideBarCart/>

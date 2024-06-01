@@ -77,7 +77,7 @@ const page = ({order, products}) => {
         </Box>
         <Box sx={{display:'flex', justifyContent:'center', alignItems:'center',my:5}}>
         <p className='opacity-70 text-sm font-Poppins max-w-md'>
-            Feel free to contact us if you have any questions or comments! We are happy to help. Contact us via <a className='text-blue-600' href="">lilianashop@gmail.com</a>
+            Feel free to contact us if you have any questions or comments! We are happy to help. Contact us via <a className='text-blue-600' href="">elixirshop@gmail.com</a>
           </p>
         </Box>
       </>
@@ -86,7 +86,7 @@ const page = ({order, products}) => {
         <p className='opacity-70 text-sm font-Poppins max-w-md'>
           there is no valid order with this id
         </p>
-        <Button variant='contained' size='small' href='/checkorder' color='liliana_third'>Back</Button>
+        <Button variant='contained' size='small' href='/checkorder' color='liliana_dark'>Back</Button>
       </Box>
       }
     </Container>

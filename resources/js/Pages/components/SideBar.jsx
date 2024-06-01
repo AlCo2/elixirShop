@@ -36,7 +36,7 @@ export default function SideBar() {
           </ListItem>
           <ListItem>
             <a href='/' className='flex items-center ml-2'>
-              <p className="text-xl font-bold font-Poppins ml-2 duration-300">Liliana</p>
+              <p className="text-xl font-bold font-Poppins ml-2 duration-300">Elixir</p>
             </a>
           </ListItem>
           <ListItem disablePadding>

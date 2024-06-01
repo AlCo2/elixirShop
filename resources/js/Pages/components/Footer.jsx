@@ -3,7 +3,7 @@ const Footer = () => {
   return (
     <div className='bg-black text-white py-10 font-Poppins min-h-80'>
         <div>
-        <p className='font-bold text-4xl ml-4 mb-5'>Liliana</p>
+        <p className='font-bold text-4xl ml-4 mb-5'>Elixir</p>
         </div>
         <Grid container columns={13} paddingX={10} justifyContent={'center'} gap={3}>
           <Grid xs md={3} item>

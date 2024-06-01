@@ -9,9 +9,9 @@ import { router } from '@inertiajs/react';
 
 const ActiveStatus = ({active}) =>{
   if (active)
-    return <Chip size='small' label="Active" color="success" /> 
+    return <Chip sx={{borderRadius:1}} size='small' label="Active" color="success" /> 
   else
-    return <Chip size='small' label="Inactive" color="error" /> 
+    return <Chip sx={{borderRadius:1}} size='small' label="Inactive" color="error" /> 
 }
 
 const columns = [

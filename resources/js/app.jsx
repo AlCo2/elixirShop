@@ -7,7 +7,7 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ThemeProvider } from '@mui/material';
 import { theme } from './theme';
 
-const appName = import.meta.env.VITE_APP_NAME || 'liliana';
+const appName = import.meta.env.VITE_APP_NAME || 'elixir';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
