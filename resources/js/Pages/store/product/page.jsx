@@ -5,10 +5,13 @@ import axios from 'axios';
 import { usePage } from '@inertiajs/react';
 import EditProduct from '../components/EditProduct';
 import FastPromotion from '../components/FastPromotion';
+import SuggestionCard from '../components/SuggestionCard';
+import QuentityBar from '../components/QuentityBar';
 
-const product = ({product, products, categories}) => {
+const product = ({product, products, categories, favourites}) => {
     const { auth } = usePage().props;
     const { cartTotalProducts, setCartTotalProducts } = useContext(CartContext);
+    const [Q, setQ] = useState(1);
     const [selectedImage, setSelectedImage] = useState(0)
     const [open, setOpen] = useState(false);
     const handleClose = (event, reason) => {
@@ -90,6 +93,7 @@ const product = ({product, products, categories}) => {
                     <p className='text-xs'>Make every gift special 10% off <br /> any two products</p>
                 </div>
                 <div className='flex justify-end'>
+                    {/* <QuentityBar Q={Q} setQ={setQ}/> */}
                     <Button onClick={addToCart} sx={{borderRadius:0,minWidth:136, height:50,maxHeight:50}} variant="contained" color='liliana_dark'>ADD TO CART</Button>
                 </div>
             </Grid>
@@ -98,9 +102,9 @@ const product = ({product, products, categories}) => {
         <Container>
             <p className='font-Poppins text-xl my-4'>Produits similaires</p>
             <Grid container gap={1} justifyContent={{xs:'center', sm:'left'}} my={2}>
-                {/* {products.map((product)=>(
-                    <SuggestionCard key={product.id} product={product}/>
-                ))} */}
+                {products.map((product)=>(
+                    <SuggestionCard key={product.id} product={product} favourites={favourites}/>
+                ))}
             </Grid>
         </Container>
     </div>

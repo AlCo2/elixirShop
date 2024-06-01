@@ -1,4 +1,4 @@
-import { Box, Grid, Pagination, PaginationItem } from '@mui/material';
+import { Box, Grid, IconButton, Pagination, PaginationItem } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import SuggestionCard from './components/SuggestionCard';
 import Layout from '@/Layout';
@@ -6,6 +6,7 @@ import { Link, router } from '@inertiajs/react';
 import FilterPrice from './components/FilterPrice';
 import SortMenu from './components/SortMenu';
 import FilterMenu from './components/FilterMenu';
+import { FaSearch } from 'react-icons/fa';
 
 
 const store = ({products, category_list, maxPrice,type, favourites}) => {  
@@ -78,9 +79,12 @@ const store = ({products, category_list, maxPrice,type, favourites}) => {
           <Grid container columns={12} justifyContent={'center'}>
             <Grid xs={2.5} item sx={{p:"1.25rem", pb:'0.25rem', pt:'1.9rem'}} className='max-lg:hidden '>
               <p className='font-bold font-Opensans text-xl'>Filters</p>
+              
+              <div className='flex items-center'>
               <input value={title} onChange={handleChange} type="text" placeholder='Search...' className='h-8 p-1 text-sm w-full' name="title" id="title" />
-              <div className='flex justify-end'>
-                <button className='bg-black text-white p-1 px-3 rounded-md font-Roboto my-2' onClick={handleSearch}>Search</button>
+                <IconButton onClick={handleSearch} color='liliana_dark'>
+                  <FaSearch/>                  
+                </IconButton>
               </div>
               <p className='font-Opensans font-semibold mt-5'>Price</p>
               <FilterPrice price={price} maxPrice={maxPrice} setPrice={setPrice} setPriceFilterActive={setPriceFilterActive} priceFilterActive={priceFilterActive}/>

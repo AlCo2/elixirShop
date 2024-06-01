@@ -93,8 +93,6 @@ const page = ({messages}) => {
         <p className="text-2xl font-Poppins font-semibold">Messages</p>
       </div>
       <Grid container mt={4}>
-        <Grid item sx={{display:'flex', justifyContent:'right'}} mb={2} xs={12}>
-        </Grid>
         <Grid item xs={12}>
           <DataGrid
             sx={{background:'white', minHeight:200}}
