@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Promotion;
 use App\Models\User;
+use App\Models\Message;
 use App\Models\Order;
 use App\Models\Order_detail;
 use App\Models\Order_item;
@@ -53,5 +54,10 @@ class DashboardController extends Controller
         $products = Product::whereDoesntHave('promotion')->get();
         $promotions = Promotion::with('product')->get();
         return Inertia::render('dashboard/promotion/page', compact('products', 'promotions'));
+    }
+
+    public function message(){
+        $messages = Message::get();
+        return Inertia::render('dashboard/message/page', compact('messages'));
     }
 }

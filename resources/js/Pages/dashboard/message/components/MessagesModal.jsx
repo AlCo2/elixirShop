@@ -1,3 +1,4 @@
+import { router } from "@inertiajs/react";
 import { Box, Button, IconButton, Modal} from "@mui/material";
 import { useState } from "react";
 import { FaEye } from "react-icons/fa";
@@ -18,9 +19,14 @@ const style = {  position: 'absolute',
 
 function MessagesModal({message}) {
     const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
+    const handleOpen = () => {
+      if (message.status_id==1)
+      {
+        router.post('/message/read', {id:message.id}); 
+      } 
+      setOpen(true)
+    };
     const handleClose = () => setOpen(false);
-
     return (
       <div>
         <button onClick={handleOpen} className='bg-black rounded-md border text-white opacity-70 p-2'><FaEye className='text-sm'/></button>
@@ -48,7 +54,7 @@ function MessagesModal({message}) {
                     <p className="font-bold font-Roboto">{message.date}</p>
                 </div>
                 <div className="flex justify-end">
-                    <Button disabled={message.status_id==2} variant="contained" size="small"><MdEmail/>Reply</Button>
+                    <Button disabled={message.status_id==3} variant="contained" size="small"><MdEmail/>Reply</Button>
                 </div>
             </div>
           </Box>

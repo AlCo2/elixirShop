@@ -13,11 +13,17 @@ class StatusSeeder extends Seeder
      */
     public function run(): void
     {
-        $status = [
+        $order_statuses = [
             ['status'=>'Pending'],
             ['status'=>'Completed'],
             ['status'=>'Declined'],
         ];
-        DB::table('order_statuses')->insert($status); 
+        $message_statuses = [
+            ['status'=>'Pending'],
+            ['status'=>'Seen'],
+            ['status'=>'Replied'],
+        ];
+        DB::table('order_statuses')->insert($order_statuses); 
+        DB::table('message_statuses')->insert($message_statuses);
     }
 }

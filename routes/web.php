@@ -51,9 +51,7 @@ Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])->group(functio
     route::get('/dashboard/order/{id}', [OrderController::class, 'getDashboardOrderPage']);
     route::get('/dashboard/category', [DashboardController::class, 'category']);
     route::get('/dashboard/promotion', [DashboardController::class, 'promotion']);
-    route::get('/dashboard/message', function(){
-        return Inertia::render('dashboard/message/page');
-    });
+    route::get('/dashboard/message', [DashboardController::class, 'message']);
 
     /* user API */
     Route::post('/api/user', [UserController::class, 'newUser']);
@@ -83,6 +81,9 @@ Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])->group(functio
     Route::patch('/api/promotion/{id}', [PromotionController::class, 'updatePromotion']);
     Route::delete('/api/promotion/{id}', [PromotionController::class, 'deletePromotion']);
 
+    /* message API */
+    route::post('/message/read', [SupportController::class, 'readMessage']);
+    route::post('/message/removeseen', [SupportController::class, 'removeSeen']);
 });
 
 Route::middleware('auth')->group(function () {

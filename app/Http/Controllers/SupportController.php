@@ -11,12 +11,32 @@ class SupportController extends Controller
     {
         return Inertia::render('support/page');
     }
+
     public function createMessage(Request $request)
     {
         $request->validate([
             'email'=> ['required', 'email'],
-            'message'=>['required'],
+            'message'=>['required']
         ]);
+        $message = new Message();
+        $message->email = $request->email;
+        $message->message = $request->message;
+        $message->save();
         return redirect('/')->with('success', 'your request has gone succesfuly');
+    }
+
+    public function readMessage(Request $request)
+    {
+        $id = $request->id;
+        $message = Message::find($id);
+        $message->status_id = 2;
+        $message->save();
+    }
+    public function removeSeen(Request $request)
+    {
+        $id = $request->id;
+        $message = Message::find($id);
+        $message->status_id = 1;
+        $message->save();
     }
 }

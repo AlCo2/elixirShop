@@ -31,7 +31,6 @@ const SuggestionCard = ({product, favourites}) => {
     });
     setIsFavourite(!isFavourite);
   }
-  console.log("here");
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;

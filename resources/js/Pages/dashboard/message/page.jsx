@@ -2,6 +2,7 @@ import { Chip, Container, Grid } from "@mui/material";
 import DashboardLayout from "../DashboardLayout";
 import { DataGrid } from "@mui/x-data-grid";
 import MessagesModal from "./components/MessagesModal";
+import SeenComponent from "./components/SeenComponent";
 
 
 const StatusComponent = ({status}) =>{
@@ -12,40 +13,30 @@ const StatusComponent = ({status}) =>{
         return (
           <Chip sx={{borderRadius:1}} size='small' color='warning' label='Pending'/>
         )
+        break;
       }
     case 2:
       {
         return (
-          <Chip sx={{borderRadius:1}} size='small' color='success' label='Replied'/>
+          <Chip sx={{borderRadius:1}} size='small' color='info' label='Seen'/>
         )
+        break;
       }
+    case 3:
+      {
+      return (
+        <Chip sx={{borderRadius:1}} size='small' color='success' label='Replied'/>
+      )
       break;
+    }
   }
 }
 
-const data = [
-  {
-    id:1,
-    email:'test@gmail.com',
-    status_id:1,
-    message:'I am just A long description, a trial so I can check out if the width is looking good in my app or not, so yeah, this is an easy way to showcase this',
-    date: '1/1/2024',
-  },
-  {
-    id:2,
-    email:'test@gmail.com',
-    status_id:2,
-    message:'sadsadsad sad sad sad as d sad sad sa dsa d sad saddsa sd ad as dadakdashda',
-    date: '1/1/2024',
-  },
-  {
-    id:3,
-    email:'test@gmail.com',
-    status_id:1,
-    message:'sadsadsad sad sad sad as d sad sad sa dsa d sad saddsa sd ad as dadakdashda',
-    date: '1/1/2024',
-  },
-]
+function formatDate(date)
+{
+  const formated_date = new Date(date);
+  return formated_date.getFullYear()+'/'+(formated_date.getMonth()+1)+'/'+formated_date.getDate();
+}
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 80 },
@@ -60,9 +51,12 @@ const columns = [
     width: 150,
   },
   { 
-    field: 'date',
-    headerName: 'date',
-    width: 100,
+    field: 'created_at',
+    headerName: 'Date',
+    width: 110,
+    headerAlign:'center',
+    align:'center',
+    valueGetter: (value, row) => formatDate(value),
   },
   { 
     field: 'status_id',
@@ -82,14 +76,17 @@ const columns = [
     filterable: false,
     disableColumnMenu: true,
     renderCell: ({row}) =>(
-      <MessagesModal message={row}/>
+      <div className='h-full flex gap-2 items-center justify-center'>
+        <MessagesModal message={row}/>
+        <SeenComponent row={row}/>
+      </div>      
     ),
   }
 ];
 
 
 
-const page = () => {
+const page = ({messages}) => {
   return (
     <Container>
       <div>
@@ -101,7 +98,7 @@ const page = () => {
         <Grid item xs={12}>
           <DataGrid
             sx={{background:'white', minHeight:200}}
-            rows={data}
+            rows={messages}
             columns={columns}
             initialState={{
               pagination: {
