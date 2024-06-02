@@ -42,7 +42,7 @@ const product = ({product, products, categories, favourites}) => {
                 </Alert>
         </Snackbar>
         <Grid container className='min-h-screen'>
-            <Grid item xs={12} sm={6} className=''>
+            <Grid item xs={12} sm={5}>
                 <Box sx={{display:"flex", justifyContent:"center", maxHeight:400}}>
                     <img src={product.images[selectedImage]?product.images[selectedImage].url:null} className='md:w-10/12 max-sm:w-full rounded-md' alt={product.title} />
                 </Box>
@@ -56,7 +56,7 @@ const product = ({product, products, categories, favourites}) => {
                     }
                 </Box>
             </Grid>
-            <Grid item xs={12} sm={6} p={4} bgcolor={"white"} >
+            <Grid item xs={12} sm={7} p={4} bgcolor={"white"} >
                 {auth.user && auth.user.role_id==1?
                     <div className='flex justify-end gap-2'>
                         <FastPromotion product={product}/>

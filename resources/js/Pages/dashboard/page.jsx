@@ -61,7 +61,7 @@ const page = ({products, total_products, total_sales, total_orders}) => {
                     <SparkLineChart area colors={['#7c62ff']} curve="natural" data={[10, 9, 8, 7, 9, 12, 11, 10, 7, 6, 7, 8, 9, 10, 12, 6]} width={100} height={70} showTooltip showHighlight/>
                   </Box>
                 </Grid>
-                <Grid item xs sx={{borderRadius:4, bgcolor:'white', borderWidth:1}} >
+                <Grid item xs sx={{borderRadius:4, bgcolor:'white', borderWidth:1, mb:1}} >
                   <Box sx={{ p:2, display:'flex', justifyContent:'space-between' }}>
                     <Box>
                       <p className="font-Roboto font-semibold text-xl">Newest Product</p>

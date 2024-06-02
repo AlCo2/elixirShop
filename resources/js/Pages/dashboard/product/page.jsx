@@ -25,7 +25,7 @@ function CustomToolbar() {
 const page = ({products, categories}) => {
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'title', headerName: 'Title', width: 130 },
+    { field: 'title', headerName: 'Title', width: 200 },
     { field: 'category',
       headerName: 'Category',
       width: 130,
@@ -61,7 +61,7 @@ const page = ({products, categories}) => {
         <Grid item sx={{display:'flex', justifyContent:'right'}} mb={2} xs={12}>
           <ProductModelComponent categories={categories} />
         </Grid>
-        <Grid item xs={12} sm={11} my={2} >
+        <Grid item xs={12}>
           <DataGrid
             sx={{background:'white'}}
             rows={products}

@@ -80,10 +80,10 @@ const store = ({products, category_list, maxPrice,type, favourites}) => {
             <Grid xs={2.5} item sx={{p:"1.25rem", pb:'0.25rem', pt:'1.9rem'}} className='max-lg:hidden '>
               <p className='font-bold font-Opensans text-xl'>Filters</p>
               
-              <div className='flex items-center'>
-              <input value={title} onChange={handleChange} type="text" placeholder='Search...' className='h-8 p-1 text-sm w-full' name="title" id="title" />
+              <div className='flex items-center gap-2'>
+                <input value={title} onChange={handleChange} type="text" placeholder='Search...' className='h-8 p-1 text-sm w-full rounded-lg border-opacity-70' name="title" id="title" />
                 <IconButton onClick={handleSearch} color='liliana_dark'>
-                  <FaSearch/>                  
+                  <FaSearch/>          
                 </IconButton>
               </div>
               <p className='font-Opensans font-semibold mt-5'>Price</p>
@@ -106,12 +106,12 @@ const store = ({products, category_list, maxPrice,type, favourites}) => {
                   </Grid>
                 </Grid>
               <Grid container gap={1} marginY={5} justifyContent={{xs:'center'}} mt={2}>
-                { products.data.length>0?products.data.map((product)=>(
+                {/* { products.data.length>0?products.data.map((product)=>(
                   <SuggestionCard key={product.id} product={product} favourites={favourites}/>
                 ))
                 :
                 <p>There is no product to Show</p>
-                }
+                } */}
               </Grid>
             </Grid>
           </Grid>

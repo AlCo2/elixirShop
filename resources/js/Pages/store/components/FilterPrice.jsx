@@ -1,4 +1,4 @@
-import { IconButton, Slider } from '@mui/material';
+import { ButtonGroup, IconButton, Slider } from '@mui/material';
 import React, { useState } from 'react'
 import { FaCheckCircle } from 'react-icons/fa';
 import { FaXmark } from 'react-icons/fa6';
@@ -53,23 +53,24 @@ const FilterPrice = ({price, setPrice, setPriceFilterActive, priceFilterActive, 
             max={maxPrice+200}
           />
           <div className='flex flex-wrap gap-1'>
-            <input
+            <ButtonGroup>
+              <input
                 id="min"
                 size='small'
                 type='number'
-                className='h-8 text-sm w-20'
+                className='h-8 text-sm w-20 rounded-l-xl'
                 value={value1[0]}
                 onChange={handleInputChange}
               />
-            -
               <input
                 id="max"
                 size='small'
                 type='number'
-                className='h-8 text-sm w-20'
+                className='h-8 text-sm w-20 rounded-r-xl'
                 value={value1[1]}
                 onChange={handleInputChange}
               />
+            </ButtonGroup>
             <IconButton onClick={handleSubmite} color='success' size='small'>
               <FaCheckCircle/>
             </IconButton>

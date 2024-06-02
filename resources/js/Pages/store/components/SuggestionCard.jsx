@@ -82,6 +82,13 @@ const SuggestionCard = ({product, favourites}) => {
               <Button onClick={addToCart} sx={{borderRadius:0}} fullWidth variant="contained" color='success'>ADD TO CART</Button>
             </Box>
             <Box sx={{display:{xs:'flex',sm:'flex', md:'none'}, opacity:0.9, position:'absolute', bottom:-10, right:-10, zIndex:3}} margin={2} justifyContent={'space-between'} alignItems={'center'}>
+              <IconButton color='error' onClick={addToFavourit}>
+                {isFavourite?
+                  <BsHeartFill/>
+                :
+                  <BsHeart/>
+                }
+              </IconButton>
               <Button onClick={addToCart} sx={{borderRadius:0}} fullWidth variant="contained" color='success'><FaShoppingBasket/></Button>
             </Box>
           </Box>
