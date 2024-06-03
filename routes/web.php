@@ -47,6 +47,7 @@ Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])->group(functio
     route::get('/dashboard', [DashboardController::class, 'overview']);
     route::get('/dashboard/customer', [DashboardController::class, 'customer']);
     route::get('/dashboard/product', [DashboardController::class, 'product']);
+    route::get('/dashboard/product/track', [DashboardController::class, 'productTrack']);
     route::get('/dashboard/order', [DashboardController::class, 'order']);
     route::get('/dashboard/order/{id}', [OrderController::class, 'getDashboardOrderPage']);
     route::get('/dashboard/category', [DashboardController::class, 'category']);
@@ -65,6 +66,8 @@ Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])->group(functio
     Route::post('/api/product/{id}', [ProductController::class, 'update']);
     Route::delete('/api/product/{id}', [ProductController::class, 'delete']);
     Route::post('/api/image/delete/', [ProductController::class, 'deleteProductImage']);
+    Route::post('/products/track', [ProductController::class, 'trackProducts']);
+    Route::delete('/products/track/delete/{id}', [ProductController::class, 'deleteTrack']);
 
     /* category API */
     Route::get('/api/category/', [CategoryController::class, 'all']);

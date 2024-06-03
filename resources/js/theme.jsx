@@ -21,6 +21,10 @@ export const theme = createTheme({
       liliana_dark:{
         main:'#000000',
         contrastText:'white'
-      }
+      },
+      dashboard_primary:{
+        main:'#7c62ff',
+        contrastText:'white',
+      },
     },
   });

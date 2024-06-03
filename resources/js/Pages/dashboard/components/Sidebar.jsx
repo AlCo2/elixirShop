@@ -69,6 +69,10 @@ const Sidebar = () => {
                         <FaMoneyCheck/>
                         <p>Promotion</p>
                     </ListItemButton>
+                    <ListItemButton LinkComponent={Link} href='/dashboard/product/track' sx={style('/dashboard/product/track')}>
+                        <FaCalculator/>
+                        <p>Track</p>
+                    </ListItemButton>
                 </List>
                 </Collapse>
                 <ListItemButton LinkComponent={Link} href='/dashboard/message' sx={style('/dashboard/message')}>

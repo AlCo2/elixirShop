@@ -9,7 +9,7 @@ export default function DashboardLayout({children}){
         <div className='min-h-screen bg-liliana-background'>
           <Grid container className='min-h-screen'>
             <Sidebar/>
-            <Grid item xs md={10} >
+            <Grid item xs md={10} py={2}>
               {children}
             </Grid>
           </Grid>

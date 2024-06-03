@@ -22,8 +22,7 @@ const TableCellDate = ({date}) =>{
     </TableCell>
   )
 }
-const page = ({products, total_products, total_sales, total_orders}) => {
-
+const page = ({products, total_products, total_sales, total_orders, products_overview}) => {
   return (
     <Container>
       <Box sx={{p:2}}>
@@ -45,7 +44,7 @@ const page = ({products, total_products, total_sales, total_orders}) => {
                       <Typography sx={{color:'#7c62ff', fontSize:'1.875rem', lineHeight:'2.25rem', fontWeight:700, fontFamily:'Poppins'}}>{total_products}</Typography>
                       <p className="text-sm font-Poppins"><span className="text-green-500">1K+</span> <span className="text-xs opacity-70">Increase</span></p>
                     </Box>
-                    <SparkLineChart area colors={['#7c62ff']} curve="natural" data={[7, 10, 8, 12, 10, 14, 13]} width={100} height={70} showHighlight showTooltip/>
+                    <SparkLineChart area colors={['#7c62ff']} curve="natural" data={products_overview} width={100} height={70} showHighlight showTooltip/>
                   </Box>
                 </Grid>
                 <Grid xs sx={{borderRadius:4, bgcolor:'white', borderWidth:1}} item>

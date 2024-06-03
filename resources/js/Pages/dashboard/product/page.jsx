@@ -1,10 +1,11 @@
-import {Container, Grid} from '@mui/material'
+import {Button, Container, Grid, Input} from '@mui/material'
 import { DataGrid, GridToolbar, GridToolbarContainer, GridToolbarExport, GridToolbarQuickFilter } from '@mui/x-data-grid';
 import { FaEye } from 'react-icons/fa';
 import { Link } from '@inertiajs/react';
 import DashboardLayout from '../DashboardLayout';
 import ProductModelComponent from './components/ProductModelComponent';
 import ConfirmDeleteProduct from './components/ConfirmDeleteProduct';
+import TrackProducts from './components/TrackProducts';
 
 
 
@@ -16,7 +17,7 @@ function CustomToolbar() {
       csvOptions={{
         utf8WithBom: true,
       }}
-  />
+      />
       <GridToolbarQuickFilter/>
     </GridToolbarContainer>
   );
@@ -48,7 +49,7 @@ const page = ({products, categories}) => {
           <ProductModelComponent product={row} categories={categories}/>
           <ConfirmDeleteProduct row={row}/>
           <div>
-            <Link href={`/store/product/${row.id}`}><button className='bg-black rounded-md border text-white opacity-70 p-2'><FaEye className='text-sm'/></button></Link>
+            <Link href={`/store/product/${row.id}`}><button className='bg-violet-600 rounded-md border text-white opacity-70 p-2'><FaEye className='text-sm'/></button></Link>
           </div>
         </div>
       ),
@@ -58,7 +59,8 @@ const page = ({products, categories}) => {
   return (
     <Container>
       <Grid container mt={4}>
-        <Grid item sx={{display:'flex', justifyContent:'right'}} mb={2} xs={12}>
+        <Grid item sx={{display:'flex', justifyContent:'space-between', alignItems:'center'}} mb={2} xs={12}>
+          <p className='font-Poppins font-semibold'>Product List</p>
           <ProductModelComponent categories={categories} />
         </Grid>
         <Grid item xs={12}>

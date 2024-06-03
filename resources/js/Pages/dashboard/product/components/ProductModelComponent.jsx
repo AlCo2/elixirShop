@@ -124,7 +124,7 @@ function ProductModelComponent({product, categories}) {
     return (
       <div>
         {!product?
-        <Button onClick={handleOpen} variant='contained' color='primary' sx={{borderRadius:'0.375rem'}}>Add Product</Button>
+        <Button onClick={handleOpen} variant='contained' size="small" color="dashboard_primary" sx={{borderRadius:'0.375rem', textTransform:"none"}}>+ New Product</Button>
         :
         <button onClick={()=>{prepereUpdate(product);handleOpen();}} className='bg-liliana-background rounded-md border text-black opacity-70 p-2'><FaPen className='text-sm'/></button>
         }
@@ -263,7 +263,7 @@ function ProductModelComponent({product, categories}) {
               </Grid>
               <Grid item sx={{display:'flex', justifyContent:'space-between',flexDirection:'row-reverse'}} xs={12} mt={2}>
                 {!product?
-                  <Button size='small' onClick={handleSubmit} variant='contained' color='success' sx={{borderRadius:'0.375rem'}}>Add</Button>
+                  <Button size='small' onClick={handleSubmit} variant='contained' color='dashboard_primary' sx={{borderRadius:'0.375rem'}}>Add</Button>
                 :
                   <Button size='small' onClick={handleUpdate} variant='contained' color='primary' sx={{borderRadius:'0.375rem'}}>Update</Button>
                 }

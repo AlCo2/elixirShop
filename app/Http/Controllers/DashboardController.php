@@ -12,12 +12,19 @@ use App\Models\Message;
 use App\Models\Order;
 use App\Models\Order_detail;
 use App\Models\Order_item;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
     public function overview(){
         $products = Product::limit(5)->with('category')->get();
         $total_products = Product::count();
+        $products_overview = [];
+        $products_overview_objects = DB::table('products_overview')->orderBy('date_created', 'asc')->get('total_products');
+        foreach($products_overview_objects as $data)
+        {
+            $products_overview[] = $data->total_products;
+        }
         $total_sales = 0;
         $order_item = Order_item::with('order')->get();
         $total_orders = Order::count();
@@ -26,7 +33,7 @@ class DashboardController extends Controller
             if ($order->order->status_id === 2)
                 $total_sales += $order->total;
         }
-        return Inertia::render('dashboard/page', compact('products', 'total_sales', 'total_products', 'total_orders'));
+        return Inertia::render('dashboard/page', compact('products', 'total_sales', 'total_products', 'total_orders', 'products_overview'));
     }
 
     public function customer(){
@@ -43,6 +50,13 @@ class DashboardController extends Controller
         $products = Product::with('category', 'images')->get();
         $categories = Category::all();
         return Inertia::render('dashboard/product/page', compact('products', 'categories'));
+    }
+    
+    public function productTrack()
+    {
+        $products_overview = DB::table('products_overview')->get();
+        $total_products = Product::count();
+        return Inertia::render('dashboard/product/track', compact('products_overview', 'total_products'));
     }
 
     public function order(){

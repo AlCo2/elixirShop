@@ -196,4 +196,13 @@ class ProductController extends Controller
         $woman = Product::where('category_id', 1)->inRandomOrder()->with('images', 'category', 'promotion')->get();
         return $woman;
     }
+
+    public function trackProducts(Request $request)
+    {
+        DB::table('products_overview')->insert(['date_created'=>$request->date,'total_products'=>$request->total_products]);
+    }
+    public function deleteTrack($id)
+    {
+        DB::table('products_overview')->where('id', $id)->delete();
+    }
 }
