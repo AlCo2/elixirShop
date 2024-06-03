@@ -22,7 +22,8 @@ const TableCellDate = ({date}) =>{
     </TableCell>
   )
 }
-const page = ({products, total_products, total_sales, total_orders, products_overview}) => {
+const page = ({products, total_products, total_sales, total_orders, products_overview, orders_overview}) => {
+  console.log(orders_overview);
   return (
     <Container>
       <Box sx={{p:2}}>

@@ -84,7 +84,7 @@ function OrderModelComponent({order}) {
                   </FormControl>
               </Grid>
               <Grid item sx={{display:'flex', justifyContent:'space-between',flexDirection:'row-reverse'}} xs={12} mt={2}>
-                <Button onClick={handleUpdate} variant='contained' size='small' color='primary' sx={{borderRadius:'0.375rem'}}>Update</Button>
+                <Button onClick={handleUpdate} variant='contained' size='small' color='dashboard_primary' sx={{borderRadius:'0.375rem'}}>Update</Button>
                 <Button onClick={handleClose} variant='contained' size='small' color='error' sx={{borderRadius:'0.375rem'}}>Cancle</Button>
               </Grid>
             </Grid>

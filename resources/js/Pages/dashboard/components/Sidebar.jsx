@@ -83,6 +83,10 @@ const Sidebar = () => {
                     <FaCalendarCheck/>
                     <p>Order</p>
                 </ListItemButton>
+                <ListItemButton LinkComponent={Link} href='/dashboard/track' sx={style('/dashboard/track')}>
+                    <FaCalculator/>
+                    <p>Track</p>
+                </ListItemButton>
                 <ListItemButton LinkComponent={Link} href='/' sx={style('/dashboard/SiteWeb')}>
                     <BiStore/>
                     <p>Store</p>

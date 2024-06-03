@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\Order_detail;
 use App\Models\Order_item;
 use App\Models\Product;
+use DB;
 
 class OrderController extends Controller
 {
@@ -36,6 +37,22 @@ class OrderController extends Controller
 
     public function checkOrder(){
         return Inertia::render('checkorder/page');
+    }
+
+    public function track(Request $request)
+    {
+        DB::table('orders_overview')->insert(['date_created'=>$request->date,'total_orders'=>$request->total]);
+    }
+
+    public function deleteTrack($id)
+    {
+        DB::table('orders_overview')->where('id', $id)->delete();
+    }
+
+    public function deleteOrder($id)
+    {
+        $order = Order::find($id);
+        $order->delete();
     }
 
     public function listUserOrders(Request $request){

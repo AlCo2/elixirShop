@@ -49,6 +49,7 @@ Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])->group(functio
     route::get('/dashboard/product', [DashboardController::class, 'product']);
     route::get('/dashboard/product/track', [DashboardController::class, 'productTrack']);
     route::get('/dashboard/order', [DashboardController::class, 'order']);
+    route::get('/dashboard/track', [DashboardController::class, 'track']);
     route::get('/dashboard/order/{id}', [OrderController::class, 'getDashboardOrderPage']);
     route::get('/dashboard/category', [DashboardController::class, 'category']);
     route::get('/dashboard/promotion', [DashboardController::class, 'promotion']);
@@ -78,6 +79,9 @@ Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])->group(functio
 
     /* order API */
     Route::patch('/api/order/{id}', [OrderController::class, 'updateOrderStatus']);
+    Route::delete('/api/order/{id}', [OrderController::class, 'deleteOrder']);
+    Route::post('/orders/track', [OrderController::class, 'track']);
+    Route::delete('/orders/track/delete/{id}', [OrderController::class, 'deleteTrack']);
 
     /* promotion API */
     Route::post('/api/promotion/', [PromotionController::class, 'createNewPromotion']);

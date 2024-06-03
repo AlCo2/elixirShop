@@ -165,7 +165,7 @@ function ProductModelComponent({product, categories}) {
                   <div>
                       <label className='text-sm font-semibold font-Opensans'>Description</label>
                   </div>
-                  <input value={values.description} onChange={handleChange} type="text" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="description" id="description" />
+                  <textarea value={values.description} onChange={handleChange} rows={4} className='border-2 rounded-md p-1 text-sm xl:w-full' name="description" id="description"  />
               </Grid>
               <Grid xs={12} md={5.8} item>
                   <div>

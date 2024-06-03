@@ -113,7 +113,7 @@ function CategoryModelComponent({category}) {
   return (
     <div>
       {!category?
-      <Button onClick={handleOpen} variant='contained' color='primary' sx={{borderRadius:'0.375rem'}}>Add Category</Button>
+      <Button onClick={handleOpen} variant='contained' color='dashboard_primary' sx={{borderRadius:'0.375rem'}}>Add Category</Button>
       :
       <button onClick={()=>{values.name=category.name;handleOpen()}} className='bg-liliana-background rounded-md border text-black opacity-70 p-2'><FaPen className='text-sm'/></button>
       }

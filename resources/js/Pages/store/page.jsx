@@ -106,12 +106,12 @@ const store = ({products, category_list, maxPrice,type, favourites}) => {
                   </Grid>
                 </Grid>
               <Grid container gap={1} marginY={5} justifyContent={{xs:'center'}} mt={2}>
-                {/* { products.data.length>0?products.data.map((product)=>(
+                { products.data.length>0?products.data.map((product)=>(
                   <SuggestionCard key={product.id} product={product} favourites={favourites}/>
                 ))
                 :
                 <p>There is no product to Show</p>
-                } */}
+                }
               </Grid>
             </Grid>
           </Grid>

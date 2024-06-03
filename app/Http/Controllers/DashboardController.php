@@ -21,6 +21,7 @@ class DashboardController extends Controller
         $total_products = Product::count();
         $products_overview = [];
         $products_overview_objects = DB::table('products_overview')->orderBy('date_created', 'asc')->get('total_products');
+        $orders_overview = DB::table('orders_overview')->orderBy('date_created', 'asc')->get();
         foreach($products_overview_objects as $data)
         {
             $products_overview[] = $data->total_products;
@@ -33,7 +34,7 @@ class DashboardController extends Controller
             if ($order->order->status_id === 2)
                 $total_sales += $order->total;
         }
-        return Inertia::render('dashboard/page', compact('products', 'total_sales', 'total_products', 'total_orders', 'products_overview'));
+        return Inertia::render('dashboard/page', compact('products', 'total_sales', 'total_products', 'total_orders', 'products_overview', 'orders_overview'));
     }
 
     public function customer(){
@@ -62,6 +63,14 @@ class DashboardController extends Controller
     public function order(){
         $order = Order::with('order_detail')->get();
         return Inertia::render('dashboard/order/page', compact('order'));
+    }
+
+    public function track()
+    {
+        $orders_overview = DB::table('orders_overview')->get();
+        $sales_overview = DB::table('sales_overview')->get();
+        $total_orders = Order::count();
+        return Inertia::render('dashboard/order/track', compact('orders_overview', 'sales_overview', 'total_orders'));
     }
 
     public function promotion(){

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import {Container, Grid, Button, Modal, Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, Select, MenuItem, IconButton, Autocomplete, TextField, Chip, Switch} from '@mui/material'
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridToolbarContainer, GridToolbarExport, GridToolbarQuickFilter } from '@mui/x-data-grid';
 import { FaPen, FaTrash } from 'react-icons/fa';
 import { FiAlertTriangle } from 'react-icons/fi';
 import { FaXmark } from 'react-icons/fa6';
@@ -70,6 +70,20 @@ const style = {  position: 'absolute',
   borderRadius:2,
   p: 4,
 };
+
+function CustomToolbar() {
+  return (
+    <GridToolbarContainer>
+      <GridToolbarExport
+      
+      csvOptions={{
+        utf8WithBom: true,
+      }}
+      />
+      <GridToolbarQuickFilter/>
+    </GridToolbarContainer>
+  );
+}
 
 function ConfirmDeleteUser({row}) {
   const [open, setOpen] = useState(false);
@@ -174,7 +188,7 @@ function PromotionModelComponent({products, product}) {
   return (
     <div>
       {!product?
-      <Button onClick={handleOpen} variant='contained' color='primary' sx={{borderRadius:'0.375rem'}}>New Promotion</Button>
+      <Button onClick={handleOpen} variant='contained' color='dashboard_primary' sx={{borderRadius:'0.375rem'}}>New Promotion</Button>
       :
       <button onClick={()=>{prepareUpdate();handleOpen();}} className='bg-liliana-background rounded-md border text-black opacity-70 p-2'><FaPen className='text-sm'/></button>
       }
@@ -261,7 +275,7 @@ const page = ({products, promotions}) => {
               },
             }}
             pageSizeOptions={[5]}
-            // slots={{toolbar:GridToolbar}}
+            slots={{toolbar:CustomToolbar}}
           />
         </Grid>
       </Grid>

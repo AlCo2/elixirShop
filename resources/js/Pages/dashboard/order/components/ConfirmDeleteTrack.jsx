@@ -5,7 +5,7 @@ import { FaTrash } from "react-icons/fa";
 import { FiAlertTriangle } from "react-icons/fi";
 
 
-function ConfirmDeleteOrder({row}) {
+function ConfirmDeleteTrack({row}) {
     const [open, setOpen] = useState(false);
   
     const handleClickOpen = () => {
@@ -14,7 +14,7 @@ function ConfirmDeleteOrder({row}) {
   
     const handleClose = (choice) => {
       if(choice){
-        router.delete('/api/order/'+row.id);
+        router.delete('/orders/track/delete/' + row.id);
       }
       setOpen(false);
     };
@@ -32,7 +32,7 @@ function ConfirmDeleteOrder({row}) {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              Are You sure You want to delete order {row.id}
+              Are You sure You want to delete {row.name}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -44,5 +44,6 @@ function ConfirmDeleteOrder({row}) {
         </Dialog>
       </div>
     );
-  }
-export default ConfirmDeleteOrder;
+  }  
+
+export default ConfirmDeleteTrack
