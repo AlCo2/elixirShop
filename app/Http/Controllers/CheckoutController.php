@@ -40,19 +40,26 @@ class CheckoutController extends Controller
         $total = 0;
         foreach ($products as $product)
         {
+            // add the product to a list
             $data[] = [
                 'product' => $product['product'],
                 'Q' => $product['Q'],
             ];
-            if ($product['product']->promotion && $product['product']->promotion['active'])
-                $total += $product['product']->promotion['promotion_price'] * $product['Q'];
-            else
-                $total += $product['product']->price * $product['Q'];
+            $total = $this->incrementTotal($product, $total);
         }
         $this->createTotal($total);
         return $data;
     }
-    
+
+    private function incrementTotal($product, $total)
+    {
+        if ($product['product']->promotion && $product['product']->promotion['active'])
+            $total += $product['product']->promotion['promotion_price'] * $product['Q'];
+        else
+            $total += $product['product']->price * $product['Q'];
+        return $total;
+    }
+
     private function createTotal($total): void
     {
         session(['total'=>$total]);

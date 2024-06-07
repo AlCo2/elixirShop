@@ -67,15 +67,23 @@ class StoreController extends Controller
 
     private function createQuery($request, $type)
     {
+        /*
+         get all products 
+         if the product have promotion get the promotion data with it
+         otherwise get only the product
+        */
         $query = Product::with('images')
         ->leftJoin('promotions', 'promotions.product_id', '=', 'products.id')
         ->select('products.*', 'promotions.promotion_price', 'promotions.active');
+
         if (isset($type))
         {
             $this->sortByType($type, $query);
         }
+
         if($request->min && $request->max)
         {
+            // sort products with promotion_price and with normal price if the product not having a promotion
             $query->whereBetween(
                 DB::raw('CASE WHEN promotions.active = 1 THEN promotions.promotion_price ELSE products.price END'),
                 [$request->min, $request->max]
@@ -84,6 +92,7 @@ class StoreController extends Controller
 
         if ($request->has('title'))
         {
+            // sort products with product title
             $title = $request->input('title');
             $query->where('title', 'like', '%'.$title.'%');
         }
