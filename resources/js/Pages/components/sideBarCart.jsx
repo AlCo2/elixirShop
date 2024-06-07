@@ -15,7 +15,7 @@ const CartItem = ({id, products, setProducts, product, Q}) =>{
         const data = {
             product_id: product.id,
         }
-        axios.post('/api/cart/delete', data);
+        axios.post('/cart/delete', data);
         const updatedProducts = [...products];
         updatedProducts.splice(id, 1)
         setProducts(updatedProducts);
@@ -57,7 +57,7 @@ export default function SideBarCart({down}) {
 
   const fetchProduct = async () =>{
     setLoading(true);
-    const response = await axios.post('/api/cart').catch((error)=>console.log(error));
+    const response = await axios.post('/cart').catch((error)=>console.log(error));
     setCart(response.data);
     setLoading(false);
   }

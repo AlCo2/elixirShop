@@ -16,7 +16,7 @@ const QuentityBar = ({id, product_id, products, setProducts, Q}) =>{
         const data = {
             product_id: product_id
         }
-        axios.post('/api/cart/sub', data);
+        axios.post('/cart/sub', data);
         const updatedProducts = [...products]
         updatedProducts[id].Q-=1;
         setProducts(updatedProducts);
@@ -28,7 +28,7 @@ const QuentityBar = ({id, product_id, products, setProducts, Q}) =>{
         const data = {
             product_id: product_id
         }
-        axios.post('/api/cart/add', data);
+        axios.post('/cart/add', data);
         const updatedProducts = [...products]
         updatedProducts[id].Q+=1;
         setCartTotalProducts(cartTotalProducts+1)
@@ -53,7 +53,7 @@ const Order = ({id, product_id,name, image, price, Q, products, setProducts}) =>
         const data = {
             product_id: product_id,
         }
-        axios.post('/api/cart/delete', data);
+        axios.post('/cart/delete', data);
         const updatedProducts = [...products];
         updatedProducts.splice(id, 1)
         setCartTotalProducts(cartTotalProducts-Q);

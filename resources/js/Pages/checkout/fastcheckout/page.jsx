@@ -46,7 +46,7 @@ const page = ({ order }) => {
 
     function handleSubmite(e)
     {
-        router.post('/api/order/create', values);
+        router.post('/order/create', values);
     }
 
     const fetchdata = async () =>{

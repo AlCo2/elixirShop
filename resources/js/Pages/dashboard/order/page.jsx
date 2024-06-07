@@ -134,7 +134,7 @@ function OrderModelComponent({order}) {
   }
   function handleUpdate(e) {
     e.preventDefault();
-    router.patch('/api/order/'+order.id, values);
+    router.patch('/order/'+order.id, values);
     handleClose();
   }
   return (

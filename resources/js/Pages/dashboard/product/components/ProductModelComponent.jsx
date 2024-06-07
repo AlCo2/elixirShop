@@ -68,7 +68,7 @@ function ProductModelComponent({product, categories}) {
         const data = {
           url:product.images[index].url,
         }
-        router.post('/api/image/delete', data);
+        router.post('/image/delete', data);
       }
       setSelectedImage(v =>({
         ...v,
@@ -88,7 +88,7 @@ function ProductModelComponent({product, categories}) {
         return;
       if(values.Q<=0 || values.price<=0)
         return;
-      router.post('/api/product', values);
+      router.post('/product', values);
       values.title = "";
       values.description = "";
       values.Q = "";
@@ -118,7 +118,7 @@ function ProductModelComponent({product, categories}) {
   
     function handleUpdate(e) {
       e.preventDefault();
-      router.post('/api/product/' + product.id, values);
+      router.post('/product/' + product.id, values);
       handleClose();
     }
     return (

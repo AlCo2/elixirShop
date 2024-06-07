@@ -14,7 +14,7 @@ function ConfirmDeleteOrder({row}) {
   
     const handleClose = (choice) => {
       if(choice){
-        router.delete('/api/order/'+row.id);
+        router.delete('/order/'+row.id);
       }
       setOpen(false);
     };

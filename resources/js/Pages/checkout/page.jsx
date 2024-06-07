@@ -18,7 +18,7 @@ const page = ({data}) => {
 
   function deleteAll()
   {
-    axios.post('/api/cart/deleteall');
+    axios.post('/cart/deleteall');
     setProducts([]);
     setCartTotalProducts(0);
   }

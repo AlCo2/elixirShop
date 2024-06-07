@@ -94,7 +94,7 @@ function ConfirmDeleteUser({row}) {
 
   const handleClose = (choice) => {
     if(choice){
-      router.delete('/api/promotion/'+row.id);
+      router.delete('/promotion/'+row.id);
     }
     setOpen(false);
   };
@@ -166,7 +166,7 @@ function PromotionModelComponent({products, product}) {
     if (values.promotion_price > values.price)
       return;
     values.promotion_price = parseInt(values.promotion_price);
-    router.post('/api/promotion', values);
+    router.post('/promotion', values);
     values.promotion_price = "";
     values.active = false;
     handleClose();
@@ -181,7 +181,7 @@ function PromotionModelComponent({products, product}) {
 
   function handleUpdate(e, id) {
     e.preventDefault();
-    router.patch('/api/promotion/'+id, values);
+    router.patch('/promotion/'+id, values);
     handleClose();
   }
 

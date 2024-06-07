@@ -61,7 +61,7 @@ function ConfirmDeleteUser({row}) {
 
   const handleClose = (choice) => {
     if(choice){
-      router.delete('/api/user/'+row.id);
+      router.delete('/user/'+row.id);
     }
     setOpen(false);
   };
@@ -129,7 +129,7 @@ function UserModelComponent({user}) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    router.post('/api/user', values);
+    router.post('/user', values);
     values.firstname = ""
     values.lastname = ""
     values.address = ""
@@ -154,7 +154,7 @@ function UserModelComponent({user}) {
 
   function handleUpdate(e) {
     e.preventDefault();
-    router.post('/api/user/'+user.id, values);
+    router.post('/user/'+user.id, values);
     handleClose();
   }
 

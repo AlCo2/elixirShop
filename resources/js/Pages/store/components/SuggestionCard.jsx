@@ -15,7 +15,7 @@ const SuggestionCard = ({product, favourites}) => {
     const data = {
         product_id:product.id
     }
-    axios.post('/api/cart/add', data);
+    axios.post('/cart/add', data);
     setCartTotalProducts(cartTotalProducts + 1);
     setOpen(true);
   }

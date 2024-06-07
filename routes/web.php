@@ -30,19 +30,20 @@ Route::get('/showorder', [OrderController::class, 'showOrder']);
 Route::get('/support', [SupportController::class, 'index']);
 
 /*         Post request          */
-Route::post('api/cart/', [CheckoutController::class, 'getCurrentCartData']);
-Route::post('/api/cart/add', [CartController::class, 'addToCart']);
-Route::post('/api/cart/sub', [CartController::class, 'subFromCart']);
-Route::post('/api/cart/delete', [CartController::class, 'deleteFromCart']);
-Route::post('/api/cart/deleteall', [CartController::class, 'deleteAllfromCart']);
+Route::post('/cart', [CheckoutController::class, 'getCurrentCartData']);
+Route::post('/cart/add', [CartController::class, 'addToCart']);
+Route::post('/cart/sub', [CartController::class, 'subFromCart']);
+Route::post('/cart/delete', [CartController::class, 'deleteFromCart']);
+Route::post('/cart/deleteall', [CartController::class, 'deleteAllfromCart']);
 Route::post('/message/create', [SupportController::class, 'createMessage']);
-Route::post('/api/order/create', [OrderController::class, 'createOrder']);
+Route::post('/order/create', [OrderController::class, 'createOrder']);
 
 
 /* auth routes */
 Route::post('/favourite', [ProductController::class, 'favourite'])->middleware('auth');
 Route::post('/favourites/products', [ProductController::class, 'getFavouritesProducts'])->middleware('auth');
 
+/* Admin routes */
 Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])->group(function () {
     route::get('/dashboard', [DashboardController::class, 'overview']);
     route::get('/dashboard/customer', [DashboardController::class, 'customer']);
@@ -56,37 +57,35 @@ Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])->group(functio
     route::get('/dashboard/message', [DashboardController::class, 'message']);
 
     /* user API */
-    Route::post('/api/user', [UserController::class, 'newUser']);
-    Route::post('/api/user/{id}', [UserController::class, 'updateUser']);
-    Route::delete('/api/user/{id}', [UserController::class, 'deleteUser']);
+    Route::post('/user', [UserController::class, 'newUser']);
+    Route::post('/user/{id}', [UserController::class, 'updateUser']);
+    Route::delete('/user/{id}', [UserController::class, 'deleteUser']);
 
     /* product API */
-    Route::get('/api/product/', [ProductController::class, 'all']);
-    Route::get('/api/product/{id}', [ProductController::class, 'get']);
-    Route::post('/api/product/', [ProductController::class, 'add']);
-    Route::post('/api/product/{id}', [ProductController::class, 'update']);
-    Route::delete('/api/product/{id}', [ProductController::class, 'delete']);
-    Route::post('/api/image/delete/', [ProductController::class, 'deleteProductImage']);
+    Route::get('/product', [ProductController::class, 'all']);
+    Route::get('/product/{id}', [ProductController::class, 'get']);
+    Route::post('/product', [ProductController::class, 'add']);
+    Route::post('/product/{id}', [ProductController::class, 'update']);
+    Route::delete('/product/{id}', [ProductController::class, 'delete']);
+    Route::post('/image/delete/', [ProductController::class, 'deleteProductImage']);
     Route::post('/products/track', [ProductController::class, 'trackProducts']);
     Route::delete('/products/track/delete/{id}', [ProductController::class, 'deleteTrack']);
 
     /* category API */
-    Route::get('/api/category/', [CategoryController::class, 'all']);
-    Route::get('/api/category/{id}', [CategoryController::class, 'get']);
-    Route::post('/api/category/', [CategoryController::class, 'add']);
-    Route::patch('/api/category/{id}', [CategoryController::class, 'update']);
-    Route::delete('/api/category/{id}', [CategoryController::class, 'delete']);
+    Route::post('/category', [CategoryController::class, 'add']);
+    Route::patch('/category/{id}', [CategoryController::class, 'update']);
+    Route::delete('/category/{id}', [CategoryController::class, 'delete']);
 
     /* order API */
-    Route::patch('/api/order/{id}', [OrderController::class, 'updateOrderStatus']);
-    Route::delete('/api/order/{id}', [OrderController::class, 'deleteOrder']);
+    Route::patch('/order/{id}', [OrderController::class, 'updateOrderStatus']);
+    Route::delete('/order/{id}', [OrderController::class, 'deleteOrder']);
     Route::post('/orders/track', [OrderController::class, 'track']);
     Route::delete('/orders/track/delete/{id}', [OrderController::class, 'deleteTrack']);
 
     /* promotion API */
-    Route::post('/api/promotion/', [PromotionController::class, 'createNewPromotion']);
-    Route::patch('/api/promotion/{id}', [PromotionController::class, 'updatePromotion']);
-    Route::delete('/api/promotion/{id}', [PromotionController::class, 'deletePromotion']);
+    Route::post('/promotion', [PromotionController::class, 'createNewPromotion']);
+    Route::patch('/promotion/{id}', [PromotionController::class, 'updatePromotion']);
+    Route::delete('/promotion/{id}', [PromotionController::class, 'deletePromotion']);
 
     /* message API */
     route::post('/message/read', [SupportController::class, 'readMessage']);

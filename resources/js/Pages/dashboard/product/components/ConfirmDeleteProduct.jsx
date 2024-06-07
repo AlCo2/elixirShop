@@ -14,7 +14,7 @@ function ConfirmDeleteProduct({row}) {
   
     const handleClose = (choice) => {
       if(choice){
-        router.delete('/api/product/' + row.id);
+        router.delete('/product/' + row.id);
       }
       setOpen(false);
     };

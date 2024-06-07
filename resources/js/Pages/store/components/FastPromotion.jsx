@@ -48,7 +48,7 @@ function PromotionModelComponent({product}) {
       if (values.promotion_price >= values.price)
         return;
       values.promotion_price = parseInt(values.promotion_price);
-      router.post('/api/promotion', values);
+      router.post('/promotion', values);
       handleClose();
     }
   
@@ -56,7 +56,7 @@ function PromotionModelComponent({product}) {
       e.preventDefault();
       if (values.promotion_price >= values.price)
         return;
-      router.patch('/api/promotion/'+product.promotion.id, values);
+      router.patch('/promotion/'+product.promotion.id, values);
       handleClose();
     }
   

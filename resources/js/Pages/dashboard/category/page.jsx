@@ -50,7 +50,7 @@ function ConfirmDeleteCategory({row}) {
 
   const handleClose = (choice) => {
     if(choice){
-      router.delete('/api/category/'+row.id);
+      router.delete('/category/'+row.id);
     }
     setOpen(false);
   };
@@ -101,13 +101,13 @@ function CategoryModelComponent({category}) {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    router.post('/api/category', values);
+    router.post('/category', values);
     values.name = "";
     handleClose();
   }
   function handleUpdate(e) {
     e.preventDefault();
-    router.patch('/api/category/'+category.id, values);
+    router.patch('/category/'+category.id, values);
     handleClose();
   }
   return (
