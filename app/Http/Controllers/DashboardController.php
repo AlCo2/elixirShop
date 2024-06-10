@@ -20,9 +20,14 @@ class DashboardController extends Controller
         $products = Product::limit(5)->with('category')->get();
         $total_products = Product::count();
         $products_overview = [];
+        $orders_overview = [];
         $products_overview_objects = DB::table('products_overview')->orderBy('date_created', 'asc')->get('total_products');
-        $orders_overview = DB::table('orders_overview')->orderBy('date_created', 'asc')->get();
-        foreach($products_overview_objects as $data)
+        $orders_overview_objects = DB::table('orders_overview')->orderBy('date_created', 'asc')->get('total_orders');
+        foreach ($orders_overview_objects as $data)
+        {
+            $orders_overview[] = $data->total_orders;
+        }
+        foreach ($products_overview_objects as $data)
         {
             $products_overview[] = $data->total_products;
         }

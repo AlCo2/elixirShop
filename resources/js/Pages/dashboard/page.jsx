@@ -1,29 +1,10 @@
-import { Box, Button, Container, Grid, IconButton, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
-import { SparkLineChart } from "@mui/x-charts";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import { Bar, BarChart, Tooltip, XAxis, YAxis } from "recharts";
+import { Box, Container, Grid} from "@mui/material";
 import DashboardLayout from "./DashboardLayout";
+import ShowcaseData from "./components/ShowcaseData";
+import ProductTable from "./components/ProductTable";
+import ShowcaseDataBars from "./components/ShowcaseDataBars";
 
-const data = [ 
-  {name:'Jan', data:3200},
-  {name:'Feb', data:1600},
-  {name:'Mar', data:1300},
-  {name:'Avr', data:2600},
-  {name:'May', data:955},
-  {name:'Jun', data:3432},
-  {name:'Jul', data:2343},
-]
-
-const TableCellDate = ({date}) =>{
-  const createdAtDate = new Date(date);
-  return(
-    <TableCell sx={{fontFamily:'Poppins', fontWeight:500}} component="th" scope="row">
-      {createdAtDate.getFullYear()+'/'+(createdAtDate.getMonth()+1)+'/'+createdAtDate.getDate()}
-    </TableCell>
-  )
-}
 const page = ({products, total_products, total_sales, total_orders, products_overview, orders_overview}) => {
-  console.log(orders_overview);
   return (
     <Container>
       <Box sx={{p:2}}>
@@ -35,120 +16,13 @@ const page = ({products, total_products, total_sales, total_orders, products_ove
           <Grid xs item>
             <Box>
               <Grid gap={1} container sx={{justifyContent:'space-between'}}>
-                <Grid xs sx={{borderRadius:4, bgcolor:'white', borderWidth:1}} item>
-                  <Box sx={{p:2}}>
-                    <p className="font-Roboto font-semibold text-xl">Total Product</p>
-                    <p className="text-xs opacity-70">Customre have visited and clicked product</p>
-                  </Box>
-                  <Box sx={{pl:2, display:'flex', alignItems:'center'}}>
-                    <Box sx={{ display:'flex', flexDirection:'column', justifyContent:'space-between', height:70}}>
-                      <Typography sx={{color:'#7c62ff', fontSize:'1.875rem', lineHeight:'2.25rem', fontWeight:700, fontFamily:'Poppins'}}>{total_products}</Typography>
-                      <p className="text-sm font-Poppins"><span className="text-green-500">1K+</span> <span className="text-xs opacity-70">Increase</span></p>
-                    </Box>
-                    <SparkLineChart area colors={['#7c62ff']} curve="natural" data={products_overview} width={100} height={70} showHighlight showTooltip/>
-                  </Box>
-                </Grid>
-                <Grid xs sx={{borderRadius:4, bgcolor:'white', borderWidth:1}} item>
-                  <Box sx={{p:2}}>
-                    <p className="font-Roboto font-semibold text-xl">Total Sales</p>
-                    <p className="text-xs opacity-70">Product have been saled</p>
-                  </Box>
-                  <Box sx={{pl:2, display:'flex', alignItems:'center'}}>
-                    <Box sx={{ display:'flex', flexDirection:'column', justifyContent:'space-between', height:70}}>
-                      <Typography sx={{color:'#7c62ff', fontSize:'1.875rem', lineHeight:'2.25rem', fontWeight:700, fontFamily:'Poppins'}}>{total_sales}DH</Typography>
-                      <p className="text-sm font-Poppins"><span className="text-green-500">2K+</span> <span className="text-xs opacity-70">Increase</span></p>
-                    </Box>
-                    <SparkLineChart area colors={['#7c62ff']} curve="natural" data={[10, 9, 8, 7, 9, 12, 11, 10, 7, 6, 7, 8, 9, 10, 12, 6]} width={100} height={70} showTooltip showHighlight/>
-                  </Box>
-                </Grid>
-                <Grid item xs sx={{borderRadius:4, bgcolor:'white', borderWidth:1, mb:1}} >
-                  <Box sx={{ p:2, display:'flex', justifyContent:'space-between' }}>
-                    <Box>
-                      <p className="font-Roboto font-semibold text-xl">Newest Product</p>
-                      <p className="text-xs opacity-70">Newest product list of the month</p>
-                    </Box>
-                    <Box>
-                      <Button href="/dashboard/product" variant="outlined" size="small" sx={{borderRadius:4, color:'black', borderColor:'black'}}>See More</Button>
-                    </Box>
-                  </Box>
-                  <Box sx={{overflowX:'auto'}}>
-                    <Table aria-label="simple table">
-                      <TableHead>
-                        <TableRow>
-                          <TableCell sx={{fontFamily:'Poppins',fontWeight:700}}>PRODUCT</TableCell>
-                          <TableCell sx={{fontFamily:'Poppins',fontWeight:700}}>CATEGORY</TableCell>
-                          <TableCell sx={{fontFamily:'Poppins',fontWeight:700}}>PRICE</TableCell>
-                          <TableCell sx={{fontFamily:'Poppins',fontWeight:700}}>CREATED</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody> 
-                    {products.map((product)=>(
-                        <TableRow
-                        key={product.id}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                      >
-                        <TableCell sx={{fontFamily:'Poppins', fontWeight:500}} component="th" scope="row">
-                          {product.title}
-                        </TableCell>
-                        <TableCell sx={{fontFamily:'Poppins', fontWeight:500}} component="th" scope="row">
-                          {product.category?product.category.name:''}
-                        </TableCell>
-                        <TableCell sx={{fontFamily:'Poppins', fontWeight:500}} component="th" scope="row">
-                          {product.price}DH
-                        </TableCell>
-                        <TableCellDate date={product.created_at} />
-                      </TableRow>
-                      ))
-                      }
-                    </TableBody>
-                    </Table>
-                  </Box>
-                </Grid>
+                <ShowcaseData title={"Total Product"} subTitle={"Customre have visited and clicked product"} total={total_products} data={products_overview}/>
+                <ShowcaseData title={"Total Orders"} subTitle={"Product have been saled"} total={total_orders} data={orders_overview}/>
+                <ProductTable products={products}/>
               </Grid>
             </Box>
           </Grid>
-          <Grid xs={12} md={4} item>
-            <Box sx={{bgcolor:'white', height:280, borderWidth:1, mb:1, borderRadius:4}}>
-              <Box sx={{p:2, display:'flex', alignItems:'center', justifyContent:'space-between'}} >
-                <Box>
-                  <p className="font-Roboto font-semibold text-xl">Orders</p>
-                  <p className="text-xs opacity-70">amount of orders and results</p>
-                </Box>
-                <Box>
-                  <Button href="/dashboard/order" variant="outlined" sx={{borderRadius:4, color:'black', borderColor:'black'}} size="small">See detail</Button>
-                </Box>
-              </Box>
-              <Box sx={{px:2, display:'flex', flexDirection:'column', overflowX:'auto'}}>
-                <Box sx={{ display:'flex', flexDirection:'column', justifyContent:'space-between', height:70}}>
-                  <Typography sx={{color:'#7c62ff', fontSize:'1.875rem', lineHeight:'2.25rem', fontWeight:700, fontFamily:'Poppins'}}>{total_orders}</Typography>
-                  <p className="text-sm font-Poppins"><span className="text-green-500">7K+</span> <span className="text-xs opacity-70">Increase</span></p>
-                </Box>
-                <BarChart width={300} height={130} data={data}>
-                  <XAxis dataKey='name' axisLine={false} tickLine={false} className="font-Poppins text-sm" />
-                  <Bar dataKey="data" fill="#7c62ff" radius={10}/>
-                </BarChart>
-              </Box>
-            </Box>
-            <Box sx={{bgcolor:'white', height:230, mb:1,borderWidth:1, borderRadius:4}}>
-              <Box sx={{p:2, display:'flex', alignItems:'center', justifyContent:'space-between'}} >
-                <Box>
-                  <p className="font-Roboto font-semibold text-xl">Audience</p>
-                  <p className="text-xs opacity-70">Customers have visited website</p>
-                </Box>
-                <Box>
-                  <IconButton size="small"><BsThreeDotsVertical/></IconButton>
-                </Box>
-              </Box>
-              <Box sx={{px:2, overflowX:'auto'}}>
-                <BarChart layout="vertical" width={300} height={130} data={[{name:'Male', view:1345},{name:'Female', view:2122},{name:'Other', view:635},]}>
-                  <YAxis dataKey='name' type="category" axisLine={false} tickLine={false} className="font-Poppins text-sm" />
-                  <XAxis type="number" axisLine={false} tickLine={false}/>
-                  <Tooltip/>
-                  <Bar dataKey="view" fill="#feca33" radius={8}/>
-                </BarChart>
-              </Box>
-            </Box>
-          </Grid>
+          <ShowcaseDataBars total_sales={total_sales}/>
         </Grid>        
       </Box>
     </Container>
