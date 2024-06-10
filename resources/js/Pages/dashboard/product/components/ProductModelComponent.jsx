@@ -265,7 +265,7 @@ function ProductModelComponent({product, categories}) {
                 {!product?
                   <Button size='small' onClick={handleSubmit} variant='contained' color='dashboard_primary' sx={{borderRadius:'0.375rem'}}>Add</Button>
                 :
-                  <Button size='small' onClick={handleUpdate} variant='contained' color='primary' sx={{borderRadius:'0.375rem'}}>Update</Button>
+                  <Button size='small' onClick={handleUpdate} variant='contained' color='dashboard_primary' sx={{borderRadius:'0.375rem'}}>Update</Button>
                 }
                 <Button size='small' onClick={handleClose} variant='contained' color='error' sx={{borderRadius:'0.375rem'}}>Cancle</Button>
               </Grid>

@@ -1,36 +1,34 @@
 import { router } from "@inertiajs/react";
-import { Box, Button, Grid, IconButton, Modal, Switch } from "@mui/material";
+import { Autocomplete, Box, Button, Grid, IconButton, Modal, Switch, TextField } from "@mui/material";
 import { useState } from "react";
-import { MdLocalOffer } from "react-icons/md";
+import { FaPen } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 
-const style = {  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  maxWidth: 450,
-  width:'80%',
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  borderRadius:2,
-  p: 4,
-};
 
-function PromotionModelComponent({product}) {
+const style = {  position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    maxWidth: 450,
+    width:'80%',
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    borderRadius:2,
+    p: 4,
+  };
+
+function PromotionModelEdit({products, product}) {
     const [open, setOpen] = useState(false);
-    const [originalPrice, setOriginalPrice] = useState(product.price);
+    const [originalPrice, setOriginalPrice] = useState(0);
     const [error, setError] = useState(false);
     const [values, setValues] = useState({
-      product_id:product.id,
-      price:product.price,
-      promotion_price:product.promotion?product.promotion.promotion_price:"",
-      active:product.promotion && product.promotion.active?true:false,
+      product_id:"",
+      price:"",
+      promotion_price:"",
+      active:false,
     })
     const handleOpen = () => {
       setError(false);
-      setValues(prevValues => ({
-        ...prevValues, ['promotion_price']: product.promotion?product.promotion.promotion_price:""
-      }))
       setOpen(true)
     };
     const handleClose = () => setOpen(false);
@@ -49,7 +47,13 @@ function PromotionModelComponent({product}) {
           active: !prevValues.active
       }));
     };
-
+  
+    function handleSelectChange(e, value){
+      values.product_id = value.id;
+      values.price = value.price;
+      setOriginalPrice(values.price)
+    }
+  
     function handleSubmit(e) {
       e.preventDefault();
       if (values.promotion_price >= values.price)
@@ -59,25 +63,37 @@ function PromotionModelComponent({product}) {
       }
       values.promotion_price = parseInt(values.promotion_price);
       router.post('/promotion', values);
+      values.promotion_price = "";
+      values.active = false;
       handleClose();
-      setError(false);
     }
   
-    function handleUpdate(e) {
+    function prepareUpdate()
+    {
+      values.promotion_price=product.promotion_price;
+      values.active=product.active?true:false;
+      setOriginalPrice(product.product.price);
+    }
+  
+    function handleUpdate(e, id) {
       e.preventDefault();
-      if (values.promotion_price >= values.price)
+      if (values.promotion_price >= originalPrice)
       {
+        console.log(values);
         setError(true)
         return;
       }
-      router.patch('/promotion/'+product.promotion.id, values);
+      router.patch('/promotion/'+id, values);
       handleClose();
-      setError(false);
     }
   
     return (
       <div>
-        <button onClick={()=>{handleOpen();}} className='bg-green-500 rounded-md border text-white opacity-70 p-2 text-xs flex justify-center items-center font-semibold font-Poppins gap-1'><MdLocalOffer/> promote</button>
+        {!product?
+        <Button onClick={handleOpen} variant='contained' color='dashboard_primary' sx={{borderRadius:'0.375rem'}}>New Promotion</Button>
+        :
+        <button onClick={()=>{prepareUpdate();handleOpen();}} className='bg-liliana-background rounded-md border text-black opacity-70 p-2'><FaPen className='text-sm'/></button>
+        }
         <Modal 
           open={open}
           aria-labelledby="modal-modal-title"
@@ -89,7 +105,19 @@ function PromotionModelComponent({product}) {
                 <p className='font-Poppins font-semibold'>Add New Offer</p>
                 <IconButton size='small' onClick={handleClose}><FaXmark/></IconButton>
               </Grid>
-              <p>{product.title}</p>
+              <Grid xs={12} item>
+                  {!product &&
+                  <Autocomplete
+                    disablePortal
+                    id="product_id"
+                    options={products}
+                    renderInput={(params) => <TextField {...params} label="product" />}
+                    getOptionKey={(option)=>option.id ?? option}
+                    getOptionLabel={(option)=>option.title ?? option}
+                    onChange={handleSelectChange}
+                  />
+                  }
+              </Grid>
               <Grid xs={12} item>
                   <div>
                       <label className='text-sm font-semibold font-Opensans'>Original Price</label>
@@ -120,10 +148,10 @@ function PromotionModelComponent({product}) {
                   }
               </Grid>
               <Grid item sx={{display:'flex', justifyContent:'space-between',flexDirection:'row-reverse'}} xs={12} mt={2}>
-                {!product.promotion?
+                {!product?
                   <Button onClick={handleSubmit} variant='contained' size='small' color='success' sx={{borderRadius:'0.375rem'}}>Add</Button>
                 :
-                  <Button onClick={handleUpdate} variant='contained' size='small' color='primary' sx={{borderRadius:'0.375rem'}}>Update</Button>
+                  <Button onClick={(e)=>handleUpdate(e, product.id)} variant='contained' size='small' color='primary' sx={{borderRadius:'0.375rem'}}>Update</Button>
                 }
                 <Button onClick={handleClose} variant='contained' size='small' color='error' sx={{borderRadius:'0.375rem'}}>Cancle</Button>
               </Grid>
@@ -132,12 +160,6 @@ function PromotionModelComponent({product}) {
         </Modal>
       </div>
     );
-  }
-
-const FastPromotion = ({product}) => {
-  return (
-    <PromotionModelComponent product={product}/>
-  )
 }
 
-export default FastPromotion;
+export default PromotionModelEdit;

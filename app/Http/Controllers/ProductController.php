@@ -98,12 +98,16 @@ class ProductController extends Controller
     }
 
     public function update($id, Request $request){
-        $product = Product::with('images')->find($id);
+        $product = Product::with('images', 'promotion')->find($id);
+        if ($product->promotion->promotion_price >= $request->price)
+        {
+            return back()->with(['error'=>"product price must be bigger then promotion price"]);
+        }
         $product->title = $request->title;
         $product->category_id = $request->category;
         $product->description = $request->description;
         $product->Qty = $request->Q;
-        $product->price = $request->price;
+        $product->price = $request->price;        
         if($request->hasFile('image')){
             $req_image = $request->file('image');
             $this->updateProductImage(0, $product, $req_image);
