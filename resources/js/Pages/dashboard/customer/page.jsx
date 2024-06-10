@@ -161,7 +161,7 @@ function UserModelComponent({user}) {
   return (
     <div>
       {!user?
-      <Button onClick={handleOpen} variant='contained' color='primary' sx={{borderRadius:'0.375rem'}}>Add Customer</Button>
+      <Button onClick={handleOpen} size='small' variant='contained' color='dashboard_primary' sx={{borderRadius:'0.375rem', textTransform:'none'}}>+ New Customer</Button>
       :
       <button onClick={()=>prepareUpdate(user)} className='bg-liliana-background rounded-md border text-black opacity-70 p-2'><FaPen className='text-sm'/></button>
       }

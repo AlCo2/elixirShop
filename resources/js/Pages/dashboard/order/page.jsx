@@ -14,13 +14,13 @@ const StatusComponent = ({status}) =>{
     case 1:
       {
         return (
-          <Chip sx={{borderRadius:1}} size='small' color='warning' label='Pending'/>
+          <Chip sx={{borderRadius:1, background:'#ffc107'}} size='small' color='warning' label='Pending'/>
         )
       }
     case 2:
       {
         return (
-          <Chip sx={{borderRadius:1}} size='small' color='success' label='Completed'/>
+          <Chip sx={{borderRadius:1, background:'#8bc34a'}} color='success' size='small' label='Completed'/>
         )
       }
       break;
