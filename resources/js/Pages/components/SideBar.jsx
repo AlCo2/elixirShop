@@ -20,6 +20,7 @@ import { RiShieldUserFill } from "react-icons/ri";
 import { useState } from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import { BiUser } from 'react-icons/bi';
+import { IconButton } from '@mui/material';
 
 export default function SideBar() {
   const [open, setOpen] = useState(false);
@@ -32,7 +33,9 @@ export default function SideBar() {
     <Box sx={{ width: 250 }} role="presentation">
       <List>
           <ListItem>
-            <IoClose className='cursor-pointer text-xl' onClick={toggleDrawer(false)}/>
+            <IconButton onClick={toggleDrawer(false)}>
+              <IoClose />
+            </IconButton>
           </ListItem>
           <ListItem>
             <a href='/' className='flex items-center ml-2'>
@@ -156,7 +159,9 @@ export default function SideBar() {
   );
   return (
     <div>
-      <FaBars onClick={toggleDrawer(true)} className='text-black mr-2 cursor-pointer hover:opacity-70 text-2xl duration-300'/>
+      <IconButton onClick={toggleDrawer(true)} color='liliana_dark'>
+        <FaBars/>
+      </IconButton>
       <Drawer open={open} onClose={toggleDrawer(false)} anchor='right'>
         {DrawerList}
       </Drawer>

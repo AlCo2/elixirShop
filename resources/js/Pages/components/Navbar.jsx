@@ -73,7 +73,7 @@ const Navbar = () => {
       <a href='/' className='flex items-center ml-2'>
         <p className="text-xl font-black font-Poppins ml-10 duration-300">Elixir</p>
       </a>
-      <div className='flex items-center gap-3'>
+      <div className='flex items-center'>
         <SideBarCart/>
         <FavouriteBar/>
         <SideBar/>
