@@ -4,10 +4,12 @@ import Order from "./components/Order";
 import { Box, Button, Container, Divider, Grid, Paper } from "@mui/material";
 import Layout, { CartContext } from "@/Layout";
 import axios from "axios";
+import { FaTrash } from "react-icons/fa";
+import ConfirmDeleteAll from "./components/ConfirmDeleteAll";
 
 
 const page = ({data}) => {
-  const { cartTotalProducts, setCartTotalProducts } = useContext(CartContext);
+  const { setCartTotalProducts } = useContext(CartContext);
   const [order_summary, setOrder_summary] = useState({
     discount:0.00,
     delivary:0.00,
@@ -39,7 +41,7 @@ const page = ({data}) => {
               <div className='mx-8 py-4 flex justify-between'>
                 <p className='font-poppins font-bold text-xl'>Shopping Cart</p>
                 {
-                  products.length>0 && <Button onClick={deleteAll} variant="text" sx={{my:2}} color="error">All</Button>
+                  products.length>0 && <ConfirmDeleteAll deleteAll={deleteAll} />
                 }
               </div>
               <Divider/>
