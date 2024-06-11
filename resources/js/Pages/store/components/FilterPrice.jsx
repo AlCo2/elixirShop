@@ -61,6 +61,7 @@ const FilterPrice = ({price, setPrice, setPriceFilterActive, priceFilterActive, 
                 className='h-8 text-sm w-20 rounded-l-xl'
                 value={value1[0]}
                 onChange={handleInputChange}
+                min={0}
               />
               <input
                 id="max"
@@ -69,6 +70,7 @@ const FilterPrice = ({price, setPrice, setPriceFilterActive, priceFilterActive, 
                 className='h-8 text-sm w-20 rounded-r-xl'
                 value={value1[1]}
                 onChange={handleInputChange}
+                min={0}
               />
             </ButtonGroup>
             <IconButton onClick={handleSubmite} color='success' size='small'>

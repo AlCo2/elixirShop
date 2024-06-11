@@ -81,7 +81,7 @@ class StoreController extends Controller
             $this->sortByType($type, $query);
         }
 
-        if($request->min && $request->max)
+        if(isset($request->min) && isset($request->max))
         {
             // sort products with promotion_price and with normal price if the product not having a promotion
             $query->whereBetween(
