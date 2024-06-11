@@ -123,7 +123,7 @@ export default function SignInSide({ status, canResetPassword }) {
                   )}
                   </Grid>
                   <Grid item>
-                    <Link href="#" variant="body2" className='font-Poppins'>
+                    <Link href="/register" variant="body2" className='font-Poppins'>
                       {"Don't have an account? Sign Up"}
                     </Link>
                   </Grid>

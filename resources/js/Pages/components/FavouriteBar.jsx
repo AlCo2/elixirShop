@@ -1,11 +1,11 @@
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import { IoClose } from "react-icons/io5";
-import { CircularProgress, Divider, IconButton } from '@mui/material';
+import { Button, CircularProgress, Divider, IconButton } from '@mui/material';
 import { useState } from 'react';
 import axios from 'axios';
 import { BsHeartFill } from 'react-icons/bs';
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { BiHeart } from 'react-icons/bi';
 
 const CartItem = ({products, setProducts, product}) =>{
@@ -44,56 +44,73 @@ const CartItem = ({products, setProducts, product}) =>{
 }
 
 export default function FavouriteBar({down}) {
-  const [open, setOpen] = useState(false);
-  const [products, setProducts] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
-    if (newOpen)
-    {
-        fetchProduct();
-    }
-  };
-
-  const fetchProduct = async () =>{
-    setLoading(true);
-    const response = await axios.post('/favourites/products').catch((error)=>{
-        if(error.response.status === 401)
+    const {auth} = usePage().props;
+    const [open, setOpen] = useState(false);
+    const [products, setProducts] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const toggleDrawer = (newOpen) => () => {
+        setOpen(newOpen);
+        if (newOpen)
         {
-            setProducts([]);
-            setLoading(false);
+            if (auth.user)
+                fetchProduct();
+            else
+            {
+                setProducts([]);
+                setLoading(false);
+            }
         }
-        else
-            console.log(error)
-    });
-    setProducts(response.data);
-    setLoading(false);
-  }
-  const DrawerList = (
-    <Box sx={{ width: 330 }} role="presentation">
-        <div className='flex justify-between items-center p-4'>
-            <p className='text-xl font-Poppins font-bold'>Favourites</p>
-            <IoClose className='cursor-pointer text-xl' onClick={toggleDrawer(false)}/>
-        </div>
-        <Divider/>
-        {!loading && products? 
-            products.length>0?
-            <div className='flex flex-col'>
-                {products.map((product)=>(
-                    <CartItem key={product.id} product={product} products={products} setProducts={setProducts}/>
-                ))}
+    };
+
+    const fetchProduct = async () =>{
+        setLoading(true);
+        const response = await axios.post('/favourites/products').catch((error)=>{
+            if(error.response.status === 401)
+            {
+                setProducts([]);
+                setLoading(false);
+                return;
+            }
+        });
+        if (response)
+            setProducts(response.data);
+        setLoading(false);
+    }
+    const DrawerList = (
+        <Box sx={{ width: 330 }} role="presentation">
+            <div className='flex justify-between items-center p-4'>
+                <p className='text-xl font-Poppins font-bold'>Favourites</p>
+                <IoClose className='cursor-pointer text-xl' onClick={toggleDrawer(false)}/>
             </div>
+            <Divider/>
+            {!loading && products? 
+                products.length>0?
+                <div className='flex flex-col'>
+                    {products.map((product)=>(
+                        <CartItem key={product.id} product={product} products={products} setProducts={setProducts}/>
+                    ))}
+                </div>
+                :
+
+                <div className='flex justify-center pt-20'>
+                    {auth.user?
+                    <p className='font-bold font-Poppins opacity-70'>Your Favourite list is empty</p>
+                    :
+                    <div>
+                        <div className='flex flex-col items-center text-center gap-4'>
+                            <p className='font-bold font-Poppins opacity-70'>Login to add items to your favourites</p>
+                            <Button variant='outlined' href='/login' color='liliana_dark' size='small'>Login</Button>
+                        </div>
+                    </div>
+                    }
+                </div>
             :
             <div className='flex justify-center pt-20'>
-                <p className='font-bold font-Poppins opacity-70'>Your Favourite list is empty</p>
+                <CircularProgress/>
             </div>
-        :
-        <div className='flex justify-center pt-20'>
-            <CircularProgress/>
-        </div>
-        }
-    </Box>
-  );
+            }
+        </Box>
+    );
   return (
     <div>
         <IconButton onClick={toggleDrawer(true)} aria-label="cart">
