@@ -25,7 +25,7 @@ const StatusComponent = ({status}) =>{
     case 3:
       {
         return (
-          <Chip sx={{borderRadius:1}} size='small' color='error' label='Declined'/>
+          <Chip sx={{borderRadius:1, backgroundColor:'#f44336'}} size='small' color='error' label='Declined'/>
         )
       }
       break;

@@ -28,7 +28,7 @@ const ActivateAllPromotion = () => {
           aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="alert-dialog-title">
-            <FiAlertTriangle/>
+            <FiAlertTriangle color='#f44336'/>
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
@@ -36,9 +36,9 @@ const ActivateAllPromotion = () => {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={()=>handleClose(false)}>cancle</Button>
-            <Button onClick={()=>handleClose(true)} autoFocus>
-              Confirm
+            <Button sx={{color:'#f44336'}} color='error' onClick={()=>handleClose(false)} size='small' variant='outlined'>cancle</Button>
+            <Button sx={{backgroundColor:'#8bc34a'}} color='success' variant='contained' size='small' onClick={()=>handleClose(true)} autoFocus>
+              Activate
             </Button>
           </DialogActions>
         </Dialog>

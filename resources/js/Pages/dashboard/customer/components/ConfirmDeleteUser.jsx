@@ -28,16 +28,16 @@ function ConfirmDeleteUser({row}) {
             aria-describedby="alert-dialog-description"
         >
             <DialogTitle id="alert-dialog-title">
-            <FiAlertTriangle/>
+            <FiAlertTriangle color='#f44336'/>
             </DialogTitle>
             <DialogContent>
             <DialogContentText id="alert-dialog-description">
-                Are You sure You want to delete {row.name}
+                Are You sure You want to delete {row.firstname +' '+row.lastname}
             </DialogContentText>
             </DialogContent>
             <DialogActions>
-            <Button onClick={()=>handleClose(false)}>cancle</Button>
-            <Button onClick={()=>handleClose(true)} autoFocus>
+            <Button color='error' variant='outlined' size='small' onClick={()=>handleClose(false)}>cancle</Button>
+            <Button sx={{backgroundColor:'#f44336'}} color='error' variant='contained' size='small' onClick={()=>handleClose(true)} autoFocus>
                 Confirm
             </Button>
             </DialogActions>
