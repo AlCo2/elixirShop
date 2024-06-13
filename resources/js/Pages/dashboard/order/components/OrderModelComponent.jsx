@@ -40,7 +40,7 @@ function OrderModelComponent({order}) {
     
     return (
       <div>
-        <button onClick={handleOpen} className='bg-blue-600 rounded-md border text-white p-2 flex items-center gap-2'><FaPen className='text-sm'/></button>
+        <button onClick={handleOpen} className='bg-blue-600 rounded-md border text-white p-2'><FaPen className='text-sm'/></button>
         <Modal
           open={open}
           aria-labelledby="modal-modal-title"

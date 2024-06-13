@@ -17,13 +17,13 @@ const page = ({products, total_products, total_sales, total_orders, products_ove
             <Box>
               <Grid gap={1} container sx={{justifyContent:'space-between'}}>
                 <ShowcaseData title={"Total Product"} subTitle={"Customre have visited and clicked product"} total={total_products} data={products_overview}/>
-                <ShowcaseData title={"Total Orders"} subTitle={"Product have been saled"} total={total_orders} data={orders_overview}/>
+                <ShowcaseData title={"Total Orders"} subTitle={"Amount of orders and results"} total={total_orders} data={orders_overview}/>
                 <ProductTable products={products}/>
               </Grid>
             </Box>
           </Grid>
           <ShowcaseDataBars total_sales={total_sales}/>
-        </Grid>        
+        </Grid>
       </Box>
     </Container>
   )

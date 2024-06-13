@@ -3,16 +3,19 @@ import { Box, Button, Chip, Container, Divider, Grid } from '@mui/material';
 import DashboardLayout from '../../DashboardLayout';
 import ConfirmDeleteOrder from '../components/ConfirmDeleteOrder';
 import OrderModelComponent from '../components/OrderModelComponent';
+import { Link } from '@inertiajs/react';
 
-const Product = ({title, total, image, Q}) =>{
+const Product = ({id, title, total, image, Q}) =>{
   return(
     <Box sx={{my:2, display:'flex', alignItems:'center', justifyContent:'space-between',gap:5}}>
+      <Link href={'/store/product/'+id}>
       <Box sx={{display:'flex', alignItems:'center', gap:5}}>
         <Box sx={{maxWidth:50, maxHeight:50, borderRadius:50}}>
           <img className='rounded-md' src={image} alt={title} />
         </Box>
         <p className='opacity-70 text-sm font-Poppins'>{title}</p>
       </Box>
+      </Link>
       <p className='font-Poppins text-sm font-bold opacity-70'>{Q}x{total}DH</p>
     </Box>
   )
@@ -24,20 +27,20 @@ const StatusComponent = ({status}) =>{
     case 1:
       {
         return (
-          <Chip size='medium' color='warning' label='Pending'/>
+          <Chip sx={{borderRadius:1, background:'#ffc107'}} size='medium' color='warning' label='Pending'/>
         )
       }
     case 2:
       {
         return (
-          <Chip size='medium' color='success' label='Completed'/>
+          <Chip sx={{borderRadius:1, background:'#8bc34a'}} color='success' size='medium' label='Completed'/>
         )
       }
       break;
     case 3:
       {
         return (
-          <Chip size='medium' color='error' label='Declined'/>
+          <Chip sx={{borderRadius:1}} size='medium' color='error' label='Declined'/>
         )
       }
       break;
@@ -89,7 +92,7 @@ const page = ({order, products}) => {
           </Grid>
         </Grid>
         {products.map((product)=>(
-          <Product key={product.product.id} title={product.product.title} total={product.total} image={product.product.images[0].url} Q={product.Q}/>
+          <Product key={product.product.id} id={product.product.id} title={product.product.title} total={product.total} image={product.product.images[0].url} Q={product.Q}/>
         ))}
         <Divider/>
         <Box sx={{display:'flex', justifyContent:'right', mt:1}}>

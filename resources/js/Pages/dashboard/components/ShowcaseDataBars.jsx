@@ -20,7 +20,7 @@ const ShowcaseDataBars = ({total_sales}) => {
             <Box sx={{p:2, display:'flex', alignItems:'center', justifyContent:'space-between'}} >
             <Box>
                 <p className="font-Roboto font-semibold text-xl">Sales</p>
-                <p className="text-xs opacity-70">amount of orders and results</p>
+                <p className="text-xs opacity-70">Product have been saled</p>
             </Box>
             <Box>
                 <Button href="/dashboard/order" variant="outlined" sx={{borderRadius:4, color:'black', borderColor:'black'}} size="small">See detail</Button>

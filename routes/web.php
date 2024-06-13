@@ -86,6 +86,8 @@ Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])->group(functio
     Route::post('/promotion', [PromotionController::class, 'createNewPromotion']);
     Route::patch('/promotion/{id}', [PromotionController::class, 'updatePromotion']);
     Route::delete('/promotion/{id}', [PromotionController::class, 'deletePromotion']);
+    Route::post('/promotion/activateall', [PromotionController::class, 'activateAllPromotion']);
+    Route::post('/promotion/desactivateall', [PromotionController::class, 'desactivateAllPromotion']);
 
     /* message API */
     route::post('/message/read', [SupportController::class, 'readMessage']);

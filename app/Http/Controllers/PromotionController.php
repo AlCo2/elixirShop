@@ -54,4 +54,14 @@ class PromotionController extends Controller
         $promotion = Promotion::find($id);
         $promotion->delete();
     }
+
+    public function activateAllPromotion()
+    {
+        Promotion::query()->update(['active'=>true]);
+    }
+
+    public function desactivateAllPromotion()
+    {
+        Promotion::query()->update(['active'=>false]);
+    }
 }

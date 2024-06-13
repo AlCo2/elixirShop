@@ -13,6 +13,10 @@ const SeenComponent = ({row}) => {
                 <button onClick={removeSeen} className='opacity-70 p-2'><FaEyeSlash className="text-sm"/></button>
             </div>
         )
+    else
+    return (
+        <div className="p-2"><FaEyeSlash className="text-sm opacity-0"/></div>
+    )
 }
 
 export default SeenComponent;

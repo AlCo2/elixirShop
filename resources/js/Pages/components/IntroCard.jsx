@@ -55,10 +55,12 @@ const IntroCard = ({product, favourites}) => {
         </Alert>
       </Snackbar>
       <Box sx={{width:290, cursor:'pointer', position:'relative','&:hover':{'& .ProductImage':{scale:'125%', opacity:1, zIndex:1, transitionDuration:'1000ms'}, '& .FavouritIcon':{top:-10}, '& .AddToCart':{bottom:-18}}}}>
-        {product.promotion &&
+        {product.promotion && product.promotion.active?
         <Box sx={{position:'absolute', right:0, top:10, zIndex:1}}>
             <p className='text-white text-xs font-Poppins font-bold bg-black text-right p-2 rounded-l-lg'>{'-'+parseInt(((product.price - product.promotion.promotion_price) / (product.price)) * 100)+'%'}</p>
         </Box>
+        :
+        null
         }
         <Link href={'/store/product/'+product.id}>
           <Box overflow={'hidden'} position={'relative'} display={'flex'} justifyContent={'center'}>
@@ -98,7 +100,7 @@ const IntroCard = ({product, favourites}) => {
         <Box display={'flex'} height={45} overflow={'hidden'} justifyContent={'center'}>
           <p className='text-center font-Poppins font-semibold px-2 pt-1 text-sm'>{product.title}</p>
         </Box>
-        {product.promotion?
+        {product.promotion && product.promotion.active?
           <Box display={'flex'} mr={2} justifyContent={'space-between'} alignItems={'center'}>
           <div className='rounded-tr-md'>
               <p className='font-Poppins p-2 font-bold'>{product.promotion.promotion_price}.00DH</p>

@@ -9,7 +9,7 @@ import SuggestionCard from '../components/SuggestionCard';
 import QuentityBar from '../components/QuentityBar';
 
 const product = ({product, products, categories, favourites}) => {
-    const { auth } = usePage().props;
+    const { auth, flash } = usePage().props;
     const { cartTotalProducts, setCartTotalProducts } = useContext(CartContext);
     const [Q, setQ] = useState(1);
     const [selectedImage, setSelectedImage] = useState(0)
@@ -32,6 +32,9 @@ const product = ({product, products, categories, favourites}) => {
   return (
     <>
         <div>
+        {flash.error && 
+            <Alert variant='standard' severity="error" sx={{mt:2}}>{flash.error}</Alert>
+        }
         <Snackbar
             open={open}
             autoHideDuration={5000}

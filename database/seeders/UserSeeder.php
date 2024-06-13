@@ -22,5 +22,6 @@ class UserSeeder extends Seeder
             'role_id'=>1,
             'password'=>'adminadmin'
         ]);
+        User::factory(15)->create();
     }
 }

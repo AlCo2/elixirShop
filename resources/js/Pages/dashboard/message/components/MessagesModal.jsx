@@ -54,7 +54,7 @@ function MessagesModal({message}) {
                     <p className="font-bold font-Roboto">{message.date}</p>
                 </div>
                 <div className="flex justify-end">
-                    <Button disabled={message.status_id==3} variant="contained" size="small"><MdEmail/>Reply</Button>
+                  <Button disabled={message.status_id==3} variant="contained" size="small"><MdEmail/>Reply</Button>
                 </div>
             </div>
           </Box>

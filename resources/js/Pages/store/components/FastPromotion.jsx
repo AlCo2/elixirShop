@@ -28,6 +28,7 @@ function PromotionModelComponent({product}) {
     })
     const handleOpen = () => {
       setError(false);
+      setOriginalPrice(product.price);
       setValues(prevValues => ({
         ...prevValues, ['promotion_price']: product.promotion?product.promotion.promotion_price:""
       }))
@@ -77,7 +78,7 @@ function PromotionModelComponent({product}) {
   
     return (
       <div>
-        <button onClick={()=>{handleOpen();}} className='bg-green-500 rounded-md border text-white opacity-70 p-2 text-xs flex justify-center items-center font-semibold font-Poppins gap-1'><MdLocalOffer/> promote</button>
+        <Button onClick={handleOpen} variant="contained" size="small" color="dashboard_primary" sx={{textTransform:'none'}}><MdLocalOffer/>promote</Button>
         <Modal 
           open={open}
           aria-labelledby="modal-modal-title"
@@ -123,7 +124,7 @@ function PromotionModelComponent({product}) {
                 {!product.promotion?
                   <Button onClick={handleSubmit} variant='contained' size='small' color='success' sx={{borderRadius:'0.375rem'}}>Add</Button>
                 :
-                  <Button onClick={handleUpdate} variant='contained' size='small' color='primary' sx={{borderRadius:'0.375rem'}}>Update</Button>
+                  <Button onClick={handleUpdate} variant='contained' size='small' color='dashboard_primary' sx={{borderRadius:'0.375rem'}}>Update</Button>
                 }
                 <Button onClick={handleClose} variant='contained' size='small' color='error' sx={{borderRadius:'0.375rem'}}>Cancle</Button>
               </Grid>

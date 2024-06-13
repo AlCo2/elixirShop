@@ -1,7 +1,6 @@
 
-import { Alert, Avatar, Box, Container, Grid, IconButton } from '@mui/material'
+import { Alert, Grid } from '@mui/material'
 import Sidebar from './components/Sidebar';
-import { BiBell, BiSearch } from 'react-icons/bi';
 import { usePage } from '@inertiajs/react';
 
 export default function DashboardLayout({children}){

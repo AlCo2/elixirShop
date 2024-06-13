@@ -73,7 +73,7 @@ const FilterPrice = ({price, setPrice, setPriceFilterActive, priceFilterActive, 
                 min={0}
               />
             </ButtonGroup>
-            <IconButton onClick={handleSubmite} color='success' size='small'>
+            <IconButton onClick={handleSubmite} color='dashboard_primary' size=''>
               <FaCheckCircle/>
             </IconButton>
             {priceFilterActive &&

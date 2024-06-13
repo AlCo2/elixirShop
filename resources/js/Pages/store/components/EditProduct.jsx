@@ -123,7 +123,7 @@ function ProductModelComponent({product, categories}) {
     }
     return (
       <div>
-        <button onClick={()=>{prepereUpdate(product);handleOpen();}} className='bg-liliana-background rounded-md border text-black opacity-70 p-2 text-xs flex justify-center items-center font-semibold font-Poppins gap-2'><FaPen/>Edit</button>
+        <Button onClick={()=>{prepereUpdate(product);handleOpen();}} sx={{textTransform:'none', backgroundColor:'#f1f1f1', color:'black'}} color="liliana_white" size="small" variant="contained"><FaPen/>Edit</Button>
         <Modal 
           open={open}
           aria-labelledby="modal-modal-title"
@@ -240,7 +240,7 @@ function ProductModelComponent({product, categories}) {
                   </div>
               </Grid>
               <Grid item sx={{display:'flex', justifyContent:'space-between',flexDirection:'row-reverse'}} xs={12} mt={2}>
-                <Button size='small' onClick={handleUpdate} variant='contained' color='primary' sx={{borderRadius:'0.375rem'}}>Update</Button>
+                <Button size='small' onClick={handleUpdate} variant='contained' color='dashboard_primary' sx={{borderRadius:'0.375rem'}}>Update</Button>
                 <Button size='small' onClick={handleClose} variant='contained' color='error' sx={{borderRadius:'0.375rem'}}>Cancle</Button>
               </Grid>
             </Grid>

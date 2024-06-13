@@ -3,8 +3,9 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import React, { useState } from 'react'
 import { FaTrash } from 'react-icons/fa';
 import { FiAlertTriangle } from 'react-icons/fi';
+import { IoCheckmarkOutline } from 'react-icons/io5';
 
-const ConfirmDeletePromotion = ({row}) => {
+const ActivateAllPromotion = () => {
     const [open, setOpen] = useState(false);
   
     const handleClickOpen = () => {
@@ -13,13 +14,13 @@ const ConfirmDeletePromotion = ({row}) => {
   
     const handleClose = (choice) => {
       if(choice){
-        router.delete('/promotion/'+row.id);
+        router.post('/promotion/activateall');
       }
       setOpen(false);
     };
     return (
       <div>
-        <button onClick={handleClickOpen} className='bg-red-600 rounded-md border text-white opacity-70 p-2'><FaTrash className='text-sm'/></button>
+        <Button size='small' onClick={handleClickOpen} sx={{backgroundColor:'#8bc34a', textTransform:'none'}} color='success' variant='contained'><IoCheckmarkOutline/> Activate All</Button>
         <Dialog
           open={open}
           onClose={handleClose}
@@ -31,7 +32,7 @@ const ConfirmDeletePromotion = ({row}) => {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              Are You sure You want to delete {row.name}
+              Are You sure You want to activate all promotion
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -46,6 +47,4 @@ const ConfirmDeletePromotion = ({row}) => {
   }
 
 
-  
-
-export default ConfirmDeletePromotion;
+export default ActivateAllPromotion;
