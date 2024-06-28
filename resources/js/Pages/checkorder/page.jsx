@@ -24,7 +24,7 @@ return (
         <div className='min-h-80 bg-liliana-background'>
             <Container>
                 <Box pt={1} mb={1}>
-                    <p className='text-xl font-Poppins font-medium'>Fill in details to check order</p>
+                    <p className='text-xl font-Opensans font-medium'>Fill in details to check order</p>
                     <p className='text-sm opacity-70 font-medium'>Easly Locate the details of your orders</p>
                 </Box>
                 <Divider/>

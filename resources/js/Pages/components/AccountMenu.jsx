@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { CiLogin } from "react-icons/ci";
 import { CiCircleCheck } from "react-icons/ci";
-import { RiShieldUserFill } from "react-icons/ri";
+import { RiQuestionMark, RiShieldUserFill } from "react-icons/ri";
 import { Link, usePage } from '@inertiajs/react';
 import { BiUser } from 'react-icons/bi';
 import { List } from '@mui/material';
@@ -103,6 +103,14 @@ export default function AccountMenu({down}) {
                   check Order
             </MenuItem>
           </Link>
+          <Link href='/support'>
+            <MenuItem onClick={handleClose}>
+                <ListItemIcon>
+                  <RiQuestionMark />
+                </ListItemIcon>
+                  Support
+            </MenuItem>
+          </Link>
         </List>
         :
         <List>
@@ -115,6 +123,14 @@ export default function AccountMenu({down}) {
             </MenuItem>
           </Link>
           <Divider />
+          <Link href='/checkorder'>
+            <MenuItem onClick={handleClose}>
+                <ListItemIcon>
+                  <CiCircleCheck/>
+                </ListItemIcon>
+                  check Order
+            </MenuItem>
+          </Link>
           <Link href='/checkorder'>
             <MenuItem onClick={handleClose}>
                 <ListItemIcon>

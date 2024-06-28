@@ -32,10 +32,10 @@ const FilterPrice = ({price, setPrice, setPriceFilterActive, priceFilterActive, 
       switch(e.target.id)
       {
         case 'min':
-          setValue1([e.target.value!=''?parseInt(e.target.value):0, value1[1]])
+          setValue1([e.target.value, value1[1]])
           break;
         case 'max':
-          setValue1([value1[0], e.target.value!=''?parseInt(e.target.value):0])
+          setValue1([value1[0], e.target.value])
           break;
       }
     }

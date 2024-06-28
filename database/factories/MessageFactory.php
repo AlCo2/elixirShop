@@ -20,6 +20,7 @@ class MessageFactory extends Factory
         return [
             'email' => fake()->unique()->safeEmail(),
             'Message' => fake()->text(),
+            'status_id' => fake()->numberBetween(1, 3),
         ];
     }
 }

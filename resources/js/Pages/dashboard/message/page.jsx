@@ -11,7 +11,7 @@ const StatusComponent = ({status}) =>{
     case 1:
       {
         return (
-          <Chip sx={{borderRadius:1}} size='small' color='warning' label='Pending'/>
+          <Chip sx={{borderRadius:1, backgroundColor:'#f44336'}} size='small' color='warning' label='Pending'/>
         )
         break;
       }
@@ -25,7 +25,7 @@ const StatusComponent = ({status}) =>{
     case 3:
       {
       return (
-        <Chip sx={{borderRadius:1}} size='small' color='success' label='Replied'/>
+        <Chip sx={{borderRadius:1, backgroundColor:'#8bc34a'}} size='small' color='success' label='Replied'/>
       )
       break;
     }

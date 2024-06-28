@@ -9,8 +9,7 @@ import FavouriteBar from './FavouriteBar';
 
 const Navbar = () => {
   const [sticky, setSticky] = useState(false);
-  const { cart, auth } = usePage().props;
-  const { cartTotalProducts, setCartTotalProducts } = useContext(CartContext);
+  const { auth } = usePage().props;
   const pathname = window.location.pathname
 
   const handleScroll = () => {

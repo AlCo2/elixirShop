@@ -20,10 +20,10 @@ const page = () => {
   }
   return (
     <div className='min-h-80 flex flex-col items-center gap-4'>
-      <div className='w-1/2'>
+      <div className='sm:w-1/2'>
         <TextField id='email' onChange={handleChange} value={values.email} fullWidth variant='standard' label={'Email'}/>
       </div>
-      <div className='w-1/2'>
+      <div className='sm:w-1/2'>
         <TextField id='message' onChange={handleChange} fullWidth variant='filled' label={"Message"} multiline={true} rows={4}/>
       </div>
       <div className='w-1/2 flex justify-end'>

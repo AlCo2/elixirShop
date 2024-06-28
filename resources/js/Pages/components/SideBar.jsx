@@ -13,7 +13,7 @@ import { IoClose } from "react-icons/io5";
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
-import { RiArrowDropDownLine } from 'react-icons/ri';
+import { RiArrowDropDownLine, RiQuestionMark } from 'react-icons/ri';
 import { CiLogin, CiSettings } from "react-icons/ci";
 import { CiCircleCheck } from "react-icons/ci";
 import { RiShieldUserFill } from "react-icons/ri";
@@ -139,6 +139,14 @@ export default function SideBar() {
                         <CiCircleCheck/>
                       </ListItemIcon>
                       <ListItemText primary="Check Order" />
+                    </ListItemButton>
+                  </ListItem>
+                  <ListItem disablePadding>
+                    <ListItemButton href='support'>
+                      <ListItemIcon>
+                        <RiQuestionMark/>
+                      </ListItemIcon>
+                      <ListItemText primary="Support" />
                     </ListItemButton>
                   </ListItem>
                   {auth.user &&
