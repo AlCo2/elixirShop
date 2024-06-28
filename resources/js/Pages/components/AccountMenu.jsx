@@ -131,12 +131,12 @@ export default function AccountMenu({down}) {
                   check Order
             </MenuItem>
           </Link>
-          <Link href='/checkorder'>
+          <Link href='/support'>
             <MenuItem onClick={handleClose}>
                 <ListItemIcon>
-                  <CiCircleCheck/>
+                  <RiQuestionMark />
                 </ListItemIcon>
-                  check Order
+                  Support
             </MenuItem>
           </Link>
           <Link href='/orders'>

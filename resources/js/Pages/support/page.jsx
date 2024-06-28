@@ -1,11 +1,12 @@
 import Layout from '@/Layout';
-import { router } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import { Button, TextField } from '@mui/material';
 import React, { useState } from 'react'
 
 const page = () => {
+  const { auth } = usePage().props;
   const [values, setValues] = useState({
-    email:'',
+    email: auth&&auth.user?auth.user.email:'',
     message:''
     }
   );

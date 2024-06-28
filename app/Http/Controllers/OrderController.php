@@ -26,7 +26,7 @@ class OrderController extends Controller
         $this->saveOrderDetail($order_id, $request);
         $this->saveOrderItem($order_id, $request->order['detail']);
         $this->deleteCart();
-        return redirect('/')->with('success', 'your order has created succesfuly');
+        return response('success', 200);
     }
     
     public function updateOrderStatus($id, Request $request){

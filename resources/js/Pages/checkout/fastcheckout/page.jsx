@@ -4,6 +4,7 @@ import { router, usePage } from '@inertiajs/react';
 import Layout from '@/Layout';
 import InputError from '@/Components/InputError';
 import { useEffect } from 'react';
+import axios from 'axios';
 
 const page = ({ order }) => {
     const [countries, setCountries] = useState([]);
@@ -44,10 +45,13 @@ const page = ({ order }) => {
     }));
     }
 
-    function handleSubmite(e)
+    async function handleSubmite(e)
     {
-        const response = router.post('/order/create', values);
-        
+        const response = await axios.post('/order/create', values);
+        if (response.status===200)
+        {
+            window.location.href = "/";   
+        }
     }
 
     const fetchdata = async () =>{
