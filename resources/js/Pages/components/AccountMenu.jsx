@@ -114,7 +114,7 @@ export default function AccountMenu({down}) {
         </List>
         :
         <List>
-          <Link>
+          <Link href='/profile'>
             <MenuItem onClick={handleClose}>
                 <ListItemIcon>
                     <BiUser/>
