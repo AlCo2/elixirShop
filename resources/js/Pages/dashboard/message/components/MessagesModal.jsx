@@ -1,6 +1,6 @@
 import { router } from "@inertiajs/react";
-import { Box, Button, IconButton, Modal} from "@mui/material";
-import { useState } from "react";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Modal} from "@mui/material";
+import { Fragment, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
@@ -19,6 +19,50 @@ const style = {  position: 'absolute',
 
 function MessagesModal({message}) {
     const [open, setOpen] = useState(false);
+
+    function AlertDialog() {
+      const [open, setOpen] = useState(false);
+    
+      const handleClickOpen = () => {
+        setOpen(true);
+      };
+    
+      const handleClose = () => {
+        setOpen(false);
+      };
+    
+      return (
+        <Fragment>
+          <Button disabled={message.status_id==3} onClick={handleClickOpen} variant="contained" size="small"><MdEmail/>Reply</Button>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Reply To"}
+            </DialogTitle>
+            <DialogContent>
+              <div className="bg-liliana-background rounded-md">
+                  <p className="p-2 font-Opensans">{message.message}</p>
+              </div>
+              <div>
+                <p className="font-Opensans mb-2">Message</p>
+                <textarea className="w-72"/>
+              </div>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="error" size="small">Cancle</Button>
+              <Button onClick={handleClose} autoFocus variant="contained" size="small">
+                Reply
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </Fragment>
+      );
+    }    
+
     const handleOpen = () => {
       if (message.status_id==1)
       {
@@ -54,7 +98,7 @@ function MessagesModal({message}) {
                     <p className="font-bold font-Roboto">{message.date}</p>
                 </div>
                 <div className="flex justify-end">
-                  <Button disabled={message.status_id==3} variant="contained" size="small"><MdEmail/>Reply</Button>
+                  <AlertDialog/>
                 </div>
             </div>
           </Box>
