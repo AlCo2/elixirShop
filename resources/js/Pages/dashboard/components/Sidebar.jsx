@@ -3,6 +3,7 @@ import { Grid, List, ListItemButton, Collapse, Box, IconButton, Button } from '@
 import { BiMessage, BiSolidDashboard, BiStore, BiUser } from 'react-icons/bi';
 import { FaAngleDown, FaAngleUp, FaBars, FaBuffer, FaCalculator, FaCalendarCheck, FaDolly, FaMoneyCheck } from 'react-icons/fa';
 import { Link } from '@inertiajs/react';
+import { FaXmark } from 'react-icons/fa6';
 
 
 const Sidebar = () => {
@@ -36,7 +37,7 @@ const Sidebar = () => {
         <Grid item xs md={2} className={'bg-gray-900 max-xl:fixed max-xl:top-0 max-xl:left-0 max-xl:h-full max-xl:z-10 max-xl:w-56 max-xl:duration-300 '+ (sideOpen?'max-xl:translate-x-0':'max-xl:-translate-x-full')}>
             <div className='text-center mt-4'>
                 <p className='text-xl font-Poppins text-white font-semibold'>Dashboard</p>
-                <button className='text-white absolute right-2 top-0 xl:hidden' onClick={()=>{setSideOpen(false)}}>X</button>
+                <button className='text-white text-xl absolute right-2 top-0 xl:hidden' onClick={()=>{setSideOpen(false)}}><FaXmark/></button>
             </div>
             <div className='p-4'>
             <List className='flex flex-col gap-1'>

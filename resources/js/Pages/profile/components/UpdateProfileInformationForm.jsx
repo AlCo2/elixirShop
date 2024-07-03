@@ -37,7 +37,7 @@ export default function UpdateProfileInformationForm({ mustVerifyEmail, status, 
                     <InputLabel htmlFor="firstname" value="FirstName" />
 
                     <TextInput
-                        id="name"
+                        id="firstname"
                         className="mt-1 block w-full"
                         value={data.firstname}
                         onChange={(e) => setData('firstname', e.target.value)}
