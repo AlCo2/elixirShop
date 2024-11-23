@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\models\Product;
+use Illuminate\Support\Facades\File;
+
 class CheckoutController extends Controller
 {
     public function getCurrentCartData(Request $request)
@@ -22,7 +24,10 @@ class CheckoutController extends Controller
             return back();
         }
         $order = $this->prepareOrder();
-        return Inertia::render('checkout/fastcheckout/page', compact('order'));
+        $contents = File::get(base_path('../../python/api/countries.json'));
+        $json = json_decode(json: $contents, associative: true);
+        $countries = $json['data'];
+        return Inertia::render('checkout/fastcheckout/page', compact('order', 'countries'));
     }
     
     private function isCartExist(): bool

@@ -1,5 +1,5 @@
 import { router } from '@inertiajs/react';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton } from '@mui/material';
 import { useState } from 'react'
 import { FaTrash } from 'react-icons/fa';
 import { FiAlertTriangle } from 'react-icons/fi';
@@ -19,7 +19,7 @@ const ConfirmDeleteAll = ({deleteAll}) => {
     };
     return (
         <div>
-        <Button onClick={handleClickOpen} variant="contained" sx={{my:2}} color="error" size="small"><FaTrash/>All</Button>
+        <IconButton sx={{my:2}} onClick={handleClickOpen} size='small' color='error'><FaTrash/></IconButton>
         <Dialog
             open={open}
             onClose={handleClose}

@@ -1,13 +1,12 @@
 import { Box, Button, Container, Divider, FormControl, Grid, MenuItem, Select } from '@mui/material';
 import React, { useState } from 'react'
-import { router, usePage } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import Layout from '@/Layout';
 import InputError from '@/Components/InputError';
-import { useEffect } from 'react';
 import axios from 'axios';
 
-const page = ({ order }) => {
-    const [countries, setCountries] = useState([]);
+const page = ({ order, countries }) => {
+    console.log(countries);
     const [cities, setCities] = useState([]);
     const { auth, errors } = usePage().props;
 
@@ -53,14 +52,6 @@ const page = ({ order }) => {
             window.location.href = "/";   
         }
     }
-
-    const fetchdata = async () =>{
-        const response = await fetch('https://countriesnow.space/api/v0.1/countries').then((res)=>res.json());
-        setCountries(response.data);
-    }
-    useEffect(()=>{
-        fetchdata();
-    }, [])
   return (
     <> 
         <div className='min-h-screen bg-liliana-background py-5'>

@@ -17,8 +17,11 @@ use Illuminate\Support\Facades\DB;
 class DashboardController extends Controller
 {
     public function overview(){
+        // get 5 products from the db
         $products = Product::limit(5)->with('category')->get();
+        // get total number of products
         $total_products = Product::count();
+        // prepere arrays where to save orders and products tracks
         $products_overview = [];
         $orders_overview = [];
         $products_overview_objects = DB::table('products_overview')->orderBy('date_created', 'asc')->get('total_products');
@@ -31,11 +34,13 @@ class DashboardController extends Controller
         {
             $products_overview[] = $data->total_products;
         }
+        // total price of all completed orders
         $total_sales = 0;
         $order_item = Order_item::with('order')->get();
         $total_orders = Order::count();
         foreach ($order_item as $order)
         {
+            // if order is completed, add its price to the total
             if ($order->order->status_id === 2)
                 $total_sales += $order->total;
         }

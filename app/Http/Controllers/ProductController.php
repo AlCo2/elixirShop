@@ -11,16 +11,18 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
-
+    // get all products in a random order
     public function all(){
         $products = Product::with('images', 'category', 'promotion')->inRandomOrder()->get();
         return $products;
     }
     
+    // get the products from the cart
     public function cart_products(Request $request)
     {
         $products = [];
         $total = 0;
+        // get each product from the cart, and calculate the total
         foreach ($request->data as $key => $value)
         {
             $product = Product::with('images', 'category', 'promotion')->find($key);
@@ -36,7 +38,7 @@ class ProductController extends Controller
         ];
         return $data;
     }
-    
+    // get each product using id
     public function get($id){
         $product = Product::find($id);
         if ($product)
