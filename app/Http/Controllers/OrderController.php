@@ -119,15 +119,30 @@ class OrderController extends Controller
         $order_detail->save();        
     }
     
+    private function getPrice($product)
+    {
+        $price = 0;
+        if($product['product']['promotion']['active'])
+        {
+            $price = $product['product']['promotion']['promotion_price'];
+        }
+        else
+        {
+            $price = $product['product']['price'];
+        }
+        return $price;
+    }
+
     private function saveOrderItem($order_id, $products)
     {
         foreach ($products as $product)
         {
+            $price = $this->getPrice($product);
             $order_product = new Order_item();
             $order_product->order_id = $order_id;
             $order_product->product_id = $product['product']['id'];
             $order_product->Qty = $product['Q'];
-            $order_product->total = $product['product']['promotion']['promotion_price'] * $product['Q'];
+            $order_product->total = $price * $product['Q'];
             $order_product->save();
         }
     }
