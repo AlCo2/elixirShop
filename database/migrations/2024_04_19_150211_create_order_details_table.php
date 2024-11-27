@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('order_id');
             $table->string('firstname');
             $table->string('lastname');
+            $table->string("email");
             $table->string('country');
             $table->string('city');
             $table->string('address');

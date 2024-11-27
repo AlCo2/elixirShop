@@ -9,6 +9,7 @@ const page = () => {
         order_id:"",
         email:"",
     })
+    
     function handleChange(e) {
         const { id, value, type } = e.target;
         setValues(prevValues => ({
@@ -16,9 +17,11 @@ const page = () => {
           [id]: type === 'file' ? e.target.files[0] : value, // If it's a file input, get the file, otherwise get the value
         }));
     }
+
     function handleSubmit(e){
         router.get('/showorder', values);
     }
+
 return (
     <>
         <div className='min-h-80 bg-liliana-background'>
@@ -32,11 +35,11 @@ return (
                     <div className='w-fit p-10 rounded-md border bg-white'>
                         <Box sx={{display:'flex', alignItems:'center', justifyContent:'center', flexDirection:'column'}}>
                             <Box sx={{display:'flex', gap:2, alignItems:'center'}}>
-                                <p className='w-32 font-Roboto font-medium opacity-70 flex items-center gap-1'><FaKey/> Order Id</p>
+                                <p className='w-32 font-Roboto font-medium opacity-70 flex items-center gap-1'><FaKey/>Order Id</p>
                                 <input value={values.id} onChange={handleChange} type="text" className='border rounded-md h-8 focus:outline-blue-400 p-1 text-sm w-full' name="order_id" id="order_id" />
                             </Box>
                             <Box sx={{display:'flex', gap:2, alignItems:'center'}} mt={2}>
-                            <p className='w-32 font-Roboto font-medium opacity-70 flex items-center gap-1'><MdEmail/> Email</p>
+                                <p className='w-32 font-Roboto font-medium opacity-70 flex items-center gap-1'><MdEmail/>Email</p>
                                 <input value={values.email} onChange={handleChange} type="text" className='border rounded-md h-8 focus:outline-blue-400 p-1 text-sm w-full' name="email" id="email" />
                             </Box>
                         </Box>

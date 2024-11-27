@@ -16,6 +16,7 @@ class OrderController extends Controller
         $request->validate([
             'firstname' => 'required',
             'lastname' => 'required',
+            'email' => 'required',
             'country' => 'required',
             'city' => 'required',
             'address' => 'required',
@@ -62,12 +63,15 @@ class OrderController extends Controller
 
     public function showOrder(Request $request){
         $id = $request->order_id;
+        $email = $request->email;
         $order = Order::with('order_detail', 'Order_item')->find($id);
         $products = [];
-        if (!$order)
+        if ($order && $email==$order->order_detail->email)
+        {
+            $products = $this->prepereProducts($order->order_item);
             return Inertia::render('checkorder/showorder/page', compact('order', 'products'));
-        $products = $this->prepereProducts($order->order_item);
-        return Inertia::render('checkorder/showorder/page', compact('order', 'products'));
+        }
+        return Inertia::render('checkorder/showorder/page');
     }
 
     public function getDashboardOrderPage($id)
@@ -111,6 +115,7 @@ class OrderController extends Controller
         $order_detail->order_id = $order_id;
         $order_detail->firstname = $request->firstname;
         $order_detail->lastname = $request->lastname;
+        $order_detail->email = $request->email;
         $order_detail->country = $request->country;
         $order_detail->city = $request->city;
         $order_detail->address = $request->address;
@@ -146,6 +151,7 @@ class OrderController extends Controller
             $order_product->save();
         }
     }
+    
     private function deleteCart()
     {
         session()->forget(['cart', 'total']);

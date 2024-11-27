@@ -6,7 +6,6 @@ import InputError from '@/Components/InputError';
 import axios from 'axios';
 
 const page = ({ order, countries }) => {
-    console.log(countries);
     const [cities, setCities] = useState([]);
     const { auth, errors } = usePage().props;
 
@@ -14,6 +13,7 @@ const page = ({ order, countries }) => {
         user_id: auth.user?auth.user.id:null,
         firstname:auth.user?auth.user.firstname:"",
         lastname:auth.user?auth.user.lastname:"",
+        email:auth.user?auth.user.email:"",
         country: "",
         city:"",
         address: auth.user?auth.user.address:"",
@@ -21,6 +21,7 @@ const page = ({ order, countries }) => {
         phone:auth.user?auth.user.phone:"",
         order: order,
     })
+
     function handleCountryChange(e) {
         const { name, value } = e.target;
         setValues(prevValues => ({
@@ -29,6 +30,7 @@ const page = ({ order, countries }) => {
         }));
         setCities(value.cities);
     }
+
     function handleCityChange(e) {
         const { name, value } = e.target;
         setValues(prevValues => ({
@@ -36,12 +38,13 @@ const page = ({ order, countries }) => {
             [name]: value,
         }));
     }
+
     function handleChange(e) {
-    const { id, value, type } = e.target;
-    setValues(prevValues => ({
-        ...prevValues,
-        [id]: type === 'file' ? e.target.files[0] : value, // If it's a file input, get the file, otherwise get the value
-    }));
+        const { id, value, type } = e.target;
+        setValues(prevValues => ({
+            ...prevValues,
+            [id]: type === 'file' ? e.target.files[0] : value, // If it's a file input, get the file, otherwise get the value
+        }));
     }
 
     async function handleSubmite(e)
@@ -104,6 +107,13 @@ const page = ({ order, countries }) => {
                                     </div>
                                     <input onChange={handleChange} value={values.lastname} type="text" className='border-2 rounded-md h-8 focus:outline-blue-400 p-1 text-sm w-full' name="lastname" id="lastname" />
                                     <InputError message={errors.lastname} className="" />
+                                </Grid>
+                                <Grid xs={12} item>
+                                    <div>
+                                        <label className='text-sm font-semibold font-Opensans'>Email</label>
+                                    </div>
+                                    <input onChange={handleChange} value={values.email} type="email" className='border-2 rounded-md h-8 focus:outline-blue-400 p-1 text-sm w-full' name="email" id="email" />
+                                    <InputError message={errors.email} className="" />
                                 </Grid>
                                 <Grid xs={12} md={5.9} item>
                                     <div>

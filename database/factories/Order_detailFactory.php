@@ -22,6 +22,7 @@ class Order_detailFactory extends Factory
             'order_id' => Order::factory(),
             'firstname' => fake()->firstName(),
             'lastname' => fake()->lastName(),
+            'email' => fake()->email(),
             'country' => fake()->state(),
             'city' => fake()->city(),
             'address' => fake()->streetAddress(),

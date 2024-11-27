@@ -84,7 +84,7 @@ const page = ({order, products}) => {
       :
       <Box sx={{display:'flex', flexDirection:'column',gap:4,justifyContent:'center', alignItems:'center',my:5, height:250}}>
         <p className='opacity-70 text-sm font-Poppins max-w-md'>
-          there is no valid order with this id
+          there is no valid order with this email and ID
         </p>
         <Button variant='contained' size='small' href='/checkorder' color='liliana_dark'>Back</Button>
       </Box>
