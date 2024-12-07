@@ -1,5 +1,5 @@
 import Layout from "@/Layout";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { Box, Chip, Container, Grid, Tab, Tabs } from "@mui/material";
 import { FaUser } from "react-icons/fa";
 import { FaHouseChimney, FaLocationPin } from "react-icons/fa6";
@@ -23,10 +23,10 @@ const OrderStatus = ({status}) =>{
     )
   }
 }
-const Order = ({order}) =>{
-
+const Order = ({order, email}) =>{
+  const link = `/showorder?order_id=${order.id}` + (email?`&email=${email}`:'');
   return (
-    <Link href={"/showorder?order_id="+order.id}>
+    <Link href={link}>
       <div className="bg-white hover:bg-blue-200 hover:bg-opacity-20 border-2 rounded-xl p-4 mb-2">
         <div className="flex justify-between flex-wrap">
           <p className="opacity-50 font-semibold font-Poppins">#{order.id}</p>
@@ -83,6 +83,7 @@ function a11yProps(index) {
 
 
 const listorder = ({orders}) => {
+  const { auth } = usePage().props;
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -101,7 +102,6 @@ const listorder = ({orders}) => {
     if (order.status_id===3)
       return order;
   })
-  console.log(declenedOrders)
 
   return (
       <div className="min-h-80 py-4">
@@ -121,7 +121,7 @@ const listorder = ({orders}) => {
               <CustomTabPanel value={value} index={0}>
                 {pendingOrders && pendingOrders.length > 0?
                   pendingOrders.map((order)=>(
-                    <Order key={order.id} order={order}/>
+                    <Order key={order.id} email={auth.user.email} order={order}/>
                   ))
                 :
                   <div>Your order history is empty</div>
@@ -130,7 +130,7 @@ const listorder = ({orders}) => {
               <CustomTabPanel value={value} index={1}>
                 {completedOrders && completedOrders.length > 0?
                   completedOrders.map((order)=>(
-                    <Order key={order.id} order={order}/>
+                    <Order key={order.id} email={auth.user.email} order={order}/>
                   ))
                 :
                   <div>Your order history is empty</div>
@@ -139,7 +139,7 @@ const listorder = ({orders}) => {
               <CustomTabPanel value={value} index={2}>
                 {declenedOrders && declenedOrders.length > 0?
                   declenedOrders.map((order)=>(
-                    <Order key={order.id} order={order}/>
+                    <Order key={order.id} email={auth.user.email} order={order}/>
                   ))
                 :
                   <div>Your order history is empty</div>
