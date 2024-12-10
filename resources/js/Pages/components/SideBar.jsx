@@ -9,7 +9,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { FaBars, FaUserCheck } from "react-icons/fa";
 import {BsHouse, BsShop, BsTelephone, BsTicket} from 'react-icons/bs'
 import { AiOutlineUser } from 'react-icons/ai'
-import { IoClose } from "react-icons/io5";
+import { IoClose, IoManOutline, IoWomanOutline } from "react-icons/io5";
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -56,6 +56,22 @@ export default function SideBar() {
                 <BsShop/>
               </ListItemIcon>
               <ListItemText primary={"Parfumes"} />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton href='/store/man'>
+              <ListItemIcon>
+              <IoManOutline/>
+              </ListItemIcon>
+              <ListItemText primary={"Man"} />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton href='/store/woman'>
+              <ListItemIcon>
+                <IoWomanOutline/>
+              </ListItemIcon>
+              <ListItemText primary={"Woman"} />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
