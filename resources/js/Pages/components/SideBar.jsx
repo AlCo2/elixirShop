@@ -59,14 +59,6 @@ export default function SideBar() {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <BsTicket/>
-              </ListItemIcon>
-              <ListItemText primary={"Promotions"} />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
             <ListItemButton href='/support'>
               <ListItemIcon>
                 <BsTelephone/>
