@@ -55,7 +55,7 @@ export default function SideBar() {
               <ListItemIcon>
                 <BsShop/>
               </ListItemIcon>
-              <ListItemText primary={"Store"} />
+              <ListItemText primary={"Parfumes"} />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
