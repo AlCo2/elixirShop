@@ -33,6 +33,7 @@ const Navbar = () => {
         <li><a className={`duration-300 font-semibold hover:opacity-100 flex items-center gap-1 ${pathname==='/store'?'opacity-100':'opacity-60'}`}  href="/store">Parfumes</a></li>
         <li><a className={`duration-300 font-bold hover:opacity-100 flex items-center gap-1 ${pathname==='/store/woman'?'opacity-100':'opacity-60'}`} href="/store/woman">Woman</a></li>
         <li><a className={`duration-300 font-bold hover:opacity-100 flex items-center gap-1 ${pathname==='/store/man'?'opacity-100':'opacity-60'}`} href="/store/man">Man</a></li>
+        <li><a className={`duration-300 font-bold hover:opacity-100 flex items-center gap-1 ${pathname==='/support'?'opacity-100':'opacity-60'}`} href="/support">Support</a></li>
         {auth.user && auth.user.role_id==1?
         <li><a className={`duration-300 font-bold hover:opacity-100 flex items-center gap-1 ${pathname==='/promotions'?'opacity-100':'opacity-60'}`} href="/dashboard">Dashboard</a></li>
         :
@@ -55,6 +56,7 @@ const Navbar = () => {
                 <li><a className={`duration-300 font-bold hover:opacity-100 flex items-center gap-1 ${pathname==='/store'?'opacity-100':'opacity-60'}`}  href="/store">Parfumes</a></li>
                 <li><a className={`duration-300 font-bold hover:opacity-100 flex items-center gap-1 ${pathname==='/store/woman'?'opacity-100':'opacity-60'}`} href="/store/woman">Woman</a></li>
                 <li><a className={`duration-300 font-bold hover:opacity-100 flex items-center gap-1 ${pathname==='/store/man'?'opacity-100':'opacity-60'}`} href="/store/man">Man</a></li>
+                <li><a className={`duration-300 font-bold hover:opacity-100 flex items-center gap-1 ${pathname==='/support'?'opacity-100':'opacity-60'}`} href="/support">Support</a></li>
                 {auth.user && auth.user.role_id==1?
                 <li><a className={`duration-300 font-bold hover:opacity-100 flex items-center gap-1 ${pathname==='/promotions'?'opacity-100':'opacity-60'}`} href="/dashboard">Dashboard</a></li>
                 :
@@ -69,7 +71,7 @@ const Navbar = () => {
         </div>
     </nav>
     <nav className='sm:hidden flex justify-between items-center h-20'>
-      <a href='/' className='flex items-center ml-2'>
+      <a href='/  ' className='flex items-center ml-2'>
         <p className="text-xl font-black font-Poppins ml-10 duration-300">Elixir</p>
       </a>
       <div className='flex items-center'>

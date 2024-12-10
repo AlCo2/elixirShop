@@ -7,7 +7,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { FaBars, FaUserCheck } from "react-icons/fa";
-import {BsHouse, BsShop, BsTicket, } from 'react-icons/bs'
+import {BsHouse, BsShop, BsTelephone, BsTicket} from 'react-icons/bs'
 import { AiOutlineUser } from 'react-icons/ai'
 import { IoClose } from "react-icons/io5";
 import Accordion from '@mui/material/Accordion';
@@ -64,6 +64,14 @@ export default function SideBar() {
                 <BsTicket/>
               </ListItemIcon>
               <ListItemText primary={"Promotions"} />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton href='/support'>
+              <ListItemIcon>
+                <BsTelephone/>
+              </ListItemIcon>
+              <ListItemText primary={"Support"} />
             </ListItemButton>
           </ListItem>
           {auth.user && auth.user.role_id==1?
