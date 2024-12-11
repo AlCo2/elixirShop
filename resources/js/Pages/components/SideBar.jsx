@@ -7,9 +7,9 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { FaBars, FaUserCheck } from "react-icons/fa";
-import {BsHouse, BsShop, BsTelephone, BsTicket} from 'react-icons/bs'
+import { BsHouse, BsShop, BsTelephone } from 'react-icons/bs'
 import { AiOutlineUser } from 'react-icons/ai'
-import { IoClose, IoManOutline, IoWomanOutline } from "react-icons/io5";
+import { IoClose, IoFemale, IoMale } from "react-icons/io5";
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -23,10 +23,10 @@ import { BiUser } from 'react-icons/bi';
 import { IconButton } from '@mui/material';
 
 
-const NavItem = ({title, path}) => {
+const NavItem = ({title, path, icon}) => {
   const pathname = window.location.pathname
   return (
-      <a className={`h-10 flex font-Roboto items-center pl-4 w-full duration-300 font-bold hover:bg-gray-100 ${pathname===path?'bg-gray-100 opacity-100':'bg-white opacity-50'}`} href={path}>{title}</a>
+      <a className={`h-10 flex font-Roboto items-center pl-4 w-full duration-300 font-bold hover:bg-gray-100 gap-2 ${pathname===path?'bg-gray-100 opacity-100':'bg-white opacity-50'}`} href={path}>{icon} {title}</a>
   )
 }
 export default function SideBar() {
@@ -47,19 +47,19 @@ export default function SideBar() {
             <a href='/' className='flex items-center ml-2 text-xl font-bold font-Poppins duration-300'>Elixir</a>
           </ListItem>
           <ListItem disablePadding>
-            <NavItem title={"Home"} path={'/'}/>
+            <NavItem title={"Home"} path={'/'} icon={<BsHouse/>}/>
           </ListItem>
           <ListItem disablePadding>
-            <NavItem title={"Store"} path={'/store'}/>
+            <NavItem title={"Store"} path={'/store'} icon={<BsShop/>}/>
           </ListItem>
           <ListItem disablePadding>
-            <NavItem title={"Man"} path={'/store/man'}/>
+            <NavItem title={"Man"} path={'/store/man'} icon={<IoMale/>} />
           </ListItem>
           <ListItem disablePadding>
-          <NavItem title={"Woman"} path={'/store/woman'}/>
+          <NavItem title={"Woman"} path={'/store/woman'} icon={<IoFemale/>} />
           </ListItem>
           <ListItem disablePadding>
-            <NavItem title={"Support"} path={'/support'}/>
+            <NavItem title={"Support"} path={'/support'} icon={<BsTelephone/>} />
           </ListItem>
           {auth.user && auth.user.role_id==1?
           <ListItem disablePadding>
