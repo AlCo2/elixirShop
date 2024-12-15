@@ -38,6 +38,7 @@ class ProductController extends Controller
         ];
         return $data;
     }
+
     // get each product using id
     public function get($id){
         $product = Product::find($id);
@@ -48,6 +49,7 @@ class ProductController extends Controller
         return "not found";
     }
 
+    // set Product Image
     private function addProductImage($product, $image)
     {
         $imageName = time().$image->getClientOriginalName();
@@ -57,6 +59,7 @@ class ProductController extends Controller
         $product->images()->attach($name);
     }
 
+    // add or delete product from favourite
     public function favourite(Request $request)
     {
         $user = $request->user();
@@ -64,6 +67,7 @@ class ProductController extends Controller
         $user->products()->toggle([$product_id]);
     }
     
+    // get user favourite products
     public function getFavouritesProducts(Request $request)
     {
         $user = $request->user();
@@ -72,6 +76,7 @@ class ProductController extends Controller
         return $products;
     }
 
+    // add new Product
     public function add(Request $request){
         $request->validate([
             'title' => ['required', 'max:50'],
@@ -99,6 +104,7 @@ class ProductController extends Controller
         }
     }
 
+    // update an product
     public function update($id, Request $request){
         $product = Product::with('images', 'promotion')->find($id);
         if ($product->promotion->promotion_price >= $request->price)
@@ -125,6 +131,7 @@ class ProductController extends Controller
         $product->save();
     }
 
+    // update product image
     private function updateProductImage($id, $product, $req_image)
     {
         $imageName = time().$id.$req_image->getClientOriginalName();
@@ -146,6 +153,7 @@ class ProductController extends Controller
         $product->images()->attach($name);
     }
 
+    // delete product image
     public function deleteProductImage(Request $request)
     {
         $url = $request->url;
@@ -154,6 +162,7 @@ class ProductController extends Controller
         $image->delete();
     }
 
+    // delete product by id;
     public function delete($id)
     {
         $product = Product::with('images')->find($id);
@@ -167,46 +176,62 @@ class ProductController extends Controller
         $product->delete();
     }
 
+    public function getProductsByName(Request $request)
+    {
+        $title = $request->title;
+        $products = Product::with('images', 'category', 'promotion')->where('title', 'like', '%'.$title.'%')->get();
+        return $products;
+    }
+
+    // get featured products
     public function featured_api()
     {
         $promotions = Product::inRandomOrder()->limit(4)->with('images', 'category', 'promotion')->get();
         return $promotions;
     }
     
+    // get 4 man products
     public function man_api()
     {
         $man = Product::where('category_id', 2)->inRandomOrder()->limit(4)->with('images', 'category', 'promotion')->get();
         return $man;
     }
 
+    // get 4 woman products
     public function woman_api()
     {
         $woman = Product::where('category_id', 1)->inRandomOrder()->limit(4)->with('images', 'category', 'promotion')->get();
         return $woman;
     }
 
+    // get all products
     public function featured_api_all()
     {
         $promotions = Product::inRandomOrder()->with('images', 'category', 'promotion')->get();
         return $promotions;
     }
     
+    // get all man products
     public function man_api_all()
     {
         $man = Product::where('category_id', 2)->inRandomOrder()->with('images', 'category', 'promotion')->get();
         return $man;
     }
     
+    // get all woman products
     public function woman_api_all()
     {
         $woman = Product::where('category_id', 1)->inRandomOrder()->with('images', 'category', 'promotion')->get();
         return $woman;
     }
 
+    // add total prodducts to products_overview
     public function trackProducts(Request $request)
     {
         DB::table('products_overview')->insert(['date_created'=>$request->date,'total_products'=>$request->total_products]);
     }
+
+    // delete total prodducts from products_overview
     public function deleteTrack($id)
     {
         DB::table('products_overview')->where('id', $id)->delete();

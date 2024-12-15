@@ -12,6 +12,7 @@ use App\Http\Controllers\UserController;
 
 
 /* Get Request */
+Route::get('/product/search', [ProductController::class, 'getProductsByName']);
 Route::get('/product/featured',[ProductController::class, 'featured_api']);
 Route::get('/product/man',[ProductController::class, 'man_api']);
 Route::get('/product/woman',[ProductController::class, 'woman_api']);
@@ -26,7 +27,8 @@ Route::get('/promotions',[PromotionController::class, 'allProducts']);
 /* Post Request */
 Route::post('/login', [AuthenticatedSessionController::class, 'store_api']);
 Route::post('/cartproducts', [ProductController::class, 'cart_products']);
-
+Route::post('/favourite', [ProductController::class, 'favourite'])->middleware('auth:sanctum');
+Route::post('/favourite/products', [ProductController::class, 'getFavouritesProducts'])->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy_api']);
