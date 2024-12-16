@@ -57,15 +57,15 @@ class RegisteredUserController extends Controller
 
     public function store_api(Request $request)
     {
+        // return "request Recevied";
         $request->validate([
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
             'address' => 'required|string',
             'phone' => 'required|string',
             'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
-            'password' => ['required'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-
         $user = User::create([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
