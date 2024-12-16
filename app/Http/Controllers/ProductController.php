@@ -178,11 +178,60 @@ class ProductController extends Controller
 
     public function getProductsByName(Request $request)
     {
-        $title = $request->title;
-        $products = Product::with('images', 'category', 'promotion')->where('title', 'like', '%'.$title.'%')->get();
+        $query = $this->createQuery($request, null);
+        $products = $query->get();
         return $products;
     }
 
+    private function createQuery($request, $type)
+    {
+        /*
+         get all products 
+         if the product have promotion get the promotion data with it
+         otherwise get only the product
+        */
+        $query = Product::with('images')
+        ->leftJoin('promotions', 'promotions.product_id', '=', 'products.id')
+        ->select('products.*', 'promotions.promotion_price', 'promotions.active');
+
+        if ($request->has('title'))
+        {
+            // sort products with product title
+            $title = $request->input('title');
+            $query->where('title', 'like', '%'.$title.'%');
+        }
+ 
+        if($request->has('sort'))
+        {
+            $this->sortProducts($request->input('sort'), $query);
+        }
+        return $query;
+    }
+
+    private function sortProducts($sort, $query)
+    {
+        switch ($sort) {
+            case 2:
+                $query->orderByRaw('
+                    CASE 
+                        WHEN promotions.active = 1 THEN promotions.promotion_price 
+                        ELSE products.price
+                    END ASC
+                ');
+                break; 
+            case 3:
+                $query->orderByRaw('
+                    CASE 
+                        WHEN promotions.active = 1 THEN promotions.promotion_price 
+                        ELSE products.price
+                    END DESC
+                ');
+                break;
+            case 4:
+                $query->orderBy('products.created_at', 'desc');
+                break;
+        }
+    }
     // get featured products
     public function featured_api()
     {
