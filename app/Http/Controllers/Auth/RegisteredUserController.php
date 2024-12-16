@@ -54,4 +54,29 @@ class RegisteredUserController extends Controller
 
         return redirect('/');
     }
+
+    public function store_api(Request $request)
+    {
+        $request->validate([
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'address' => 'required|string',
+            'phone' => 'required|string',
+            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'password' => ['required'],
+        ]);
+
+        $user = User::create([
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'password' => Hash::make($request->password),
+        ]);
+        event(new Registered($user));
+        Auth::login($user);
+        $token = $request->user()->createToken("Token_api")->plainTextToken;
+        return $token;
+    }
 }

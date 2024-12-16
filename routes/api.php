@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
@@ -26,6 +27,7 @@ Route::get('/promotions',[PromotionController::class, 'allProducts']);
 
 /* Post Request */
 Route::post('/login', [AuthenticatedSessionController::class, 'store_api']);
+Route::post('/register', [RegisteredUserController::class, 'store_api']);
 Route::post('/cartproducts', [ProductController::class, 'cart_products']);
 Route::post('/favourite', [ProductController::class, 'favourite'])->middleware('auth:sanctum');
 Route::post('/favourite/products', [ProductController::class, 'getFavouritesProducts'])->middleware('auth:sanctum');
