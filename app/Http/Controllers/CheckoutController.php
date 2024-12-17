@@ -29,7 +29,15 @@ class CheckoutController extends Controller
         $countries = $json['data'];
         return Inertia::render('checkout/fastcheckout/page', compact('order', 'countries'));
     }
-    
+
+    public function getCountries()
+    {
+        $contents = File::get(base_path('../../python/api/countries.json'));
+        $json = json_decode(json: $contents, associative: true);
+        $countries = $json['data'];
+        return $countries;
+    }
+
     private function isCartExist(): bool
     {
         return session()->has('cart');

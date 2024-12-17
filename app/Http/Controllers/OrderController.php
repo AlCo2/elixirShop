@@ -30,6 +30,23 @@ class OrderController extends Controller
         return response('success', 200);
     }
     
+    public function createOrderAPI(Request $request)
+    {
+        $request->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required',
+            'country' => 'required',
+            'city' => 'required',
+            'address' => 'required',
+            'zip' => 'required',
+            'phone' => 'required',
+        ]);
+        $order_id = $this->saveOrder($request);
+        $this->saveOrderDetail($order_id, $request);
+        $this->saveOrderItemAPI($order_id, $request->order['cart'], $request->order['products']);
+        return response('success', 200);
+    }
     public function updateOrderStatus($id, Request $request){
         $order = Order::find($id);
         $order->status_id = $request->status;
@@ -138,6 +155,19 @@ class OrderController extends Controller
         return $price;
     }
 
+    private function getPriceAPI($product)
+    {
+        $price = 0;
+        if($product->promotion->active)
+        {
+            $price = $product->promotion->promotion_price;
+        }
+        else
+        {
+            $price = $product->price;
+        }
+        return $price;
+    }
     private function saveOrderItem($order_id, $products)
     {
         foreach ($products as $product)
@@ -152,6 +182,21 @@ class OrderController extends Controller
         }
     }
     
+    public function saveOrderItemAPI($order_id, $cart, $products)
+    {
+        foreach($products as $product)
+        {
+            $order_product = new Order_item();
+            $p = Product::with('promotion')->find($product['id']);
+            $price = $this->getPriceAPI($p);
+            $order_product->order_id = $order_id;
+            $order_product->product_id = $p->id;
+            $order_product->Qty = $cart[$p->id];
+            $order_product->total = $price * $cart[$p->id];
+            $order_product->save();
+        }
+    }
+
     private function deleteCart()
     {
         session()->forget(['cart', 'total']);

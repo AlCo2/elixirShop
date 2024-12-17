@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PromotionController;
@@ -24,6 +25,8 @@ Route::get('/user',[UserController::class, 'getAuthUser'])->middleware('auth:san
 Route::get('/categories', [CategoryController::class, 'all']);
 Route::get('/products', [ProductController::class, 'all']);
 Route::get('/promotions',[PromotionController::class, 'allProducts']);
+Route::get('/countries', [CheckoutController::class, 'getCountries']);
+Route::get('/checkout', [CheckoutController::class, 'checkout_api']);
 
 /* Post Request */
 Route::post('/login', [AuthenticatedSessionController::class, 'store_api']);
@@ -31,6 +34,7 @@ Route::post('/register', [RegisteredUserController::class, 'store_api']);
 Route::post('/cartproducts', [ProductController::class, 'cart_products']);
 Route::post('/favourite', [ProductController::class, 'favourite'])->middleware('auth:sanctum');
 Route::post('/favourite/products', [ProductController::class, 'getFavouritesProducts'])->middleware('auth:sanctum');
+Route::post('/order', [OrderController::class, 'createOrderAPI']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy_api']);
