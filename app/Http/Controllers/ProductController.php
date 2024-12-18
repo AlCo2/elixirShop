@@ -190,7 +190,7 @@ class ProductController extends Controller
          if the product have promotion get the promotion data with it
          otherwise get only the product
         */
-        $query = Product::with('images')
+        $query = Product::with('images', 'category')
         ->leftJoin('promotions', 'promotions.product_id', '=', 'products.id')
         ->select('products.*', 'promotions.promotion_price', 'promotions.active');
 
