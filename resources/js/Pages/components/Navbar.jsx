@@ -1,9 +1,8 @@
 import AccountMenu from './AccountMenu';
 import SideBar from './SideBar';
 import { usePage } from '@inertiajs/react';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useEffect } from 'react';
-import { CartContext } from '@/Layout';
 import SideBarCart from './sideBarCart';
 import FavouriteBar from './FavouriteBar';
 

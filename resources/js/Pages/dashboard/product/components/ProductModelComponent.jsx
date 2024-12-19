@@ -32,7 +32,7 @@ function ProductModelComponent({product, categories}) {
     const [values, setValues] = useState({
       title:"",
       description:"",
-      Q: "",
+      Qty: "",
       category:"",
       price: "",
       image: null,
@@ -82,16 +82,16 @@ function ProductModelComponent({product, categories}) {
 
     function handleSubmit(e) {
       e.preventDefault();
-      values.Q = parseInt(values.Q);
+      values.Qty = parseInt(values.Qty);
       values.price = parseInt(values.price);
-      if(Number.isNaN(values.Q) || Number.isNaN(values.price))
+      if(Number.isNaN(values.Qty) || Number.isNaN(values.price))
         return;
-      if(values.Q<=0 || values.price<=0)
+      if(values.Qty<=0 || values.price<=0)
         return;
       router.post('/product', values);
       values.title = "";
       values.description = "";
-      values.Q = "";
+      values.Qty = "";
       values.category = "";
       values.price = "";
       values.image = null;
@@ -106,7 +106,7 @@ function ProductModelComponent({product, categories}) {
       values.title = product.title;
       values.description = product.description;
       values.category = product.category_id;
-      values.Q = product.Qty;
+      values.Qty = product.Qty;
       values.price = product.price;
       values.image = null;
       values.image2 = null; 
@@ -186,9 +186,9 @@ function ProductModelComponent({product, categories}) {
                       <label className='text-sm font-semibold font-Opensans'>Q</label>
                   </div>
                   {!product?
-                  <input type="number" value={values.Q}  onChange={handleChange} className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="Q" id="Q" />
+                  <input type="number" value={values.Qty}  onChange={handleChange} className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="Qty" id="Qty" />
                   :
-                  <input value={values.Q} onChange={handleChange} type="number" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="Q" id="Q" />
+                  <input value={values.Qty} onChange={handleChange} type="number" className='border-2 rounded-md h-8 p-1 text-sm xl:w-full' name="Qty" id="Qty" />
                   }
               </Grid>
               <Grid xs={12} md={5.8} item>

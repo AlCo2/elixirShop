@@ -27,7 +27,7 @@ class OrderController extends Controller
         $this->saveOrderDetail($order_id, $request);
         $this->saveOrderItem($order_id, $request->order['detail']);
         $this->deleteCart();
-        return response('success', 200);
+        return redirect('/')->with("success", "Your product has been created successfully");
     }
     
     public function createOrderAPI(Request $request)

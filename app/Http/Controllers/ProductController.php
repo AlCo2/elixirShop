@@ -80,14 +80,14 @@ class ProductController extends Controller
     public function add(Request $request){
         $request->validate([
             'title' => ['required', 'max:50'],
-            'Q' => ['required'],
+            'Qty' => ['required'],
             'price' => ['required'],
         ]);
         $product = new Product();
         $product->title  = $request->title;
         $product->description = $request->description;
         $product->category_id = $request->category;
-        $product->Qty  = $request->Q;
+        $product->Qty  = $request->Qty;
         $product->price  = $request->price;
         $product->save();
         if($request->hasFile('image')){
@@ -102,11 +102,16 @@ class ProductController extends Controller
             $image = $request->file('image3');
             $this->addProductImage($product, $image);
         }
-        return response('Product added successfully', 200);
+        // return response('Product added successfully', 200);
     }
 
     // update an product
     public function update($id, Request $request){
+        $request->validate([
+            'title' => ['required', 'max:50'],
+            'Qty' => ['required'],
+            'price' => ['required'],
+        ]);
         $product = Product::with('images', 'promotion')->find($id);
         if ($product->promotion && $product->promotion->promotion_price >= $request->price)
         {
@@ -115,8 +120,8 @@ class ProductController extends Controller
         $product->title = $request->title;
         $product->category_id = $request->category;
         $product->description = $request->description;
-        $product->Qty = $request->Q;
-        $product->price = $request->price;        
+        $product->Qty = $request->Qty;
+        $product->price = $request->price;
         if($request->hasFile('image')){
             $req_image = $request->file('image');
             $this->updateProductImage(0, $product, $req_image);
@@ -130,7 +135,6 @@ class ProductController extends Controller
             $this->updateProductImage(2, $product, $req_image);
         }
         $product->save();
-        return response('Product updated successfully', 200);
     }
 
     // update product image

@@ -22,23 +22,39 @@ class ProductTest extends TestCase
         $admin->role_id = 1;
         $response = $this->actingAs($admin)->post('/product', [
             'title' => "test",
-            'Q' => 100,
+            'Qty' => 100,
             'price'=>300,
         ]);
         $response->assertStatus(200);
     }
     
-    // TODO: Fix this test
     public function test_update_product()
     {
         $product = Product::factory()->create();
         $admin = User::factory()->create();
         $admin->role_id = 1;
-        $product->title = "testTitle";
+        $data = [
+            'title'=>"testTitle",
+            'price'=>200,
+            'Qty'=>10,
+        ];
         $url = '/product/'. $product->id;
-        $response = $this->actingAs($admin)->post($url, [$product]);
+        $response = $this->actingAs($admin)->post($url, $data);
         $response->assertStatus(200);
         $product->refresh();
         $this->assertSame('testTitle', $product->title);
+        $this->assertSame(200, $product->price);
+        $this->assertSame(10, $product->Qty);
+    }
+
+    public function test_delete_product()
+    {
+        $product = Product::factory()->create();
+        $admin = User::factory()->create();
+        $admin->role_id = 1;
+        $url = '/product/'. $product->id;
+
+        $this->actingAs($admin)->delete($url);
+        $this->assertNull($product->fresh());
     }
 }

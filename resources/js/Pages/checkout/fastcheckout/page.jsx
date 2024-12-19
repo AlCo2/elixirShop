@@ -1,6 +1,6 @@
 import { Box, Button, Container, Divider, FormControl, Grid, MenuItem, Select } from '@mui/material';
 import React, { useState } from 'react'
-import { usePage } from '@inertiajs/react';
+import { router, usePage } from '@inertiajs/react';
 import Layout from '@/Layout';
 import InputError from '@/Components/InputError';
 import axios from 'axios';
@@ -49,11 +49,7 @@ const page = ({ order, countries }) => {
 
     async function handleSubmite(e)
     {
-        const response = await axios.post('/order/create', values);
-        if (response.status===200)
-        {
-            window.location.href = "/";   
-        }
+        router.post('/order/create', values);
     }
   return (
     <> 
