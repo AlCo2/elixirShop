@@ -1,13 +1,14 @@
 import { Box, Button, Container, Divider, FormControl, Grid, MenuItem, Select } from '@mui/material';
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { router, usePage } from '@inertiajs/react';
-import Layout from '@/Layout';
+import Layout, { CartContext } from '@/Layout';
 import InputError from '@/Components/InputError';
-import axios from 'axios';
 
 const page = ({ order, countries }) => {
+    const { cart } = usePage().props;
     const [cities, setCities] = useState([]);
     const { auth, errors } = usePage().props;
+    const { setCartTotalProducts } = useContext(CartContext);
 
     const [values, setValues] = useState({
         user_id: auth.user?auth.user.id:null,
@@ -49,8 +50,13 @@ const page = ({ order, countries }) => {
 
     async function handleSubmite(e)
     {
+        console.log('before');
         router.post('/order/create', values);
+        setCartTotalProducts(0);
     }
+    useEffect(()=>{
+        setCartTotalProducts(cart.total);
+    }, [cart])
   return (
     <> 
         <div className='min-h-screen bg-liliana-background py-5'>

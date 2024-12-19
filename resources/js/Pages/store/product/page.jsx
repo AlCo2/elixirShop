@@ -6,12 +6,10 @@ import { usePage } from '@inertiajs/react';
 import EditProduct from '../components/EditProduct';
 import FastPromotion from '../components/FastPromotion';
 import SuggestionCard from '../components/SuggestionCard';
-import QuentityBar from '../components/QuentityBar';
 
 const product = ({product, products, categories, favourites}) => {
     const { auth, flash } = usePage().props;
     const { cartTotalProducts, setCartTotalProducts } = useContext(CartContext);
-    const [Q, setQ] = useState(1);
     const [selectedImage, setSelectedImage] = useState(0)
     const [open, setOpen] = useState(false);
     const handleClose = (event, reason) => {
