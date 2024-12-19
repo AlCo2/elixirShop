@@ -28,7 +28,7 @@ class UserAccessTest extends TestCase
         $response->assertStatus(500);
     }
 
-    public function test_admin_cannot_access_to_dashboard(): void
+    public function test_admin_can_access_to_dashboard(): void
     {
         $admin = User::factory()->create();
         $admin->role_id = 1;

@@ -102,12 +102,13 @@ class ProductController extends Controller
             $image = $request->file('image3');
             $this->addProductImage($product, $image);
         }
+        return response('Product added successfully', 200);
     }
 
     // update an product
     public function update($id, Request $request){
         $product = Product::with('images', 'promotion')->find($id);
-        if ($product->promotion->promotion_price >= $request->price)
+        if ($product->promotion && $product->promotion->promotion_price >= $request->price)
         {
             return back()->with(['error'=>"product price must be bigger then promotion price"]);
         }
@@ -129,6 +130,7 @@ class ProductController extends Controller
             $this->updateProductImage(2, $product, $req_image);
         }
         $product->save();
+        return response('Product updated successfully', 200);
     }
 
     // update product image
