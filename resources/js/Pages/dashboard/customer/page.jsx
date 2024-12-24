@@ -43,6 +43,9 @@ const columns = [
 const page = ({customers}) => {
   return (
     <Container>
+      <div>
+        <p className="text-2xl font-Poppins font-semibold">Customers</p>
+      </div>
       <Grid container mt={4}>
         <Grid item sx={{display:'flex', justifyContent:'right'}} mb={2} xs={12}>
           <UserModelComponent/>

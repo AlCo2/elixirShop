@@ -82,6 +82,9 @@ function CustomToolbar() {
 const page = ({products, promotions}) => {
   return (
     <Container>
+      <div>
+        <p className="text-2xl font-Poppins font-semibold">Promotions</p>
+      </div>
       <Grid container mt={4}>
         <Grid item sx={{display:'flex', justifyContent:'right', gap:1}} mb={2} xs={12}>
           <ActivateAllPromotion />

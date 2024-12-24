@@ -106,6 +106,9 @@ const columns = [
 const page = ({order}) => {
   return (
     <Container>
+      <div>
+        <p className="text-2xl font-Poppins font-semibold">Orders</p>
+      </div>
       <Grid container mt={4}>
         <Grid item sx={{display:'flex', justifyContent:'right'}} mb={2} xs={12}>
         </Grid>

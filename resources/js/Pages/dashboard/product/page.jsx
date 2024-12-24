@@ -58,6 +58,9 @@ const page = ({products, categories}) => {
 
   return (
     <Container>
+      <div>
+        <p className="text-2xl font-Poppins font-semibold">Products</p>
+      </div>
       <Grid container mt={4}>
         <Grid item sx={{display:'flex', justifyContent:'space-between', alignItems:'center'}} mb={2} xs={12}>
           <p className='font-Poppins font-semibold'>Product List</p>

@@ -32,6 +32,9 @@ const columns = [
 const page = ({categories}) => {
   return (
     <Container>
+      <div>
+        <p className="text-2xl font-Poppins font-semibold">Categories</p>
+      </div>
       <Grid container mt={4}>
         <Grid item sx={{display:'flex', justifyContent:'right'}} mb={2} xs={12}>
           <CategoryModelComponent/>

@@ -8,7 +8,7 @@ const page = ({products, total_products, total_sales, total_orders, products_ove
   return (
     <Container>
       <Box sx={{p:2}}>
-        <p className="font-Opensans font-semibold text-2xl">Overview</p>
+        <p className="text-2xl font-Poppins font-semibold">Overview</p>
         <p className="text-sm opacity-70">Get up-to-the-minute insight. No more waiting for reports</p>
       </Box>
       <Box>
