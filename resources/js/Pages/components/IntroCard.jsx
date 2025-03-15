@@ -1,6 +1,6 @@
 import { CartContext } from '@/Layout';
 import { Link } from '@inertiajs/react';
-import { Alert, Box, Button, CardMedia, Grid, IconButton, Snackbar, Typography} from '@mui/material';
+import { Alert, Box, Button, CardMedia, CircularProgress, Grid, IconButton, Snackbar, Typography} from '@mui/material';
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
@@ -8,14 +8,18 @@ import { FaShoppingBasket } from 'react-icons/fa';
 
 const IntroCard = ({product, favourites}) => {
   const [open, setOpen] = useState(false);
+  const [processing, setProcessing] = useState(false);
   const { cartTotalProducts, setCartTotalProducts } = useContext(CartContext);
   const [isFavourite, setIsFavourite] = useState(false);
   function addToCart(e){
+    setProcessing(true);
     e.preventDefault();
     const data = {
         product_id:product.id
     }
-    axios.post('/cart/add', data);
+    axios.post('/cart/add', data).finally(()=>{
+      setProcessing(false);
+    });
     setCartTotalProducts(cartTotalProducts + 1);
     setOpen(true);
   }
@@ -83,7 +87,7 @@ const IntroCard = ({product, favourites}) => {
               image={product.images[0]?product.images[0].url:null}
             />
             <Box className="AddToCart" sx={{display:{xs:'none',sm:'none', md:'flex'}, opacity:0.9, position:'absolute', width:'100%',transitionDuration:'500ms',bottom:-60, zIndex:3}} margin={2} justifyContent={'space-between'} alignItems={'center'}>
-              <Button onClick={addToCart} sx={{borderRadius:0}} fullWidth variant="contained" color='success'>ADD TO CART</Button>
+              <Button disabled={processing} onClick={addToCart} sx={{borderRadius:0, height:40,":disabled":{background:'#357a38'}}} fullWidth variant="contained" color='success'>{processing?<CircularProgress sx={{color:'white'}} size={20}/>:'ADD TO CART'}</Button>
             </Box>
             <Box sx={{display:{xs:'flex',sm:'flex', md:'none'}, opacity:0.9, position:'absolute', bottom:-10, right:-10, zIndex:3}} margin={2} justifyContent={'space-between'} alignItems={'center'}>
               <IconButton color='error' onClick={addToFavourit}>
@@ -93,7 +97,7 @@ const IntroCard = ({product, favourites}) => {
                   <BsHeart/>
                 }
               </IconButton>
-              <Button onClick={addToCart} sx={{borderRadius:1}} fullWidth variant="contained" color='success'><FaShoppingBasket/></Button>
+              <Button disabled={processing} onClick={addToCart} sx={{borderRadius:1}} fullWidth variant="contained" color='success'><FaShoppingBasket/>{}</Button>
             </Box>
           </Box>
         </Link>
