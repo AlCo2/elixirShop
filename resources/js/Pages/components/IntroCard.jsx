@@ -12,27 +12,23 @@ const IntroCard = ({product, favourites}) => {
   const { cartTotalProducts, setCartTotalProducts } = useContext(CartContext);
   const [isFavourite, setIsFavourite] = useState(false);
   function addToCart(e){
-    setProcessing(true);
     e.preventDefault();
-    const data = {
-        product_id:product.id
-    }
-    axios.post('/cart/add', data).finally(()=>{
+    setProcessing(true);
+    axios.post('/cart/add', {product_id:product.id}).finally(()=>{
       setProcessing(false);
     });
     setCartTotalProducts(cartTotalProducts + 1);
     setOpen(true);
   }
-
+  
   function addToFavourit(e)
   {
     e.preventDefault();
-    const data = {
-      product_id:product.id
-    }
-    axios.post('/favourite', data).catch(error=>{
+    axios.post('/favourite', {product_id:product.id}).catch(error=>{
       if (error.response.status===401)
+      {
         window.location = '/login';
+      }
     });
     setIsFavourite(!isFavourite);
   }
@@ -44,6 +40,7 @@ const IntroCard = ({product, favourites}) => {
 
     setOpen(false);
   };
+
   useEffect(()=>{
     setIsFavourite(favourites.some(p => p.id === product.id))
   }, [])
