@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -14,7 +15,6 @@ use App\Http\Controllers\UserController;
 
 
 /* Get Request */
-Route::get('/product/search', [ProductController::class, 'getProductsByName']);
 Route::get('/product/featured',[ProductController::class, 'featured_api']);
 Route::get('/product/man',[ProductController::class, 'man_api']);
 Route::get('/product/woman',[ProductController::class, 'woman_api']);
@@ -31,9 +31,9 @@ Route::get('/checkout', [CheckoutController::class, 'checkout_api']);
 /* Post Request */
 Route::post('/login', [AuthenticatedSessionController::class, 'store_api']);
 Route::post('/register', [RegisteredUserController::class, 'store_api']);
-Route::post('/cartproducts', [ProductController::class, 'cart_products']);
-Route::post('/favourite', [ProductController::class, 'favourite'])->middleware('auth:sanctum');
-Route::post('/favourite/products', [ProductController::class, 'getFavouritesProducts'])->middleware('auth:sanctum');
+Route::post('/cartproducts', [CartController::class, 'getCartProducts']);
+Route::post('/favourite', [ProductController::class, 'addProductToFavourit'])->middleware('auth:sanctum');
+Route::post('/favourite/products', [ProductController::class, 'getFavouriteProducts'])->middleware('auth:sanctum');
 Route::post('/order', [OrderController::class, 'createOrderAPI']);
 
 Route::middleware('auth:sanctum')->group(function () {

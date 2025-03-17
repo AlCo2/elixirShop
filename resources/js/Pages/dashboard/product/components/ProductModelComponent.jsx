@@ -33,13 +33,13 @@ function ProductModelComponent({product, categories}) {
       title:"",
       description:"",
       Qty: "",
-      category:"",
+      category_id:"",
       price: "",
       image: null,
       image2: null,
       image3:null,
     })
-  
+
     function handleSelectChange(e) {
       const { name, value } = e.target;
       setValues(prevValues => ({
@@ -60,7 +60,7 @@ function ProductModelComponent({product, categories}) {
         }));
       }
     }
-  
+
     function deletePic(id, index)
     {
       if(product && product.images[index])
@@ -92,10 +92,10 @@ function ProductModelComponent({product, categories}) {
       values.title = "";
       values.description = "";
       values.Qty = "";
-      values.category = "";
+      values.category_id = "";
       values.price = "";
       values.image = null;
-      values.image2 = null; 
+      values.image2 = null;
       values.image3 = null;
       selectedImage.image = null
       selectedImage.image2 = null
@@ -105,17 +105,17 @@ function ProductModelComponent({product, categories}) {
     const prepereUpdate = (product) =>{
       values.title = product.title;
       values.description = product.description;
-      values.category = product.category_id;
+      values.category_id = product.category_id;
       values.Qty = product.Qty;
       values.price = product.price;
       values.image = null;
-      values.image2 = null; 
+      values.image2 = null;
       values.image3 = null;
       selectedImage.image = null
       selectedImage.image2 = null
       selectedImage.image3 = null
     }
-  
+
     function handleUpdate(e) {
       e.preventDefault();
       router.post('/product/' + product.id, values);
@@ -128,7 +128,7 @@ function ProductModelComponent({product, categories}) {
         :
         <button onClick={()=>{prepereUpdate(product);handleOpen();}} className='bg-liliana-background rounded-md border text-black opacity-70 p-2'><FaPen className='text-sm'/></button>
         }
-        <Modal 
+        <Modal
           open={open}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
@@ -156,12 +156,12 @@ function ProductModelComponent({product, categories}) {
                   <FormControl fullWidth>
                     <Select
                         labelId="category"
-                        id="category"
-                        name='category'
+                        id="category_id"
+                        name='category_id'
                         className='h-8 text-black'
-                        defaultValue={product?values.category:""}
+                        defaultValue={product?values.category_id:""}
                         onChange={handleSelectChange}
-                        value={values.category}    
+                        value={values.category_id}
                     >
                       {categories.map((category)=>(
                         <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
@@ -275,6 +275,6 @@ function ProductModelComponent({product, categories}) {
       </div>
     );
   }
-  
+
 
 export default ProductModelComponent

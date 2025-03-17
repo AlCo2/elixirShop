@@ -11,6 +11,15 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Product extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'description',
+        'price',
+        'category_id',
+        'Qty',
+    ];
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);

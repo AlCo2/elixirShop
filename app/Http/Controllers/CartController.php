@@ -9,12 +9,12 @@ class CartController extends Controller
 {
     public function addToCart(Request $request): void
     {
-        $product_id = $request->product_id;    
+        $product_id = $request->product_id;
         // create cart if not exist
         if (!$this->isCartExist()){
             $this->createCart();
         }
-        
+
         if ($this->isProductInCart($product_id))
         {
             $this->incrementProduct($product_id);
@@ -23,6 +23,28 @@ class CartController extends Controller
         {
             $this->addProduct($product_id);
         }
+    }
+
+    public function getCartProducts(Request $request)
+    {
+        $products = [];
+        $total = 0;
+        // get each product from the cart, and calculate the total
+        foreach ($request->get('data') as $key => $value)
+        {
+            $product = Product::with('images', 'category', 'promotion')->find($key);
+            $products[] = $product;
+            if ($product->promotion) {
+                $total += $product->promotion['promotion_price'] * $value;
+            }
+            else {
+                $total += $product->price * $value;
+            }
+        }
+        return [
+            'total' => $total,
+            'products' => $products,
+        ];
     }
 
     public function subFromCart(Request $request): void
@@ -44,7 +66,7 @@ class CartController extends Controller
         unset($cart[$product_id]);
         $this->updateCart($cart);
     }
-    
+
     public function deleteAllFromCart()
     {
         session()->forget('cart');
@@ -59,7 +81,7 @@ class CartController extends Controller
     {
         session(['cart'=>$data]);
     }
-    
+
     private function isProductInCart($product_id): bool
     {
         $cart = $this->getCart();
@@ -129,7 +151,7 @@ class CartController extends Controller
     {
         return session()->has('cart');
     }
-    
+
     private function createCart(): void
     {
         session(['cart'=>[]]);
