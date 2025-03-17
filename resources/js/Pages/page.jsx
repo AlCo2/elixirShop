@@ -1,22 +1,12 @@
 import { Alert, Box, Button, Container, Divider, Grid } from "@mui/material";
-import IntroCard from "./components/IntroCard";
-import ServiceIntro from "./components/home/ServiceIntro";
 import { usePage } from "@inertiajs/react";
 import Layout from "@/Layout";
 import { IoCheckmarkCircleOutline } from "react-icons/io5";
 import { FiBox } from "react-icons/fi";
 import { MdOutlineLocalShipping } from "react-icons/md";
-
-const SectionBanner = ({title, text}) =>{
-  return (
-    <div className="text-center mt-11 rounded-md py-2 mx-4 text-black">
-      <h1 className="text-5xl font-Italiana font-bold max-sm:text-4xl max-xs:text-3xl">{title}</h1>
-      <div className="flex justify-center text-center">
-        <p className="font-Opensans w-80">{text}</p>
-      </div>
-    </div>
-  )
-}
+import ServiceIntro from "@/Components/ServiceIntro";
+import IntroCard from "@/Components/IntroCard";
+import SectionBanner from "@/Components/SectionBanner";
 
 export default function Home({promotions, favourites}) { 
   const { flash } = usePage().props;
@@ -77,7 +67,7 @@ export default function Home({promotions, favourites}) {
             <IntroCard key={product.id} product={product} favourites={favourites}/>
           ))
           :
-          <>There is no products Available</>
+          <p>There is no products Available</p>
           }
         </Grid>
         <SectionBanner title={'Partners'} text={'These are the brands that believe and support us'} />

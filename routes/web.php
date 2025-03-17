@@ -21,13 +21,15 @@ Route::get('/',[StoreController::class, 'home']);
 Route::get('/store',[StoreController::class, 'index']);
 Route::get('/store/man',[StoreController::class, 'manPage']);
 Route::get('/store/woman',[StoreController::class, 'womanPage']);
-Route::get('/store/product/{id}',[StoreController::class, 'product']);
 Route::get('/checkout',[CheckoutController::class, 'index']);
 Route::get('/checkout/fastcheckout',[CheckoutController::class, 'checkout']);
 Route::get('/checkorder', [OrderController::class, 'checkOrder']);
 Route::get('/orders', [OrderController::class, 'listUserOrders'])->middleware('auth');
 Route::get('/showorder', [OrderController::class, 'showOrder']);
 Route::get('/support', [SupportController::class, 'index']);
+
+
+Route::resource('/product', ProductController::class);
 
 /*         Post request          */
 Route::post('/cart', [CheckoutController::class, 'getCurrentCartData']);
@@ -60,9 +62,6 @@ Route::middleware(['auth', 'verified', EnsureUserIsAdmin::class])->group(functio
     Route::post('/user', [UserController::class, 'newUser']);
     Route::post('/user/{id}', [UserController::class, 'updateUser']);
     Route::delete('/user/{id}', [UserController::class, 'deleteUser']);
-
-    /* product API */
-    Route::resource('/product', ProductController::class);
 
     Route::post('/products/track', [ProductController::class, 'trackProducts']);
     Route::delete('/products/track/delete/{id}', [ProductController::class, 'deleteTrack']);

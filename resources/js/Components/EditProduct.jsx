@@ -32,8 +32,8 @@ function ProductModelComponent({product, categories}) {
     const [values, setValues] = useState({
       title:"",
       description:"",
-      Q: "",
-      category:"",
+      Qty: "",
+      category_id:"",
       price: "",
       image: null,
       image2: null,
@@ -60,53 +60,12 @@ function ProductModelComponent({product, categories}) {
         }));
       }
     }
-  
-    function deletePic(id, index)
-    {
-      if(product && product.images[index])
-      {
-        const data = {
-          url:product.images[index].url,
-        }
-        router.post('/image/delete', data);
-      }
-      setSelectedImage(v =>({
-        ...v,
-        [id]: null
-      }))
-      setValues(prevValues => ({
-        ...prevValues,
-        [id]: null,
-      }));
-    }
-
-    function handleSubmit(e) {
-      e.preventDefault();
-      values.Q = parseInt(values.Q);
-      values.price = parseInt(values.price);
-      if(Number.isNaN(values.Q) || Number.isNaN(values.price))
-        return;
-      if(values.Q<=0 || values.price<=0)
-        return;
-      router.post('/product', values);
-      values.title = "";
-      values.description = "";
-      values.Q = "";
-      values.category = "";
-      values.price = "";
-      values.image = null;
-      values.image2 = null; 
-      values.image3 = null;
-      selectedImage.image = null
-      selectedImage.image2 = null
-      selectedImage.image3 = null
-      handleClose();
-    }
+    
     const prepereUpdate = (product) =>{
       values.title = product.title;
       values.description = product.description;
-      values.category = product.category_id;
-      values.Q = product.Qty;
+      values.category_id = product.category_id;
+      values.Qty = product.Qty;
       values.price = product.price;
       values.image = null;
       values.image2 = null; 
@@ -118,7 +77,7 @@ function ProductModelComponent({product, categories}) {
   
     function handleUpdate(e) {
       e.preventDefault();
-      router.post('/product/' + product.id, values);
+      router.patch(route('product.update', product.id), values);
       handleClose();
     }
     return (

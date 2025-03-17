@@ -1,8 +1,8 @@
 import { createContext } from "react";
-import Footer from "./Pages/components/Footer";
-import Navbar from "./Pages/components/Navbar";
 import { useState } from "react";
 import { usePage } from "@inertiajs/react";
+import Footer from "./Components/Footer";
+import Navbar from "./Components/Navbar";
 
 export const CartContext = createContext(null);
 
@@ -11,7 +11,7 @@ const Layout = ({children}) => {
   const [cartTotalProducts, setCartTotalProducts] = useState(cart.total);
   return (
     <CartContext.Provider value={{cartTotalProducts:cartTotalProducts, setCartTotalProducts:setCartTotalProducts}}>
-      <Navbar />
+      <Navbar/>
         {children}
       <Footer/>
     </CartContext.Provider>

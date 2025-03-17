@@ -3,9 +3,9 @@ import Layout, { CartContext } from '@/Layout';
 import { useContext, useState } from 'react';
 import axios from 'axios';
 import { usePage } from '@inertiajs/react';
-import EditProduct from '../components/EditProduct';
-import FastPromotion from '../components/FastPromotion';
-import SuggestionCard from '../components/SuggestionCard';
+import FastPromotion from '@/Components/FastPromotion';
+import EditProduct from '@/Components/EditProduct';
+import SuggestionCard from '@/Components/SuggestionCard';
 
 const product = ({product, products, categories, favourites}) => {
     const { auth, flash } = usePage().props;

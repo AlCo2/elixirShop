@@ -1,5 +1,5 @@
 import { CartContext } from "@/Layout";
-import product from "@/Pages/store/product/page";
+import product from "@/Pages/product/page";
 import { Link, router } from "@inertiajs/react";
 import { Box, Button, ButtonGroup } from "@mui/material";
 import axios from "axios";

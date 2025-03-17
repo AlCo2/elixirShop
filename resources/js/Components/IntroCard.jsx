@@ -63,7 +63,7 @@ const IntroCard = ({product, favourites}) => {
         :
         null
         }
-        <Link href={'/store/product/'+product.id}>
+        <Link href={route('product.show', product.id)}>
           <Box overflow={'hidden'} position={'relative'} display={'flex'} justifyContent={'center'}>
             <Box className='FavouritIcon' sx={{display:{xs:'none',sm:'none', md:'flex'}, opacity:0.9, position:'absolute', width:'100%',transitionDuration:'600ms', top:(isFavourite?-10:-60), zIndex:3}} margin={2} justifyContent={'space-between'} alignItems={'center'}>
               <IconButton color='error' onClick={addToFavourit}>
