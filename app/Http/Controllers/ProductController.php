@@ -6,9 +6,6 @@ use App\Http\Services\FavouriteService;
 use App\Http\Services\ImageService;
 use Illuminate\Http\Request;
 use App\Models\Product;
-use App\Models\Image;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -32,11 +29,10 @@ class ProductController extends Controller
         return Product::findOrFail($id);
     }
 
-    // add or delete product from favourite
     public function addProductToFavourit(Request $request)
     {
         $this->favouriteService->addProductToFavourite($request->user(), Product::findOrFail($request->get('product_id')));
-        return Json()->response(201);
+        return response()->json([], 201);
     }
 
     // get user favourite products
@@ -54,16 +50,14 @@ class ProductController extends Controller
         ]);
         $product = Product::create($request->all());
 
-        if($request->hasFile('image')){
-            $this->imageService->addProductImage($product, $request->file('image'));
+        for ($i=1;$i<=3;$i++) {
+            $name = $i===1?"image":"image".$i;
+            if($request->hasFile($name)){
+                $this->imageService->addProductImage($product, $request->file($name));
+            }
         }
-        if($request->hasFile('image2')){
-            $this->imageService->addProductImage($product, $request->file('image2'));
-        }
-        if($request->hasFile('image3')){
-            $this->imageService->addProductImage($product, $request->file('image3'));
-        }
-         return response('Product added successfully', 200);
+
+        return back()->with(['success' => 'Product added successfully.']);
     }
 
     public function update($id, Request $request){

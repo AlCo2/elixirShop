@@ -118,7 +118,7 @@ function ProductModelComponent({product, categories}) {
 
     function handleUpdate(e) {
       e.preventDefault();
-      router.post('/product/' + product.id, values);
+      router.patch('/product/' + product.id, values);
       handleClose();
     }
     return (

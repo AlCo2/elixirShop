@@ -45,11 +45,11 @@ class ImageService
         $image->delete();
     }
 
-    public function deleteListOfImages(Image $images) {
+    public function deleteListOfImages($images) {
         foreach($images as $image)
         {
             $url = $image->url;
-            $image = Image::find($url);
+            $image = Image::findOrFail($url);
             File::delete(public_path($url));
             $image->delete();
         }
