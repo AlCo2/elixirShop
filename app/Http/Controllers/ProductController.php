@@ -69,7 +69,6 @@ class ProductController extends Controller
         if ($product->promotion && $product->promotion->promotion_price >= $request->price) {
             return back()->with(['error'=>"product price must be bigger then promotion price"]);
         }
-
         $product->update($request->all());
         for ($i=1;$i<=3;$i++) {
             $name = $i===1?"image":"image".$i;

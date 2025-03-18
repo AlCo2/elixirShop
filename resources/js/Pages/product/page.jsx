@@ -17,7 +17,7 @@ const product = ({product, products, categories, favourites}) => {
           return;
         }
         setOpen(false);
-      };
+    };
     function addToCart(e){
         e.preventDefault();
         const data = {

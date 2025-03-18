@@ -1,12 +1,12 @@
 import { Box, Grid, IconButton, Pagination, PaginationItem } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
-import SuggestionCard from '../components/SuggestionCard';
 import Layout from '@/Layout';
 import { Link, router } from '@inertiajs/react';
-import FilterPrice from '../components/FilterPrice';
-import SortMenu from '../components/SortMenu';
-import FilterMenu from '../components/FilterMenu';
 import { FaSearch } from 'react-icons/fa';
+import SuggestionCard from '@/Components/SuggestionCard';
+import FilterMenu from '@/Components/FilterMenu';
+import FilterPrice from '@/Components/FilterPrice';
+import SortMenu from '@/Components/SortMenu';
 
 
 const store = ({products, category_list, maxPrice,type, favourites}) => {  

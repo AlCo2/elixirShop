@@ -77,7 +77,7 @@ function ProductModelComponent({product, categories}) {
   
     function handleUpdate(e) {
       e.preventDefault();
-      router.patch(route('product.update', product.id), values);
+      router.post(route('product.update', product.id), {...values, _method:'patch'});
       handleClose();
     }
     return (
